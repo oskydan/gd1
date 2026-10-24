@@ -51,7 +51,7 @@ const registrationAttributes = (camp) => {
 };
 const registrationButton = (camp) => camp.registrationComingSoon
   ? '<span class="button register-button is-disabled" role="status" aria-disabled="true">Registration soon</span>'
-  : `<a class="button register-button" ${registrationAttributes(camp)} data-camp-end="${safe(camp.endsOn)}">Register Now${document.body.classList.contains('camps-page') ? ' <span class="registration-arrow" aria-hidden="true">↗</span>' : ''}</a>`;
+  : `<a class="button register-button" ${registrationAttributes(camp)} data-camp-end="${safe(camp.endsOn)}">Register Now</a>`;
 
 function renderHomeCamps() {
   const container = document.querySelector('#home-camp-list');
