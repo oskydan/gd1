@@ -464,3 +464,38 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-h
 .wrap{width:min(1320px,calc(100% - 48px));margin-left:auto;margin-right:auto}
 .site-header{padding-left:max(24px,calc((100vw - 1320px)/2));padding-right:max(24px,calc((100vw - 1320px)/2))}
 .camp-detail-hero-copy{padding-left:max(24px,calc((100vw - 1320px)/2))}
+
+.site-footer .footer-social-links{margin-top:20px;gap:11px}
+
+.site-footer .footer-social-links a{display:inline-flex;align-items:center;gap:9px}
+.footer-social-icon{display:block;flex:none;width:18px;height:18px;color:inherit}
+
+.site-footer .footer-social-links{flex-direction:row;flex-wrap:wrap;gap:12px 18px}
+
+
+.site-footer .footer-contact>p{margin-bottom:16px;line-height:1.65}
+.site-footer .footer-contact-button{display:inline-flex;justify-content:center;width:100%;max-width:220px;min-height:44px;padding:12px 16px;background:#fff;color:#111;border:1px solid #fff;box-shadow:none}
+.site-footer .footer-contact-button:hover{background:transparent!important;color:#fff!important;border-color:#fff!important;box-shadow:none!important}
+.site-footer .footer-contact-button:focus-visible,.site-footer .footer-social-links a:focus-visible{outline:2px solid #fff;outline-offset:4px}
+.site-footer .footer-social-links{flex-direction:row;flex-wrap:nowrap;gap:10px;margin-top:18px;padding-top:18px;border-top:1px solid #333b36;max-width:220px}
+.site-footer .footer-social-links a{display:inline-flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;border:1px solid #454d47;border-radius:4px;color:#c8ceca;transition:background-color .18s ease,color .18s ease,border-color .18s ease}
+.site-footer .footer-social-links a:hover{background:#fff;border-color:#fff;color:#111}
+.site-footer .footer-social-icon{width:19px;height:19px}
+
+/* Minimal footer contact treatment. */
+.site-footer .footer-contact-button{width:auto;min-width:120px;max-width:100%;background:transparent;color:#fff;padding:11px 18px;border-color:#626a64}
+.site-footer .footer-contact-button:hover{background:#fff!important;color:#111!important;border-color:#fff!important}
+.site-footer .footer-social-links{border:0;padding-top:0;margin-top:22px;max-width:none;flex-wrap:wrap;gap:12px 18px}
+.site-footer .footer-social-links a{width:auto;height:auto;min-height:28px;justify-content:flex-start;gap:7px;border:0;border-radius:0;background:transparent;color:#aab1ac;font-size:11px;line-height:1.5}
+.site-footer .footer-social-links a:hover{background:transparent;color:#fff}
+.site-footer .footer-social-icon{width:16px;height:16px}
+@media(max-width:900px){.site-footer .footer-social-links{gap:10px 14px}.site-footer .footer-social-links a{min-height:36px}}
+
+
+.site-header .nav-cta{display:inline-flex;align-items:center;justify-content:center;width:auto;min-width:120px;min-height:44px;padding:11px 18px;border:1px solid #626a64;background:transparent;color:#fff;font:500 12px var(--display);text-transform:uppercase;letter-spacing:1.8px;box-shadow:none}
+.site-header .nav-cta:hover{background:#fff!important;color:#111!important;border-color:#fff!important;box-shadow:none!important}
+.site-header .nav-cta:focus-visible{outline:2px solid #fff;outline-offset:4px}
+
+.site-header .nav-cta,.site-footer .footer-contact-button{height:auto;min-height:0;padding-top:14px;padding-bottom:14px;font-size:12px;line-height:normal}
+
+.hero-actions .button-lime,.site-header .nav-cta,.site-footer .footer-contact-button{height:46px;min-height:46px;max-height:46px;padding-top:0;padding-bottom:0;line-height:1;box-sizing:border-box;align-items:center}
