@@ -459,3 +459,8 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-h
 .camp-breadcrumb-bar .camp-breadcrumbs a:hover{color:#111}
 .camp-breadcrumb-bar .camp-breadcrumbs [aria-current='page']{color:#222;font-weight:500}
 @media(max-width:620px){.camp-breadcrumb-bar .camp-breadcrumbs{padding-top:13px;padding-bottom:13px;font-size:9px;letter-spacing:.01em}.camp-breadcrumb-bar .camp-breadcrumbs ol{gap:4px 8px}.camp-breadcrumb-bar .camp-breadcrumbs li+li::before{margin-right:8px}}
+
+/* Match page content and footer gutters to the header. */
+.wrap{width:min(1320px,calc(100% - 48px));margin-left:auto;margin-right:auto}
+.site-header{padding-left:max(24px,calc((100vw - 1320px)/2));padding-right:max(24px,calc((100vw - 1320px)/2))}
+.camp-detail-hero-copy{padding-left:max(24px,calc((100vw - 1320px)/2))}
