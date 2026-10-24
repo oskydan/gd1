@@ -430,3 +430,8 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-h
 .camp-detail-page[data-camp-id="kranevo-november-2026"] .camp-detail-grid{align-items:start}
 .camp-detail-page[data-camp-id="kranevo-november-2026"] .camp-detail-facts{margin-top:32px}
 @media(max-width:800px){.camp-detail-page[data-camp-id="kranevo-november-2026"] .camp-detail-facts{margin-top:0}}
+
+@media(max-width:700px){
+  .camps-page .register-button .registration-arrow{display:inline-flex;align-items:center;justify-content:center;flex:none;width:17px;height:17px;font-size:0!important;line-height:0}
+  .camps-page .register-button .registration-arrow::after{content:'';display:block;width:14px;height:14px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 17 17 7M7 7h10v10' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 17 17 7M7 7h10v10' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
+}
