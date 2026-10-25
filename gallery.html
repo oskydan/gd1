@@ -10,7 +10,7 @@
   <link rel="preload" href="assets/fonts/inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/oswald-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/oswald-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=111">
+  <link rel="stylesheet" href="styles.css?v=117">
 </head>
 <body class="gallery-page">
   <header class="site-header" id="top">
@@ -22,16 +22,14 @@
     </nav>
   </header>
   <main>
-    <section class="gallery-hero">
-      <div class="wrap gallery-hero-inner">
-        <div><p class="eyebrow"><span class="live-dot"></span>GD1 CAMP MOMENTS</p><h1>Work on<br><em>the ice.</em></h1><p class="gallery-lead">A look inside GD1 camps: focused practice, shared effort, and the small steps that build a stronger game.</p></div>
-        <div class="gallery-hero-note"><span>THE WORK ADDS UP</span><strong>One rep.<br>Then another.</strong></div>
-      </div>
-    </section>
-    <section class="gallery-section" aria-label="GD1 camp photo gallery">
+    <section class="gallery-section" aria-label="GD1 camp gallery">
       <div class="wrap">
-        <div class="gallery-heading"><p class="eyebrow dark"><span class="live-dot"></span>ON AND OFF THE ICE</p><span>24 MOMENTS</span></div>
-        <div class="gallery-grid">
+        <div class="gallery-heading"><p class="eyebrow dark"><span class="live-dot"></span>ON AND OFF THE ICE</p><span>GD1 CAMP GALLERY</span></div>
+        <div class="gallery-tabs" role="tablist" aria-label="Gallery media">
+          <button class="gallery-tab" id="photos-tab" type="button" role="tab" aria-selected="true" aria-controls="photos-panel">Photos <span>24</span></button>
+          <button class="gallery-tab" id="videos-tab" type="button" role="tab" aria-selected="false" aria-controls="videos-panel" tabindex="-1">Videos <span>6</span></button>
+        </div>
+        <div class="gallery-grid" id="photos-panel" role="tabpanel" aria-labelledby="photos-tab" tabindex="0">
           <figure class="gallery-item"><img src="assets/gallery/gd1-photo-012.jpg" alt="A player skating with a puck during practice" loading="lazy" decoding="async"></figure>
           <figure class="gallery-item"><img src="assets/gallery/gd1-photo-005.jpg" alt="A player practicing puck control on the ice" loading="lazy" decoding="async"></figure>
           <figure class="gallery-item"><img src="assets/gallery/gd1-photo-006.jpg" alt="A coach demonstrating a hockey drill to a player" loading="lazy" decoding="async"></figure>
@@ -57,6 +55,32 @@
           <figure class="gallery-item"><img src="assets/gallery/gd1-photo-007.jpg" alt="GD1 hockey players and coaches posing as a team" loading="lazy" decoding="async"></figure>
           <figure class="gallery-item"><img src="assets/gallery/gd1-photo-004.jpg" alt="GD1 players and coaches together on the ice" loading="lazy" decoding="async"></figure>
         </div>
+        <div class="gallery-video-grid" id="videos-panel" role="tabpanel" aria-labelledby="videos-tab" tabindex="0" hidden>
+          <figure class="gallery-video-item">
+            <video controls playsinline preload="none" poster="assets/gallery/gd1-photo-005.jpg" aria-label="GD1 Prague camp, 2024, film three"><source data-src="assets/videos/gd1-prague-2024-1.mp4" type="video/mp4">Your browser does not support video playback.</video>
+            <figcaption><span>TRAINING FILM 03</span><h3>Prague · 2024</h3></figcaption>
+          </figure>
+          <figure class="gallery-video-item">
+            <video controls playsinline preload="none" poster="assets/videos/gd1-nymburk-2023.jpg" aria-label="GD1 Nymburk camp, 2023"><source data-src="assets/videos/gd1-nymburk-2023.mp4" type="video/mp4">Your browser does not support video playback.</video>
+            <figcaption><span>TRAINING FILM 01</span><h3>Nymburk · 2023</h3></figcaption>
+          </figure>
+          <figure class="gallery-video-item">
+            <video controls playsinline preload="none" poster="assets/gallery/gd1-photo-006.jpg" aria-label="GD1 Prague camp, 2024, film two"><source data-src="assets/videos/gd1-prague-2024-11.mp4" type="video/mp4">Your browser does not support video playback.</video>
+            <figcaption><span>TRAINING FILM 02</span><h3>Prague · 2024</h3></figcaption>
+          </figure>
+          <figure class="gallery-video-item">
+            <video controls playsinline preload="none" poster="assets/gallery/gd1-photo-014.jpg" aria-label="GD1 Prague camp, 2024, film four"><source data-src="assets/videos/gd1-prague-2024-4.mp4" type="video/mp4">Your browser does not support video playback.</video>
+            <figcaption><span>TRAINING FILM 04</span><h3>Prague · 2024</h3></figcaption>
+          </figure>
+          <figure class="gallery-video-item">
+            <video controls playsinline preload="none" poster="assets/gallery/gd1-photo-025.jpg" aria-label="GD1 Prague camp, 2024, film five"><source data-src="assets/videos/gd1-prague-2024-3.mp4" type="video/mp4">Your browser does not support video playback.</video>
+            <figcaption><span>TRAINING FILM 05</span><h3>Prague · 2024</h3></figcaption>
+          </figure>
+          <figure class="gallery-video-item">
+            <video controls playsinline preload="none" poster="assets/gallery/gd1-photo-026.jpg" aria-label="GD1 Prague camp, 2024, film six"><source data-src="assets/videos/gd1-prague-2024-2.mp4" type="video/mp4">Your browser does not support video playback.</video>
+            <figcaption><span>TRAINING FILM 06</span><h3>Prague · 2024</h3></figcaption>
+          </figure>
+        </div>
       </div>
     </section>
   </main>
@@ -70,5 +94,6 @@
     <div class="wrap footer-bottom"><span>© <span id="year"></span> GD1 School</span><a href="#top">BACK TO TOP</a></div>
   </footer>
   <script src="script.js?v=28"></script>
+  <script src="gallery.js?v=2"></script>
 </body>
 </html>
