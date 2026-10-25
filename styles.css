@@ -499,3 +499,5 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-h
 .site-header .nav-cta,.site-footer .footer-contact-button{height:auto;min-height:0;padding-top:14px;padding-bottom:14px;font-size:12px;line-height:normal}
 
 .hero-actions .button-lime,.site-header .nav-cta,.site-footer .footer-contact-button{height:46px;min-height:46px;max-height:46px;padding-top:0;padding-bottom:0;line-height:1;box-sizing:border-box;align-items:center}
+
+@media(max-width:700px){.camp-archive-card:not(.is-past) .camp-archive-photo img,.camp-archive-card:not(.is-past):hover .camp-archive-photo img,.upcoming-camp-photo img{filter:none}}

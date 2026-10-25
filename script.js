@@ -77,7 +77,7 @@ function renderHomeCamps() {
 function renderArchiveCard(camp, past) {
   return `
     <article class="camp-archive-card${past ? ' is-past' : ''}" id="${safe(camp.id)}">
-      ${past ? '' : `<a class="camp-card-hitarea" href="${safe(camp.page)}" aria-label="Open camp page for ${safe(camp.title)}, ${safe(camp.period)}"></a>`}
+      ${past || camp.registrationComingSoon ? '' : `<a class="camp-card-hitarea" href="${safe(camp.page)}" aria-label="Open camp page for ${safe(camp.title)}, ${safe(camp.period)}"></a>`}
       <div class="camp-archive-photo"><img src="${safe(camp.image)}" alt="${safe(camp.imageAlt)}" loading="lazy" decoding="async"></div>
       <div class="camp-archive-info">
         <p class="eyebrow dark">${safe(camp.period.toUpperCase())}</p>
