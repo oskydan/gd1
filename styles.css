@@ -575,3 +575,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-h
 
 .site-footer .footer-column:not(.footer-contact) .footer-links a{color:#e8ece9}
 .site-footer .footer-column:not(.footer-contact) .footer-links a:hover{color:#fff}
+
+.footer-credit-link{text-decoration:underline;text-underline-offset:3px;text-decoration-color:#69736c;transition:color .18s ease,text-decoration-color .18s ease}
+.footer-credit-link:hover{color:#fff;text-decoration-color:currentColor}
+.footer-credit-link:focus-visible{outline:2px solid currentColor;outline-offset:4px}
