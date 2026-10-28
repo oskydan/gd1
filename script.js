@@ -49,7 +49,9 @@ const registrationAttributes = (camp) => {
     return 'href="#contact"';
   }
 };
-const registrationButton = (camp) => camp.registrationComingSoon
+const registrationButton = (camp) => camp.cancelled
+  ? '<span class="button register-button is-disabled" role="status" aria-disabled="true">Cancelled</span>'
+  : camp.registrationComingSoon
   ? '<span class="button register-button is-disabled" role="status" aria-disabled="true">Registration soon</span>'
   : `<a class="button register-button" ${registrationAttributes(camp)} data-camp-end="${safe(camp.endsOn)}">Register Now</a>`;
 
@@ -63,7 +65,7 @@ function renderHomeCamps() {
   }
   container.innerHTML = upcoming.map((camp) => `
     <article class="upcoming-camp-card">
-      <a class="camp-card-hitarea" href="${safe(camp.page)}" aria-label="Open camp page for ${safe(camp.title)}, ${safe(camp.period)}"></a>
+      ${!camp.page || camp.cancelled ? '' : `<a class="camp-card-hitarea" href="${safe(camp.page)}" aria-label="Open camp page for ${safe(camp.title)}, ${safe(camp.period)}"></a>`}
       <div class="upcoming-camp-photo"><img src="${safe(camp.image)}" alt="${safe(camp.imageAlt)}" loading="lazy" decoding="async"></div>
       <div class="upcoming-camp-info">
         <p class="eyebrow dark">${safe(camp.period.toUpperCase())}</p>
@@ -77,14 +79,14 @@ function renderHomeCamps() {
 function renderArchiveCard(camp, past) {
   return `
     <article class="camp-archive-card${past ? ' is-past' : ''}" id="${safe(camp.id)}">
-      ${past || camp.registrationComingSoon ? '' : `<a class="camp-card-hitarea" href="${safe(camp.page)}" aria-label="Open camp page for ${safe(camp.title)}, ${safe(camp.period)}"></a>`}
+      ${past || !camp.page || camp.cancelled || camp.registrationComingSoon ? '' : `<a class="camp-card-hitarea" href="${safe(camp.page)}" aria-label="Open camp page for ${safe(camp.title)}, ${safe(camp.period)}"></a>`}
       <div class="camp-archive-photo"><img src="${safe(camp.image)}" alt="${safe(camp.imageAlt)}" loading="lazy" decoding="async"></div>
       <div class="camp-archive-info">
         <p class="eyebrow dark">${safe(camp.period.toUpperCase())}</p>
         <h3>${safe(camp.title)}</h3>
         ${past ? '' : `<p class="camp-archive-short">${safe(camp.shortDescription)}</p>`}
         ${past ? '' : `<p class="camp-archive-long">${safe(camp.longDescription)}</p>`}
-        ${past
+        ${past && !camp.cancelled
           ? '<span class="camp-status">Camp completed</span>'
           : registrationButton(camp)}
       </div>

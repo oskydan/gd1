@@ -1,8 +1,9 @@
 window.GD1_CAMPS = [
   {
     id: 'kranevo-november-2026',
+    cancelled: true,
     registrationUrl: 'https://forms.gle/m7AmoKwreeQetM5p9',
-    page: 'kranevo-bulgaria-nov-2026.html',
+    page: '',
     image: 'assets/power-skating.jpg',
     imageAlt: 'Player training on the ice during a GD1 power skating camp',
     period: '1–6 November 2026',
@@ -28,7 +29,7 @@ window.GD1_CAMPS = [
   {
     id: 'prague-december-2025',
     registrationUrl: '',
-    page: 'prague-czech-republic-dec-2025.html',
+    page: '',
     image: 'assets/prague-city.png',
     imageAlt: 'Prague at dusk, the host city for the GD1 Christmas camp',
     period: '22–27 December 2025',
@@ -41,7 +42,7 @@ window.GD1_CAMPS = [
   {
     id: 'prague-summer-2026',
     registrationUrl: '',
-    page: 'prague-czech-republic-jun-2026.html',
+    page: '',
     image: 'assets/prague-city.png',
     imageAlt: 'Prague at dusk, the host city for the GD1 summer camp',
     period: '29 June–25 July 2026',
@@ -54,7 +55,7 @@ window.GD1_CAMPS = [
   {
     id: 'prague-summer-2025',
     registrationUrl: '',
-    page: 'prague-czech-republic-jun-2025.html',
+    page: '',
     image: 'assets/prague-city.png',
     imageAlt: 'Prague at dusk, the host city for the GD1 summer camp',
     period: '30 June–26 July 2025',
@@ -67,7 +68,7 @@ window.GD1_CAMPS = [
   {
     id: 'prague-june-2024',
     registrationUrl: '',
-    page: 'prague-czech-republic-jun-2024.html',
+    page: '',
     image: 'assets/prague-city.png',
     imageAlt: 'Prague at dusk, the host city for the GD1 summer camp',
     period: '1–20 June 2024',
@@ -80,7 +81,7 @@ window.GD1_CAMPS = [
   {
     id: 'sisak-october-2024',
     registrationUrl: '',
-    page: 'sisak-croatia-oct-2024.html',
+    page: '',
     image: 'assets/sisak.jpg',
     imageAlt: 'Sisak riverside with its historic bridge',
     period: '26–31 October 2024',
@@ -93,7 +94,7 @@ window.GD1_CAMPS = [
   {
     id: 'elektrenai-march-2026',
     registrationUrl: '',
-    page: 'elektrenai-lithuania-mar-2026.html',
+    page: '',
     image: 'assets/elektrenai-rink.jpg',
     imageAlt: 'Snow-covered ice arena in Elektrenai, Lithuania',
     period: '29 March–3 April 2026',
@@ -106,7 +107,7 @@ window.GD1_CAMPS = [
   {
     id: 'elektrenai-november-2025',
     registrationUrl: '',
-    page: 'elektrenai-lithuania-nov-2025.html',
+    page: '',
     image: 'assets/elektrenai-rink.jpg',
     imageAlt: 'Snow-covered ice arena in Elektrenai, Lithuania',
     period: '5–9 November 2025',
@@ -119,7 +120,7 @@ window.GD1_CAMPS = [
   {
     id: 'elektrenai-december-2024',
     registrationUrl: '',
-    page: 'elektrenai-lithuania-dec-2024.html',
+    page: '',
     image: 'assets/elektrenai-rink.jpg',
     imageAlt: 'Snow-covered ice arena in Elektrenai, Lithuania',
     period: '23–28 December 2024',
@@ -133,7 +134,7 @@ window.GD1_CAMPS = [
     id: 'kranevo-april-2027',
     registrationUrl: '',
     registrationComingSoon: true,
-    page: 'kranevo-bulgaria-apr-2027.html',
+    page: '',
     image: 'assets/kranevo-rink.jpg',
     imageAlt: 'The seaside rink in Kranevo, Bulgaria',
     period: '6–11 April 2027',
@@ -146,7 +147,7 @@ window.GD1_CAMPS = [
   {
     id: 'kranevo-april-2026',
     registrationUrl: '',
-    page: 'kranevo-bulgaria-apr-2026.html',
+    page: '',
     image: 'assets/kranevo-rink.jpg',
     imageAlt: 'The seaside rink in Kranevo, Bulgaria',
     period: '7–12 April 2026',
@@ -159,7 +160,7 @@ window.GD1_CAMPS = [
   {
     id: 'kranevo-october-2025',
     registrationUrl: '',
-    page: 'kranevo-bulgaria-oct-2025.html',
+    page: '',
     image: 'assets/kranevo-rink.jpg',
     imageAlt: 'The seaside rink in Kranevo, Bulgaria',
     period: '29 October–3 November 2025',
@@ -172,7 +173,7 @@ window.GD1_CAMPS = [
   {
     id: 'kaunas-february-2024',
     registrationUrl: '',
-    page: 'kaunas-lithuania-feb-2024.html',
+    page: '',
     image: 'assets/kaunas.jpg',
     imageAlt: 'View across Kaunas, Lithuania',
     period: '19–23 February 2024',
@@ -185,7 +186,7 @@ window.GD1_CAMPS = [
   {
     id: 'nymburk-december-2023',
     registrationUrl: '',
-    page: 'nymburk-czech-republic-dec-2023.html',
+    page: '',
     image: 'assets/nymburk.jpg',
     imageAlt: 'Snow-covered historic buildings in Nymburk, Czech Republic',
     period: '18–27 December 2023',
