@@ -28,7 +28,7 @@ Upcoming and past camp details are stored in `camps-data.js`. The pages use `scr
 
 All English and Ukrainian pages load `analytics.js`, configured for the European Mixpanel endpoint (`https://api-eu.mixpanel.com`). The project token is a public browser token, not a secret API credential. Each custom event includes `page_language` (`en` or `uk`); camp IDs stay the same across languages.
 
-Analytics loads only after a visitor chooses **Allow analytics**. Visitors can reject or withdraw consent using **Analytics preferences** in the footer. The choice is remembered for 180 days and synchronized across open tabs. Browser Do Not Track / Global Privacy Control requests are respected. File previews, localhost, and loopback previews do not load analytics.
+Analytics loads only after a visitor chooses **Allow analytics**. Visitors can reject analytics in the consent banner. The footer **Analytics preferences** control is hidden in both languages. The choice is remembered for 180 days and synchronized across open tabs. Browser Do Not Track / Global Privacy Control requests are respected. File previews, localhost, and loopback previews do not load analytics.
 
 Events: **Page Viewed**, **Registration Clicked** (camp ID, name and dates), **Contact Clicked**, **Email Clicked**, **Phone Clicked**, **Social Link Clicked**, **Gallery Tab Changed**, and **Video Played**. Registration clicks measure opening the external form, not completed registrations. Custom page properties contain the path and title, not query strings or URL fragments. Custom events do not send email addresses or phone numbers. Marketing attribution and IP-based geolocation are disabled. Mixpanel still receives standard device/browser metadata and a browser identifier after consent.
 

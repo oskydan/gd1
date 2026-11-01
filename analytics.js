@@ -142,7 +142,7 @@
   banner.hidden = true;
   banner.innerHTML = `
     <h2>${text('Optional analytics', 'Аналітика за вашою згодою')}</h2>
-    <p>${text('May we use Mixpanel to understand page visits, camp interest, and video views, and create click heatmaps? This includes recording how you interact with our pages, using a browser identifier. Text and form entries are masked; photos and videos are excluded from recordings. You can reject analytics or change your choice in the footer.', 'Чи дозволяєте ви використовувати Mixpanel для аналізу відвідувань, інтересу до кемпів, переглядів відео та створення теплових карт кліків? Це включає запис взаємодії зі сторінками за допомогою ідентифікатора браузера. Текст і дані форм приховані, а фото та відео не потрапляють у записи. Ви можете відмовитися від аналітики або змінити вибір унизу сторінки.')}</p>
+    <p>${text('May we use Mixpanel to understand page visits, camp interest, and video views, and create click heatmaps? This includes recording how you interact with our pages, using a browser identifier. Text and form entries are masked; photos and videos are excluded from recordings. You can reject analytics.', 'Чи дозволяєте ви використовувати Mixpanel для аналізу відвідувань, інтересу до кемпів, переглядів відео та створення теплових карт кліків? Це включає запис взаємодії зі сторінками за допомогою ідентифікатора браузера. Текст і дані форм приховані, а фото та відео не потрапляють у записи. Ви можете відмовитися від аналітики.')}</p>
     <p class="analytics-consent-status" aria-live="polite"></p>
     <div class="analytics-consent-actions">
       <button type="button" data-analytics-choice="allow">${text('Allow analytics', 'Дозволити аналітику')}</button>
@@ -184,6 +184,7 @@
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'analytics-settings';
+    button.hidden = true;
     button.textContent = text('Analytics preferences', 'Налаштування аналітики');
     button.addEventListener('click', () => {
       returnFocus = button;
