@@ -64,7 +64,7 @@ function renderHomeCamps() {
     return;
   }
   container.innerHTML = upcoming.map((camp) => `
-    <article class="upcoming-camp-card">
+    <article class="upcoming-camp-card" data-camp-id="${safe(camp.id)}">
       ${!camp.page || camp.cancelled ? '' : `<a class="camp-card-hitarea" href="${safe(camp.page)}" aria-label="Open camp page for ${safe(camp.title)}, ${safe(camp.period)}"></a>`}
       <div class="upcoming-camp-photo"><img src="${safe(camp.image)}" alt="${safe(camp.imageAlt)}" loading="lazy" decoding="async"></div>
       <div class="upcoming-camp-info">
@@ -78,7 +78,7 @@ function renderHomeCamps() {
 
 function renderArchiveCard(camp, past) {
   return `
-    <article class="camp-archive-card${past ? ' is-past' : ''}" id="${safe(camp.id)}">
+    <article class="camp-archive-card${past ? ' is-past' : ''}" id="${safe(camp.id)}" data-camp-id="${safe(camp.id)}">
       ${past || !camp.page || camp.cancelled || camp.registrationComingSoon ? '' : `<a class="camp-card-hitarea" href="${safe(camp.page)}" aria-label="Open camp page for ${safe(camp.title)}, ${safe(camp.period)}"></a>`}
       <div class="camp-archive-photo"><img src="${safe(camp.image)}" alt="${safe(camp.imageAlt)}" loading="lazy" decoding="async"></div>
       <div class="camp-archive-info">

@@ -23,3 +23,13 @@ Import the repository into Vercel and set the project root to this folder if the
 ## Update camp information
 
 Upcoming and past camp details are stored in `camps-data.js`. The pages use `script.js` to render camp cards. Camp detail pages and their images are regular HTML and asset files; keep their relative paths intact when adding or editing content.
+
+## Mixpanel analytics
+
+All seven pages load `analytics.js`, configured for the European Mixpanel endpoint (`https://api-eu.mixpanel.com`). The project token is a public browser token, not a secret API credential.
+
+Analytics loads only after a visitor chooses **Allow analytics**. Visitors can reject or withdraw consent using **Analytics preferences** in the footer. The choice is remembered for 180 days and synchronized across open tabs. Browser Do Not Track / Global Privacy Control requests are respected. File previews, localhost, and loopback previews do not load analytics.
+
+Events: **Page Viewed**, **Registration Clicked** (camp ID, name and dates), **Contact Clicked**, **Email Clicked**, **Phone Clicked**, **Social Link Clicked**, **Gallery Tab Changed**, and **Video Played**. Registration clicks measure opening the external form, not completed registrations. Page properties contain the path and title, not query strings or URL fragments. Email addresses, phone numbers, form entries, session recordings, automatic click capture, marketing parameters and IP-based geolocation are not collected by this integration. Mixpanel still receives standard device/browser metadata and a browser identifier after consent.
+
+After publishing, open the hosted site, allow analytics, browse pages, click a registration link and play a gallery video. Check the project's Events view for the event names above. Ad blockers may prevent analytics; the site continues to function normally. Test with **Reject analytics** as well: the SDK must not load, and no tracking requests should be sent. Avoid putting secret API credentials in this repository.
