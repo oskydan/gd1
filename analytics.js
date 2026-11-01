@@ -1,5 +1,7 @@
 (() => {
   'use strict';
+  const ukrainian = document.documentElement.lang === 'uk';
+  const text = (english, uk) => ukrainian ? uk : english;
 
   // Keep file previews and local development out of the production project.
   if (!['https:', 'http:'].includes(location.protocol) ||
@@ -32,7 +34,8 @@
   const allowed = () => consent === true && !privacyRequested;
   const pageProperties = () => ({
     page_path: location.pathname,
-    page_title: document.title
+    page_title: document.title,
+    page_language: ukrainian ? 'uk' : 'en'
   });
 
   function track(name, properties = {}) {
@@ -135,22 +138,22 @@
 
   const banner = document.createElement('section');
   banner.className = 'analytics-consent';
-  banner.setAttribute('aria-label', 'Analytics preferences');
+  banner.setAttribute('aria-label', text('Analytics preferences', 'Налаштування аналітики'));
   banner.hidden = true;
   banner.innerHTML = `
-    <h2>Optional analytics</h2>
-    <p>May we use Mixpanel to understand page visits, camp interest, and video views, and create click heatmaps? This includes recording how you interact with our pages, using a browser identifier. Text and form entries are masked; photos and videos are excluded from recordings. You can reject analytics or change your choice in the footer.</p>
+    <h2>${text('Optional analytics', 'Аналітика за вашою згодою')}</h2>
+    <p>${text('May we use Mixpanel to understand page visits, camp interest, and video views, and create click heatmaps? This includes recording how you interact with our pages, using a browser identifier. Text and form entries are masked; photos and videos are excluded from recordings. You can reject analytics or change your choice in the footer.', 'Чи дозволяєте ви використовувати Mixpanel для аналізу відвідувань, інтересу до кемпів, переглядів відео та створення теплових карт кліків? Це включає запис взаємодії зі сторінками за допомогою ідентифікатора браузера. Текст і дані форм приховані, а фото та відео не потрапляють у записи. Ви можете відмовитися від аналітики або змінити вибір унизу сторінки.')}</p>
     <p class="analytics-consent-status" aria-live="polite"></p>
     <div class="analytics-consent-actions">
-      <button type="button" data-analytics-choice="allow">Allow analytics</button>
-      <button type="button" data-analytics-choice="reject">Reject analytics</button>
+      <button type="button" data-analytics-choice="allow">${text('Allow analytics', 'Дозволити аналітику')}</button>
+      <button type="button" data-analytics-choice="reject">${text('Reject analytics', 'Відхилити аналітику')}</button>
     </div>`;
   document.body.append(banner);
 
   function showPreferences() {
     banner.querySelector('.analytics-consent-status').textContent = privacyRequested
-      ? 'Your browser requests no tracking, so analytics stays off.'
-      : consent === null ? '' : `Analytics is currently ${consent ? 'on' : 'off'}.`;
+      ? text('Your browser requests no tracking, so analytics stays off.', 'Ваш браузер забороняє відстеження, тому аналітику вимкнено.')
+      : consent === null ? '' : text(`Analytics is currently ${consent ? 'on' : 'off'}.`, `Аналітику зараз ${consent ? 'увімкнено' : 'вимкнено'}.`);
     banner.querySelector('[data-analytics-choice="allow"]').disabled = privacyRequested;
     banner.hidden = false;
   }
@@ -181,7 +184,7 @@
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'analytics-settings';
-    button.textContent = 'Analytics preferences';
+    button.textContent = text('Analytics preferences', 'Налаштування аналітики');
     button.addEventListener('click', () => {
       returnFocus = button;
       showPreferences();
@@ -198,7 +201,18 @@
     if (!link || link.getAttribute('aria-disabled') === 'true') return;
     const properties = { placement: placement(link) };
     const href = link.getAttribute('href');
-    if (link.matches('.register-button, .camp-detail-cta')) {
+    if (link.closest('.language-switcher')) {
+      const toLanguage = link.getAttribute('hreflang') || link.getAttribute('lang');
+      if (!['en', 'uk'].includes(toLanguage)) return;
+      let destination;
+      try { destination = new URL(href, location.href); } catch { return; }
+      track('Language Switched', {
+        ...properties,
+        from_language: ukrainian ? 'uk' : 'en',
+        to_language: toLanguage,
+        destination_path: destination.pathname
+      });
+    } else if (link.matches('.register-button, .camp-detail-cta')) {
       const campId = link.closest('[data-camp-id]')?.dataset.campId;
       const camp = (window.GD1_CAMPS || []).find((item) => item.id === campId);
       track('Registration Clicked', {
@@ -217,7 +231,7 @@
       try { url = new URL(href, location.href); } catch { return; }
       if (['www.instagram.com', 'instagram.com', 'www.facebook.com', 'facebook.com'].includes(url.hostname)) {
         track('Social Link Clicked', { ...properties, network: url.hostname.includes('instagram') ? 'Instagram' : 'Facebook' });
-      } else if (url.origin === location.origin && url.pathname.endsWith('/contact.html')) {
+      } else if (url.origin === location.origin && /\/contact(?:-uk)?\.html$/.test(url.pathname)) {
         track('Contact Clicked', properties);
       }
     }

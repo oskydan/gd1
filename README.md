@@ -26,7 +26,7 @@ Upcoming and past camp details are stored in `camps-data.js`. The pages use `scr
 
 ## Mixpanel analytics
 
-All seven pages load `analytics.js`, configured for the European Mixpanel endpoint (`https://api-eu.mixpanel.com`). The project token is a public browser token, not a secret API credential.
+All English and Ukrainian pages load `analytics.js`, configured for the European Mixpanel endpoint (`https://api-eu.mixpanel.com`). The project token is a public browser token, not a secret API credential. Each custom event includes `page_language` (`en` or `uk`); camp IDs stay the same across languages.
 
 Analytics loads only after a visitor chooses **Allow analytics**. Visitors can reject or withdraw consent using **Analytics preferences** in the footer. The choice is remembered for 180 days and synchronized across open tabs. Browser Do Not Track / Global Privacy Control requests are respected. File previews, localhost, and loopback previews do not load analytics.
 
@@ -37,3 +37,13 @@ Heatmaps use `record_heatmap_data: true` and session recording for 100% of conse
 After publishing, allow analytics on the hosted site, click around, then open **Heatmaps** in Mixpanel and select a page URL and date range. Heatmaps require recorded sessions and access to the Session Replay feature in your Mixpanel project; historical custom events cannot produce heatmaps. Review project replay usage as traffic grows. Implementation reference: https://docs.mixpanel.com/docs/session-replay/heatmaps
 
 After publishing, open the hosted site, allow analytics, browse pages, click a registration link and play a gallery video. Check the project's Events view for the event names above. Ad blockers may prevent analytics; the site continues to function normally. Test with **Reject analytics** as well: the SDK must not load, and no tracking requests should be sent. Avoid putting secret API credentials in this repository.
+
+## Languages
+
+English is the default. Each of the seven pages has a Ukrainian counterpart with an `-uk.html` suffix. Header language links open the corresponding page and preserve the current gallery tab or section. Internal Ukrainian navigation stays in Ukrainian; external registration forms and map/contact URLs are unchanged. The header branding stays **GD1 CAMPS** in both versions.
+
+Mixpanel records **Language Switched** when a visitor clicks an available language link, with `from_language`, `to_language`, `destination_path`, and `placement`, plus the common `page_path`, `page_title`, and `page_language`. Destination paths omit query strings and fragments. The destination page separately records **Page Viewed** in the selected language. All seven Ukrainian pages share the same event and heatmap integration as English. Consent is shared across languages; no events are sent before consent.
+
+English HTML remains the source template. Ukrainian text, including image descriptions and accessibility labels, is maintained in `translations-uk.json`. Run `python3 build-uk.py` after editing the English templates or translation catalog to regenerate Ukrainian pages. The script reports missing translations rather than silently leaving new English text. All generated HTML is committed, so hosting needs no build step. Camp translations are in `camps-data-uk.js`; dynamic navigation, registration states and analytics consent are localized in the shared scripts.
+
+Ukrainian typography uses local Cyrillic subsets of Inter and Oswald in `assets/fonts/`, with their font declarations in `fonts-cyrillic.css`.

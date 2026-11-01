@@ -594,3 +594,20 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-h
 .site-footer .analytics-settings:hover{color:#fff}
 .analytics-consent-actions button:focus-visible,.analytics-settings:focus-visible{outline:2px solid currentColor;outline-offset:4px}
 @media(max-width:600px){.analytics-consent{right:16px;bottom:16px;width:calc(100% - 32px);max-height:calc(100dvh - 32px);padding:20px}.analytics-consent-actions{flex-wrap:wrap}.analytics-consent-actions button{flex:1 1 160px}}
+
+/* English is current; Ukrainian is reserved for the future translation. */
+.language-switcher{display:inline-flex;align-items:center;gap:10px;flex-shrink:0;white-space:nowrap}
+.language-option{display:inline-flex;align-items:center;justify-content:center;min-width:30px;min-height:44px;padding:0;border:0;background:none;font:500 13px/1 var(--font);letter-spacing:.04em;color:#fff}
+.language-option.is-current{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+.language-divider{color:#727b75;font-size:13px}
+.language-option:disabled{color:#969d98;cursor:default;opacity:1;-webkit-text-fill-color:#969d98}
+@media(min-width:901px) and (max-width:1150px){.main-nav{gap:20px}}
+
+.language-switcher a.language-option:hover{color:#fff;text-decoration:underline;text-underline-offset:6px}
+.language-switcher a.language-option:focus-visible{outline:2px solid #fff;outline-offset:4px}
+html[lang="uk"] .hero h1,html[lang="uk"] .school-page-hero h1,html[lang="uk"] .contact-page-hero h1,html[lang="uk"] .camp-detail-hero h1{font-size:clamp(44px,7.5vw,108px)}
+html[lang="uk"] h2{font-size:clamp(34px,5.2vw,68px)}
+html[lang="uk"] .register-button{white-space:normal;text-align:center}
+html[lang="uk"] .main-nav{gap:22px}
+@media(max-width:1150px){html[lang="uk"] .main-nav{gap:14px}}
+@media(max-width:700px){html[lang="uk"] .camp-detail-format-counts{gap:18px}html[lang="uk"] .camp-detail-format-count span{font-size:11px;letter-spacing:.04em}html[lang="uk"] .school-page-hero h1{font-size:clamp(40px,9vw,62px)}}
