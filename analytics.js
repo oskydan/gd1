@@ -6,7 +6,8 @@
       ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname)) return;
 
   const PROJECT_TOKEN = 'b5f5fdb3fcef92f9312cd07124da47c8';
-  const CONSENT_KEY = 'gd1_analytics_consent_v1';
+  // Renew consent because v1 explicitly excluded session recording.
+  const CONSENT_KEY = 'gd1_analytics_consent_v2';
   const CONSENT_LIFETIME = 180 * 24 * 60 * 60 * 1000;
   const privacyRequested = navigator.globalPrivacyControl === true ||
     navigator.doNotTrack === '1' || window.doNotTrack === '1';
@@ -64,8 +65,14 @@
       ignore_dnt: false,
       autocapture: false,
       track_pageview: false,
-      record_sessions_percent: 0,
-      record_heatmap_data: false,
+      record_sessions_percent: 100,
+      record_heatmap_data: true,
+      record_mask_all_text: true,
+      record_mask_all_inputs: true,
+      record_block_selector: 'img, video, audio, iframe, form, input, textarea, select, a[href^="mailto:"], a[href^="tel:"], .analytics-consent',
+      record_console: false,
+      record_network: false,
+      record_canvas: false,
       flags: false,
       remote_settings_mode: 'disabled',
       track_marketing: false,
@@ -86,6 +93,8 @@
           return;
         }
         sdk.opt_in_tracking({ track: null });
+        // Initialization is opted out; begin recording only after opt-in.
+        sdk.start_session_recording();
         trackPage();
         const events = pending;
         pending = [];
@@ -98,6 +107,7 @@
     if (!allowed()) return;
     if (sdk) {
       sdk.opt_in_tracking({ track: null });
+      sdk.start_session_recording();
       trackPage();
       return;
     }
@@ -129,7 +139,7 @@
   banner.hidden = true;
   banner.innerHTML = `
     <h2>Optional analytics</h2>
-    <p>May we use Mixpanel to understand page visits, camp interest, and video views? Analytics uses a browser identifier. We don’t record your screen or collect form entries. You can change your choice in the footer.</p>
+    <p>May we use Mixpanel to understand page visits, camp interest, and video views, and create click heatmaps? This includes recording how you interact with our pages, using a browser identifier. Text and form entries are masked; photos and videos are excluded from recordings. You can reject analytics or change your choice in the footer.</p>
     <p class="analytics-consent-status" aria-live="polite"></p>
     <div class="analytics-consent-actions">
       <button type="button" data-analytics-choice="allow">Allow analytics</button>
