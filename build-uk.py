@@ -10,7 +10,8 @@ ROOT = Path(__file__).resolve().parent
 PAGES = ['index.html', 'camps.html', 'coach.html', 'school.html', 'gallery.html',
          'contact.html', 'prague-czech-republic-dec-2026.html']
 CATALOG = json.loads((ROOT / 'translations-uk.json').read_text())
-CATALOG.update({'English': 'Англійська', 'Ukrainian': 'Українська'})
+CATALOG.update({'English': 'Англійська', 'Ukrainian': 'Українська', 'Choose language': 'Обрати мову'})
+SWITCHER_PATTERN = r'<div class="language-switcher".*?</div>|<details class="language-switcher".*?</details>'
 
 
 def uk_name(name):
@@ -18,14 +19,16 @@ def uk_name(name):
 
 
 def switcher(name, language):
-    en = f'<a class="language-option" href="{name}" lang="en" hreflang="en" aria-label="English">EN</a>'
-    uk = f'<a class="language-option" href="{uk_name(name)}" lang="uk" hreflang="uk" aria-label="Українська">УК</a>'
+    en = f'<a class="language-option" href="{name}" lang="en" hreflang="en" aria-label="English">English</a>'
+    uk = f'<a class="language-option" href="{uk_name(name)}" lang="uk" hreflang="uk" aria-label="Українська">Українська</a>'
     if language == 'en':
-        en = '<span class="language-option is-current" lang="en" aria-current="true" aria-label="English (current language)">EN</span>'
+        en = '<span class="language-option is-current" lang="en" aria-current="true" aria-label="English (current language)">English</span>'
     else:
-        uk = '<span class="language-option is-current" lang="uk" aria-current="true" aria-label="Українська (поточна мова)">УК</span>'
-    label = 'Language' if language == 'en' else 'Мова'
-    return f'<div class="language-switcher" role="group" aria-label="{label}">{en}<span class="language-divider" aria-hidden="true">/</span>{uk}</div>'
+        uk = '<span class="language-option is-current" lang="uk" aria-current="true" aria-label="Українська (поточна мова)">Українська</span>'
+    label = 'Choose language' if language == 'en' else 'Обрати мову'
+    current = 'ENG' if language == 'en' else 'УКР'
+    globe = '<svg class="language-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg>'
+    return f'<details class="language-switcher"><summary class="language-toggle" aria-label="{label}">{globe}<span lang="{language}">{current}</span></summary><div class="language-menu">{en}{uk}</div></details>'
 
 
 class Translator(HTMLParser):
@@ -84,9 +87,9 @@ class Translator(HTMLParser):
 for name in PAGES:
     page = ROOT / name
     source = page.read_text()
-    source = re.sub(r'<div class="language-switcher".*?</div>', switcher(name, 'en'), source, flags=re.S)
-    source = re.sub(r'styles\.css\?v=\d+', 'styles.css?v=132', source)
-    source = re.sub(r'(?<![\w-])script\.js\?v=\d+', 'script.js?v=33', source)
+    source = re.sub(SWITCHER_PATTERN, switcher(name, 'en'), source, flags=re.S)
+    source = re.sub(r'styles\.css\?v=\d+', 'styles.css?v=143', source)
+    source = re.sub(r'(?<![\w-])script\.js\?v=\d+', 'script.js?v=35', source)
     source = re.sub(r'analytics\.js\?v=\d+', 'analytics.js?v=6', source)
     source = re.sub(r'\s*<link rel="alternate"[^>]*>', '', source)
     alternates = f'  <link rel="alternate" hreflang="en" href="{name}">\n  <link rel="alternate" hreflang="uk" href="{uk_name(name)}">\n'
@@ -95,9 +98,9 @@ for name in PAGES:
     translator = Translator()
     translator.feed(source)
     translated = ''.join(translator.parts)
-    translated = re.sub(r'<div class="language-switcher".*?</div>', switcher(name, 'uk'), translated, flags=re.S)
+    translated = re.sub(SWITCHER_PATTERN, switcher(name, 'uk'), translated, flags=re.S)
     translated = translated.replace('</head>', '  <link rel="stylesheet" href="fonts-cyrillic.css?v=1">\n  <link rel="preload" href="assets/fonts/inter-cyrillic.woff2" as="font" type="font/woff2" crossorigin>\n  <link rel="preload" href="assets/fonts/oswald-cyrillic.woff2" as="font" type="font/woff2" crossorigin>\n</head>')
-    translated = translated.replace('  <script src="script.js?v=33">', '  <script src="camps-data-uk.js?v=1"></script>\n  <script src="script.js?v=33">')
+    translated = translated.replace('  <script src="script.js?v=35">', '  <script src="camps-data-uk.js?v=1"></script>\n  <script src="script.js?v=35">')
     (ROOT / uk_name(name)).write_text(translated)
 
 print('Generated seven Ukrainian pages and enabled matching language links.')

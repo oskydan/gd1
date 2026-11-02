@@ -595,9 +595,9 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-h
 .analytics-consent-actions button:focus-visible,.analytics-settings:focus-visible{outline:2px solid currentColor;outline-offset:4px}
 @media(max-width:600px){.analytics-consent{right:16px;bottom:16px;width:calc(100% - 32px);max-height:calc(100dvh - 32px);padding:20px}.analytics-consent-actions{flex-wrap:wrap}.analytics-consent-actions button{flex:1 1 160px}}
 
-/* English is current; Ukrainian is reserved for the future translation. */
+/* Shared English / Ukrainian language controls. */
 .language-switcher{display:inline-flex;align-items:center;gap:10px;flex-shrink:0;white-space:nowrap}
-.language-option{display:inline-flex;align-items:center;justify-content:center;min-width:30px;min-height:44px;padding:0;border:0;background:none;font:500 13px/1 var(--font);letter-spacing:.04em;color:#fff}
+.language-option{display:inline-flex;align-items:center;justify-content:center;min-width:30px;min-height:44px;padding:0;border:0;background:none;font:500 12px/1 var(--font);letter-spacing:.04em;color:#fff}
 .language-option.is-current{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
 .language-divider{color:#727b75;font-size:13px}
 .language-option:disabled{color:#969d98;cursor:default;opacity:1;-webkit-text-fill-color:#969d98}
@@ -616,3 +616,37 @@ html[lang="uk"] .main-nav{gap:22px}
 .hero .hero-image{filter:brightness(1.12);animation:gd1-hero-image-fade 8s ease-in-out both}
 @keyframes gd1-hero-image-fade{0%,25%{opacity:1}100%{opacity:0}}
 @media(prefers-reduced-motion:reduce){.hero .hero-image{animation:none;opacity:1}}
+
+.language-switcher{gap:8px}
+.language-switcher .language-option{position:relative;min-width:34px;min-height:44px;padding:0;border:0;border-radius:0;background:none;box-shadow:none;color:#aab1ac;text-decoration:none;transition:color .18s ease}
+.language-switcher .language-option.is-current{background:none;border:0;box-shadow:none;color:#fff;font-weight:600;text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+.language-option.is-current::after{content:none}
+.language-switcher a.language-option:hover{background:none;border:0;color:#fff;text-decoration:underline;text-underline-offset:6px}
+@media(max-width:800px){.language-switcher .language-option{font-size:14px}}
+
+details.language-switcher{position:relative;display:block;flex-shrink:0}
+.language-toggle{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 4px;list-style:none;cursor:pointer;color:#fff;font:500 12px/1 var(--font);letter-spacing:.04em}
+.language-toggle::-webkit-details-marker{display:none}
+.language-toggle::marker{content:""}
+.language-globe{display:block;width:20px;height:20px;flex-shrink:0}
+.language-toggle:hover{color:#d6ddd7}
+.language-toggle:focus-visible{outline:2px solid #fff;outline-offset:4px}
+.language-menu{position:absolute;right:0;top:calc(100% + 8px);z-index:20;min-width:170px;padding:0;background:#151918;border:1px solid #454b47;border-radius:0;box-shadow:0 8px 24px #0005}
+details.language-switcher:not([open])>.language-menu{display:none}
+.language-menu .language-option{display:flex;justify-content:flex-start;width:100%;min-height:44px;padding:0 12px;border-radius:0;font-size:13px}
+.language-menu .language-option.is-current{background:#ffffff12;text-decoration:none;color:#fff}
+.language-menu .language-option.is-current::after{content:"✓";position:static;margin-left:auto;height:auto;background:none}
+.language-menu a.language-option:hover{background:#ffffff12;text-decoration:none}
+@media(max-width:800px){.language-toggle{font-size:14px}.language-menu{left:0;right:auto}.language-menu .language-option{font-size:14px}}
+
+/* The mobile navigation exposes languages directly in its second column. */
+@media(max-width:800px){
+  .site-header .main-nav.open{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(6,minmax(44px,auto));gap:0 24px;align-items:start;padding:20px 32px 24px}
+  .main-nav>a:nth-of-type(-n+6){grid-column:1;display:flex;align-items:center;min-height:44px}
+  .main-nav>details.language-switcher{grid-column:2;grid-row:1 / span 3;align-self:start;min-width:0;width:100%}
+  .main-nav .language-toggle{display:none}
+  .main-nav .language-menu{position:static;min-width:0;width:100%;padding:0;background:none;border:0;border-radius:0;box-shadow:none}
+  .main-nav .language-menu .language-option{min-height:44px;padding:0;font-size:14px}
+  .main-nav .language-menu .language-option.is-current{background:none;text-decoration:none}
+  .main-nav .language-menu .language-option.is-current::after{margin-left:8px}
+}

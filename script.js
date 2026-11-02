@@ -10,6 +10,26 @@ const updateLanguageLinks = () => languageLinks.forEach((link) => {
 updateLanguageLinks();
 window.addEventListener('hashchange', updateLanguageLinks);
 
+const languagePicker = document.querySelector('details.language-switcher');
+if (languagePicker) {
+  const mobileLanguageMenu = window.matchMedia('(max-width:800px)');
+  const syncLanguageMenu = () => { languagePicker.open = mobileLanguageMenu.matches; };
+  syncLanguageMenu();
+  mobileLanguageMenu.addEventListener('change', syncLanguageMenu);
+  document.addEventListener('click', (event) => {
+    if (!mobileLanguageMenu.matches && !languagePicker.contains(event.target)) languagePicker.open = false;
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && languagePicker.open && !mobileLanguageMenu.matches) {
+      languagePicker.open = false;
+      languagePicker.querySelector('summary').focus();
+    }
+  });
+  languagePicker.addEventListener('focusout', (event) => {
+    if (!mobileLanguageMenu.matches && !languagePicker.contains(event.relatedTarget)) languagePicker.open = false;
+  });
+}
+
 const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('.main-nav');
 if (menuButton && navigation) {
