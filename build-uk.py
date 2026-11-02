@@ -88,7 +88,7 @@ for name in PAGES:
     page = ROOT / name
     source = page.read_text()
     source = re.sub(SWITCHER_PATTERN, switcher(name, 'en'), source, flags=re.S)
-    source = re.sub(r'styles\.css\?v=\d+', 'styles.css?v=143', source)
+    source = re.sub(r'styles\.css\?v=\d+', 'styles.css?v=147', source)
     source = re.sub(r'(?<![\w-])script\.js\?v=\d+', 'script.js?v=35', source)
     source = re.sub(r'analytics\.js\?v=\d+', 'analytics.js?v=6', source)
     source = re.sub(r'\s*<link rel="alternate"[^>]*>', '', source)

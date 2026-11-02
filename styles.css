@@ -612,10 +612,10 @@ html[lang="uk"] .main-nav{gap:22px}
 @media(max-width:1150px){html[lang="uk"] .main-nav{gap:14px}}
 @media(max-width:700px){html[lang="uk"] .camp-detail-format-counts{gap:18px}html[lang="uk"] .camp-detail-format-count span{font-size:11px;letter-spacing:.04em}html[lang="uk"] .school-page-hero h1{font-size:clamp(40px,9vw,62px)}}
 
-/* Homepage image: briefly brighter, then fade into the hero background. */
-.hero .hero-image{filter:brightness(1.12);animation:gd1-hero-image-fade 8s ease-in-out both}
-@keyframes gd1-hero-image-fade{0%,25%{opacity:1}100%{opacity:0}}
-@media(prefers-reduced-motion:reduce){.hero .hero-image{animation:none;opacity:1}}
+/* Brighter photo with static shading behind the homepage copy. */
+.hero .hero-image{filter:brightness(1.2);opacity:1}
+.hero .hero-shade{background:linear-gradient(90deg,#050505 0%,rgba(5,5,5,.76) 30%,rgba(5,5,5,.42) 54%,rgba(5,5,5,.06) 90%),linear-gradient(0deg,rgba(5,5,5,.62),transparent 62%)}
+@media(max-width:800px){.hero .hero-shade{background:linear-gradient(90deg,rgba(5,5,5,.82),rgba(5,5,5,.47) 68%,rgba(5,5,5,.14)),linear-gradient(0deg,rgba(5,5,5,.38),transparent 65%)}}
 
 .language-switcher{gap:8px}
 .language-switcher .language-option{position:relative;min-width:34px;min-height:44px;padding:0;border:0;border-radius:0;background:none;box-shadow:none;color:#aab1ac;text-decoration:none;transition:color .18s ease}
@@ -625,11 +625,11 @@ html[lang="uk"] .main-nav{gap:22px}
 @media(max-width:800px){.language-switcher .language-option{font-size:14px}}
 
 details.language-switcher{position:relative;display:block;flex-shrink:0}
-.language-toggle{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 4px;list-style:none;cursor:pointer;color:#fff;font:500 12px/1 var(--font);letter-spacing:.04em}
+.language-toggle{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 4px;list-style:none;cursor:pointer;color:rgba(250,250,250,.72);font:500 12px/1 var(--font);letter-spacing:.04em}
 .language-toggle::-webkit-details-marker{display:none}
 .language-toggle::marker{content:""}
 .language-globe{display:block;width:20px;height:20px;flex-shrink:0}
-.language-toggle:hover{color:#d6ddd7}
+.language-toggle:hover{color:var(--green)}
 .language-toggle:focus-visible{outline:2px solid #fff;outline-offset:4px}
 .language-menu{position:absolute;right:0;top:calc(100% + 8px);z-index:20;min-width:170px;padding:0;background:#151918;border:1px solid #454b47;border-radius:0;box-shadow:0 8px 24px #0005}
 details.language-switcher:not([open])>.language-menu{display:none}
@@ -650,3 +650,5 @@ details.language-switcher:not([open])>.language-menu{display:none}
   .main-nav .language-menu .language-option.is-current{background:none;text-decoration:none}
   .main-nav .language-menu .language-option.is-current::after{margin-left:8px}
 }
+
+.hero .hero-side{color:#fff}
