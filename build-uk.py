@@ -85,9 +85,9 @@ for name in PAGES:
     page = ROOT / name
     source = page.read_text()
     source = re.sub(r'<div class="language-switcher".*?</div>', switcher(name, 'en'), source, flags=re.S)
-    source = re.sub(r'styles\.css\?v=\d+', 'styles.css?v=131', source)
+    source = re.sub(r'styles\.css\?v=\d+', 'styles.css?v=132', source)
     source = re.sub(r'(?<![\w-])script\.js\?v=\d+', 'script.js?v=33', source)
-    source = re.sub(r'analytics\.js\?v=\d+', 'analytics.js?v=5', source)
+    source = re.sub(r'analytics\.js\?v=\d+', 'analytics.js?v=6', source)
     source = re.sub(r'\s*<link rel="alternate"[^>]*>', '', source)
     alternates = f'  <link rel="alternate" hreflang="en" href="{name}">\n  <link rel="alternate" hreflang="uk" href="{uk_name(name)}">\n'
     source = source.replace('</head>', alternates + '</head>')

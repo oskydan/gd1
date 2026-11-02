@@ -1,7 +1,20 @@
 (() => {
   'use strict';
-  const ukrainian = document.documentElement.lang === 'uk';
+  // Derive reporting language from the route, never from browser-translated DOM.
+  const pageFilename = location.pathname.split('/').pop() || 'index.html';
+  const ukrainian = pageFilename.endsWith('-uk.html');
   const text = (english, uk) => ukrainian ? uk : english;
+  const pageTitles = {
+    'index.html': ['GD1 Hockey | Camps & Player Development', 'GD1 Hockey | Кемпи та розвиток гравців'],
+    'camps.html': ['GD1 Camps | Upcoming & Past Camps', 'Кемпи GD1 | Найближчі та минулі кемпи'],
+    'coach.html': ['Coach | GD1 School', 'Тренер | Школа GD1'],
+    'school.html': ['The GD1 School | Training Through Camps', 'Школа GD1 | Розвиток через кемпи'],
+    'gallery.html': ['GD1 Gallery | Camp Photos', 'Галерея GD1 | Фото та відео кемпів'],
+    'contact.html': ['Contact GD1 | GD1 School', 'Контакти GD1 | Школа GD1'],
+    'prague-czech-republic-dec-2026.html': ['Prague, Czech Republic | GD1 Camp', 'Прага, Чехія | Кемп GD1']
+  };
+  const titlePair = pageTitles[pageFilename.replace(/-uk\.html$/, '.html')] || ['GD1 Hockey', 'GD1 Hockey'];
+  const reportingTitle = titlePair[ukrainian ? 1 : 0];
 
   // Keep file previews and local development out of the production project.
   if (!['https:', 'http:'].includes(location.protocol) ||
@@ -34,7 +47,7 @@
   const allowed = () => consent === true && !privacyRequested;
   const pageProperties = () => ({
     page_path: location.pathname,
-    page_title: document.title,
+    page_title: reportingTitle,
     page_language: ukrainian ? 'uk' : 'en'
   });
 
@@ -86,6 +99,16 @@
       ip: false,
       batch_requests: false,
       api_transport: 'sendBeacon',
+      hooks: {
+        before_send_events(event) {
+          // Normalize SDK-generated heatmap/page-view titles as well as custom events.
+          const properties = { ...event.properties, ...pageProperties() };
+          ['current_page_title', '$current_page_title', '$title'].forEach((key) => {
+            if (Object.prototype.hasOwnProperty.call(properties, key)) properties[key] = reportingTitle;
+          });
+          return { ...event, properties };
+        }
+      },
       property_blacklist: ['$current_url', '$referrer', '$initial_referrer', '$initial_referring_domain'],
       loaded(instance) {
         sdk = instance;

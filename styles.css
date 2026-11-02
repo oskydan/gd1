@@ -611,3 +611,8 @@ html[lang="uk"] .register-button{white-space:normal;text-align:center}
 html[lang="uk"] .main-nav{gap:22px}
 @media(max-width:1150px){html[lang="uk"] .main-nav{gap:14px}}
 @media(max-width:700px){html[lang="uk"] .camp-detail-format-counts{gap:18px}html[lang="uk"] .camp-detail-format-count span{font-size:11px;letter-spacing:.04em}html[lang="uk"] .school-page-hero h1{font-size:clamp(40px,9vw,62px)}}
+
+/* Homepage image: briefly brighter, then fade into the hero background. */
+.hero .hero-image{filter:brightness(1.12);animation:gd1-hero-image-fade 8s ease-in-out both}
+@keyframes gd1-hero-image-fade{0%,25%{opacity:1}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.hero .hero-image{animation:none;opacity:1}}
