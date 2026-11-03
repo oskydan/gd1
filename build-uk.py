@@ -90,7 +90,7 @@ for name in PAGES:
     source = re.sub(SWITCHER_PATTERN, switcher(name, 'en'), source, flags=re.S)
     source = re.sub(r'styles\.css\?v=\d+', 'styles.css?v=147', source)
     source = re.sub(r'(?<![\w-])script\.js\?v=\d+', 'script.js?v=35', source)
-    source = re.sub(r'analytics\.js\?v=\d+', 'analytics.js?v=6', source)
+    source = re.sub(r'analytics\.js\?v=\d+', 'analytics.js?v=8', source)
     source = re.sub(r'\s*<link rel="alternate"[^>]*>', '', source)
     alternates = f'  <link rel="alternate" hreflang="en" href="{name}">\n  <link rel="alternate" hreflang="uk" href="{uk_name(name)}">\n'
     source = source.replace('</head>', alternates + '</head>')
@@ -103,4 +103,4 @@ for name in PAGES:
     translated = translated.replace('  <script src="script.js?v=35">', '  <script src="camps-data-uk.js?v=1"></script>\n  <script src="script.js?v=35">')
     (ROOT / uk_name(name)).write_text(translated)
 
-print('Generated seven Ukrainian pages and enabled matching language links.')
+print('Generated Ukrainian pages and enabled matching language links.')
