@@ -424,9 +424,9 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-h
 .camp-detail-registration-copy .camp-detail-cta{margin-top:8px}
 @media(max-width:800px){.camp-detail-hero{grid-template-columns:1fr}.camp-detail-hero-copy{padding:70px 24px 48px}.camp-detail-hero-copy h1{font-size:clamp(68px,14vw,96px)}.camp-detail-hero-image,.camp-detail-hero-image img{min-height:0;height:auto;aspect-ratio:16/10}.camp-detail-grid,.camp-detail-registration-inner{grid-template-columns:1fr;gap:38px}.camp-detail-section{padding:68px 0}.camp-detail-pricing-grid{grid-template-columns:1fr 1fr;gap:28px}.camp-detail-pricing-grid>div:first-child{grid-column:1/-1}.camp-detail-price{padding-left:20px}.camp-detail-format{grid-template-columns:1fr;gap:20px}.camp-detail-format-counts{gap:12px}}
 @media(max-width:520px){.camp-detail-hero-copy{padding:58px 20px 38px}.camp-detail-hero-copy h1{font-size:67px}.camp-detail-lead{font-size:13px}.camp-detail-section{padding:58px 0}.camp-detail-main-copy h2,.camp-detail-registration h2{font-size:52px}.camp-detail-fact{display:block}.camp-detail-fact strong{display:block;text-align:left;margin-top:8px}.camp-detail-pricing{padding:58px 0}.camp-detail-pricing-grid{grid-template-columns:1fr;gap:10px}.camp-detail-pricing-grid>div:first-child{grid-column:auto;margin-bottom:14px}.camp-detail-price{padding:18px 0;border-left:0;border-top:1px solid #46504a}.camp-detail-price>span{margin-bottom:8px}.camp-detail-format{padding:24px 0;margin-top:30px}.camp-detail-format-heading>strong{font-size:19px}.camp-detail-format-counts{grid-template-columns:1fr 1fr;gap:8px}.camp-detail-format-count{gap:10px;padding:15px 12px}.camp-detail-format-count>strong{font-size:43px}.camp-detail-format-count>span{font-size:8px}}
-.prague-camp-page .camp-detail-grid{align-items:start}
-.prague-camp-page .camp-detail-facts{margin-top:32px}
-@media(max-width:800px){.prague-camp-page .camp-detail-facts{margin-top:0}}
+.prague-camp-page .camp-detail-grid,.kranevo-camp-page .camp-detail-grid{align-items:start}
+.prague-camp-page .camp-detail-facts,.kranevo-camp-page .camp-detail-facts{margin-top:32px}
+@media(max-width:800px){.prague-camp-page .camp-detail-facts,.kranevo-camp-page .camp-detail-facts{margin-top:0}}
 .camp-detail-page[data-camp-id="kranevo-november-2026"] .camp-detail-grid{align-items:start}
 .camp-detail-page[data-camp-id="kranevo-november-2026"] .camp-detail-facts{margin-top:32px}
 @media(max-width:800px){.camp-detail-page[data-camp-id="kranevo-november-2026"] .camp-detail-facts{margin-top:0}}

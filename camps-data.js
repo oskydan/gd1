@@ -1,17 +1,16 @@
 window.GD1_CAMPS = [
   {
-    id: 'kranevo-november-2026',
-    cancelled: true,
-    registrationUrl: 'https://forms.gle/m7AmoKwreeQetM5p9',
-    page: '',
+    id: 'elektrenai-december-2026',
+    registrationUrl: 'https://forms.gle/YNDhoywEVgocm9i38',
+    page: 'elektrenai-lithuania-dec-2026.html',
     image: 'assets/power-skating.jpg',
     imageAlt: 'Player training on the ice during a GD1 power skating camp',
-    period: '1–6 November 2026',
-    startsOn: '2026-11-01',
-    endsOn: '2026-11-06',
-    title: 'Kranevo, Bulgaria',
-    shortDescription: 'A focused power skating camp to sharpen edges, acceleration, and control. Train at a seaside rink in Kranevo, Bulgaria, for a distinctive on-ice experience.',
-    longDescription: 'Build more efficient movement through focused power skating work on edge control, acceleration, balance, and stride mechanics. The camp takes place in Kranevo, where the rink’s seaside setting gives players a memorable place to train and reset between sessions.'
+    period: '27–30 December 2026',
+    startsOn: '2026-12-27',
+    endsOn: '2026-12-30',
+    title: 'Elektrenai, Lithuania',
+    shortDescription: 'A skating skills-focused hockey camp in Elektrenai, with two on-ice and two off-ice training sessions daily during the winter break.',
+    longDescription: 'Develop stronger skating fundamentals at Elektrenai Ice Arena with focused daily on-ice and off-ice training. The camp fee is €300 per session, or €380 including lunch.'
   },
   {
     id: 'prague-december-2026',
@@ -132,9 +131,9 @@ window.GD1_CAMPS = [
   },
   {
     id: 'kranevo-april-2027',
-    registrationUrl: '',
-    registrationComingSoon: true,
-    page: '',
+    registrationUrl: 'https://forms.gle/CPYv3m3kc4zTCFVL6',
+    registrationComingSoon: false,
+    page: 'kranevo-bulgaria-apr-2027.html',
     image: 'assets/kranevo-rink.jpg',
     imageAlt: 'The seaside rink in Kranevo, Bulgaria',
     period: '6–11 April 2027',

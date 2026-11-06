@@ -5,6 +5,8 @@
   const ukrainian = pageFilename.endsWith('-uk.html');
   const text = (english, uk) => ukrainian ? uk : english;
   const pageTitles = {
+    'elektrenai-lithuania-dec-2026.html': ['Elektrenai, Lithuania | GD1 Camp', 'Електренай, Литва | Кемп GD1'],
+    'kranevo-bulgaria-apr-2027.html': ['Kranevo, Bulgaria | GD1 Camp', 'Кранево, Болгарія | Кемп GD1'],
     'index.html': ['GD1 Hockey | Camps & Player Development', 'GD1 Hockey | Кемпи та розвиток гравців'],
     'camps.html': ['GD1 Camps | Upcoming & Past Camps', 'Кемпи GD1 | Найближчі та минулі кемпи'],
     'coach.html': ['Coach | GD1 School', 'Тренер | Школа GD1'],
