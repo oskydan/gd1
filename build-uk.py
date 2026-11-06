@@ -89,7 +89,7 @@ for name in PAGES:
     source = page.read_text()
     source = re.sub(SWITCHER_PATTERN, switcher(name, 'en'), source, flags=re.S)
     source = re.sub(r'styles\.css\?v=\d+', 'styles.css?v=149', source)
-    source = re.sub(r'(?<![\w-])script\.js\?v=\d+', 'script.js?v=35', source)
+    source = re.sub(r'(?<![\w-])script\.js\?v=\d+', 'script.js?v=36', source)
     source = re.sub(r'analytics\.js\?v=\d+', 'analytics.js?v=10', source)
     source = re.sub(r'\s*<link rel="alternate"[^>]*>', '', source)
     alternates = f'  <link rel="alternate" hreflang="en" href="{name}">\n  <link rel="alternate" hreflang="uk" href="{uk_name(name)}">\n'
@@ -100,7 +100,7 @@ for name in PAGES:
     translated = ''.join(translator.parts)
     translated = re.sub(SWITCHER_PATTERN, switcher(name, 'uk'), translated, flags=re.S)
     translated = translated.replace('</head>', '  <link rel="stylesheet" href="fonts-cyrillic.css?v=1">\n  <link rel="preload" href="assets/fonts/inter-cyrillic.woff2" as="font" type="font/woff2" crossorigin>\n  <link rel="preload" href="assets/fonts/oswald-cyrillic.woff2" as="font" type="font/woff2" crossorigin>\n</head>')
-    translated = translated.replace('  <script src="script.js?v=35">', '  <script src="camps-data-uk.js?v=2"></script>\n  <script src="script.js?v=35">')
+    translated = translated.replace('  <script src="script.js?v=36">', '  <script src="camps-data-uk.js?v=2"></script>\n  <script src="script.js?v=36">')
     (ROOT / uk_name(name)).write_text(translated)
 
 print('Generated Ukrainian pages and enabled matching language links.')

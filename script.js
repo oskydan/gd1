@@ -90,7 +90,7 @@ const registrationButton = (camp) => camp.cancelled
 function renderHomeCamps() {
   const container = document.querySelector('#home-camp-list');
   if (!container) return;
-  const upcoming = campList.filter((camp) => !isCampPast(camp)).slice(0, 3);
+  const upcoming = campList.filter((camp) => !isCampPast(camp)).sort((a, b) => a.startsOn.localeCompare(b.startsOn)).slice(0, 3);
   if (upcoming.length === 0) {
     container.innerHTML = `<p class="camp-empty-state">${ui('No upcoming camps are scheduled right now. Check back soon for new dates.', 'Наразі найближчі кемпи ще не заплановані. Завітайте згодом, щоб дізнатися нові дати.')}</p>`;
     return;
