@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "fileLimitsBytes": {
+    "image": 358400,
+    "imageSmall": 81920,
+    "imageMedium": 204800,
+    "videoPoster": 102400,
+    "video": 10485760,
+    "font": 102400,
+    "stylesheet": 102400,
+    "script": 102400,
+    "html": 102400,
+    "other": 204800
+  },
+  "totalLimitsBytes": {
+    "image": 10485760,
+    "video": 83886080,
+    "package": 89128960
+  },
+  "exceptions": {
+    "assets/optimized/kaunas-1600.webp": {
+      "maxBytes": 699876,
+      "sha256": "ff44b609b2a579876db7a41af2d324636351a4f27bfc4114b830a94ceafc667b",
+      "reason": "Existing optimized media retained at its current size. A changed or replacement file must meet the standard limit or receive an explicit budget review."
+    },
+    "assets/optimized/kaunas-960.webp": {
+      "maxBytes": 231156,
+      "sha256": "0d807c968f084696e7f32ef285152df9ab522777fba6be84260abb273ec5bdf2",
+      "reason": "Existing optimized media retained at its current size. A changed or replacement file must meet the standard limit or receive an explicit budget review."
+    },
+    "assets/optimized/videos/gd1-prague-2024-1.mp4": {
+      "maxBytes": 15370194,
+      "sha256": "cc9448e820d887e779c346328bb82cd605ffdba66123bbf636f0179e77c6bb66",
+      "reason": "Existing optimized media retained at its current size. A changed or replacement file must meet the standard limit or receive an explicit budget review."
+    },
+    "assets/optimized/videos/gd1-prague-2024-3.mp4": {
+      "maxBytes": 21179270,
+      "sha256": "1bbb8ba5d1eee9e1bdcdc94691735adf8ec3fe65147d676ace58534eb0bc16ee",
+      "reason": "Existing optimized media retained at its current size. A changed or replacement file must meet the standard limit or receive an explicit budget review."
+    },
+    "assets/optimized/videos/gd1-prague-2024-4.mp4": {
+      "maxBytes": 14522154,
+      "sha256": "22006165abed02c4e1300ac7123c0edc67552473f91d21391b5d2164b017ade4",
+      "reason": "Existing optimized media retained at its current size. A changed or replacement file must meet the standard limit or receive an explicit budget review."
+    }
+  }
+}

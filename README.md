@@ -137,3 +137,29 @@ A root base URL keeps links, fonts and images working when the requested URL is 
 Error pages are marked `noindex, follow`, excluded from the sitemap and do not advertise canonical/event metadata. GitHub Pages returns the custom English page with an HTTP 404 response for missing routes after deployment. The local browser-test server mirrors this behaviour, and the tests verify the status, navigation, language selection and 320px layouts. Directly opening `/404.html` or `/404-uk.html` is a normal file request and may return 200; missing URLs must still return 404.
 
 GitHub documentation: https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-custom-404-page-for-your-github-pages-site .
+
+## Performance limits
+
+Both automated check and deployment workflows check the public package before browser tests and publication. An oversized addition fails the check with its filename and size. Editing originals remain in the repository and are excluded when they are not shipped to visitors.
+
+| File | Maximum size |
+| --- | --- |
+| Image | 350 KiB |
+| Responsive image up to 480px | 80 KiB |
+| Responsive image up to 960px | 200 KiB |
+| Video poster (`-cover`) | 100 KiB |
+| Video | 10 MiB |
+| Each font, stylesheet, script or HTML file | 100 KiB |
+| Other file | 200 KiB |
+
+Cumulative limits are 10 MiB for images, 80 MiB for videos and 85 MiB for the entire public package. These prevent gradual growth even when individual files fit. KiB = 1,024 bytes; MiB = 1,048,576 bytes.
+
+Run locally after packaging:
+
+```sh
+python3 tools/package-site.py
+python3 tools/test-performance.py
+python3 tools/check-performance.py
+```
+
+Limits live in `data/performance-budgets.json`. Five existing larger optimized files have exact SHA-256-pinned exceptions. Their replacement or growth is not automatically allowed, and they still count toward cumulative limits. Optimize new media first; change a limit or exception only after reviewing the impact. Remove an exception when its file is removed.
