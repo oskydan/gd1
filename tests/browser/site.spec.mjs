@@ -8,11 +8,15 @@ const clockDate=new Date(Date.parse((detailCamps[0]||source.camps[0]).startsOn+'
 const upcoming=source.camps.filter(c=>c.endsOn>=clockDate.toISOString().slice(0,10)).sort((a,b)=>a.startsOn.localeCompare(b.startsOn));
 const camps=detailCamps.filter(c=>c.status==='open');
 const failures=new WeakMap();
+const expected404=new WeakMap();
 
 test.beforeEach(async({page,context})=>{
-  const errors=[];failures.set(page,errors);
+  const errors=[];failures.set(page,errors);expected404.set(page,new Set());
   page.on('pageerror',error=>errors.push(error.message));
-  page.on('response',res=>{if(res.url().startsWith('http://127.0.0.1:4173')&&res.status()>=400)errors.push(`${res.status()} ${res.url()}`)});
+  page.on('response',res=>{if(res.url().startsWith('http://127.0.0.1:4173')&&res.status()>=400){
+    if(res.status()===404&&expected404.get(page).has(new URL(res.url()).pathname))return;
+    errors.push(`${res.status()} ${res.url()}`);
+  }});
   await context.route('**/*',async route=>{
     const url=new URL(route.request().url());
     // WebKit routes its local media Blob URLs through interception too.
@@ -134,3 +138,36 @@ test('small mobile viewport does not overflow when the menu opens',async({page})
   await page.goto('/index-uk.html');await page.locator('.menu-toggle').click();
   await expect(page.locator('.main-nav')).toBeVisible();await layout(page);
 });
+
+for(const missing of ['/missing-gd1-page.html','/old/wordpress/post/']){
+  test('404 recovery at '+missing,async({page})=>{
+    expected404.get(page).add(missing);
+    const response=await page.goto(missing);expect(response.status()).toBe(404);
+    await expect(page).toHaveURL('http://127.0.0.1:4173'+missing);
+    await expect(page.locator('body')).toHaveClass('not-found-page');
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content',/noindex/);
+    await layout(page);
+    await page.locator('.not-found-actions a[href="camps.html"]').click();
+    await expect(page).toHaveURL('http://127.0.0.1:4173/camps.html');
+    await expect(page.locator('#upcoming-camps')).toBeVisible();
+  });
+}
+
+test('404 language selection and Ukrainian home recovery',async({page,isMobile})=>{
+  expected404.get(page).add('/missing/language-test/');
+  await page.goto('/missing/language-test/');
+  await page.locator(isMobile?'.menu-toggle':'.language-toggle').click();
+  await page.locator('.language-option[hreflang="uk"]').click();
+  await expect(page).toHaveURL('http://127.0.0.1:4173/404-uk.html');
+  await expect(page.locator('html')).toHaveAttribute('lang','uk');
+  await page.locator('.not-found-actions a[href="index-uk.html"]').click();
+  await expect(page).toHaveURL('http://127.0.0.1:4173/index-uk.html');
+});
+
+for(const name of ['404.html','404-uk.html']){
+  test('404 fits a narrow phone: '+name,async({page})=>{
+    await page.setViewportSize({width:320,height:740});
+    await page.goto('/'+name);await layout(page);
+    await expect(page.locator('.not-found-actions a').first()).toBeVisible();
+  });
+}

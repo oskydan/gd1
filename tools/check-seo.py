@@ -6,7 +6,7 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
 import json,xml.etree.ElementTree as ET
 from camps import read
-from seo import origin,canonical,event
+from seo import origin,canonical,event,ERROR_PAGES
 from media import load
 ROOT=Path(__file__).resolve().parents[1]
 base=origin(ROOT);data=read(ROOT)
@@ -29,7 +29,12 @@ class Metadata(HTMLParser):
 
 canonical_urls=[];event_count=0
 for p in ROOT.glob('*.html'):
-    parsed=Metadata(p.read_text());url=canonical(base,p.name);canonical_urls.append(url)
+    parsed=Metadata(p.read_text());url=canonical(base,p.name)
+    if p.name in ERROR_PAGES:
+        assert not parsed.canon and not parsed.events and not parsed.alternates,p.name+': error page must not advertise canonical/event metadata'
+        assert '<meta name="robots" content="noindex, follow">' in p.read_text(),p.name+': missing noindex'
+        continue
+    canonical_urls.append(url)
     assert parsed.canon==[url],p.name+': expected exactly one self-canonical'
     en=p.name.replace('-uk.html','.html');uk=en.replace('.html','-uk.html')
     assert parsed.alternates=={'en':canonical(base,en),'uk':canonical(base,uk),'x-default':canonical(base,en)},p.name+': invalid language references'

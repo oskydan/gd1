@@ -102,7 +102,7 @@ After publishing, submit `https://gd1.pro/sitemap.xml` in Google Search Console 
 
 Playwright tests the packaged website in desktop Chromium, mobile Chromium (Pixel profile), and WebKit with an iPhone-sized viewport. Device profiles emulate browser/touch behaviour; they do not replace testing on a physical phone.
 
-The suite opens all 18 pages in both languages and checks horizontal overflow, loaded images, menus, language switching, chronological camps, external registration tabs, photo-viewer controls/focus/scroll restoration, video playback without preloading other films, 12-camp pagination and a 320px menu layout. Tests run against `dist/`, the same package that is published.
+The suite opens all published pages in both languages and checks horizontal overflow, loaded images, menus, language switching, chronological camps, external registration tabs, photo-viewer controls/focus/scroll restoration, video playback without preloading other films, 12-camp pagination and a 320px menu layout. Tests run against `dist/`, the same package that is published.
 
 To run locally with Node.js 24 and Python 3.12+:
 
@@ -121,3 +121,19 @@ The runner starts and stops its own loopback-only server on port 4173. It fixes 
 Both GitHub workflows run the suite before publication. Failures block deployment and produce an HTML report, screenshot and trace, available as a workflow artifact for 7 days. Test dependencies, reports and screenshots are excluded from the published site and ignored by Git.
 
 Playwright configuration reference: https://playwright.dev/docs/test-configuration and CI guidance: https://playwright.dev/docs/ci-intro .
+
+## CSS maintenance
+
+`styles.css` is the shared stylesheet for both languages. It uses readable declaration blocks and section notes. Global theme tokens are at the top: `--accent`, `--font`, and `--display`. Responsive rules retain their cascade position so breakpoint behaviour stays consistent. Cyrillic font-face definitions remain in `fonts-cyrillic.css`.
+
+When adjusting a component, edit its existing rule and the relevant breakpoint rather than adding a new override at the bottom. Preserve keyboard focus/hover styles, disabled states and reduced-motion/viewport fallbacks. Run the build to refresh stylesheet versions and the browser suite before publishing.
+
+## Missing pages
+
+`404.html` is the custom GitHub Pages error page; `404-uk.html` is its Ukrainian counterpart. Both use the normal header/footer, with recovery links to Home, Camps and Contact. Visitors can choose Ukrainian from the language menu. The page does not automatically redirect away from the missing URL.
+
+A root base URL keeps links, fonts and images working when the requested URL is nested (for example `/old/wordpress/post/`). Direct local-file previews resolve assets from the local site folder. The existing `/gd1/` GitHub project path is also supported.
+
+Error pages are marked `noindex, follow`, excluded from the sitemap and do not advertise canonical/event metadata. GitHub Pages returns the custom English page with an HTTP 404 response for missing routes after deployment. The local browser-test server mirrors this behaviour, and the tests verify the status, navigation, language selection and 320px layouts. Directly opening `/404.html` or `/404-uk.html` is a normal file request and may return 200; missing URLs must still return 404.
+
+GitHub documentation: https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-custom-404-page-for-your-github-pages-site .

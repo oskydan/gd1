@@ -6,6 +6,7 @@ from pathlib import Path
 import json,re
 import xml.etree.ElementTree as ET
 from media import load,image_info
+ERROR_PAGES={'404.html','404-uk.html'}
 
 def origin(root):
     domain=(root/'CNAME').read_text().strip()
@@ -38,6 +39,11 @@ def generate(root,data,as_of=None):
         s=path.read_text()
         s=re.sub(r'\s*<link\b[^>]*rel="(?:canonical|alternate)"[^>]*>','',s)
         s=re.sub(r'\s*<script\b[^>]*id="gd1-event-data"[^>]*>.*?</script>','',s,flags=re.S)
+        if path.name in ERROR_PAGES:
+            if not re.search(r'<meta\s+name="robots"',s):
+                s=s.replace('</head>','  <meta name="robots" content="noindex, follow">\n</head>')
+            path.write_text(s)
+            continue
         links=f'  <link rel="canonical" href="{canonical(base,path.name)}">\n'
         for code,name in [('en',english),('uk',uk),('x-default',english)]:
             links+=f'  <link rel="alternate" hreflang="{code}" href="{canonical(base,name)}">\n'
@@ -50,6 +56,7 @@ def generate(root,data,as_of=None):
     ET.register_namespace('',ns)
     sitemap=ET.Element('{'+ns+'}urlset')
     for path in pages:
+        if path.name in ERROR_PAGES:continue
         node=ET.SubElement(sitemap,'{'+ns+'}url')
         ET.SubElement(node,'{'+ns+'}loc').text=canonical(base,path.name)
     ET.indent(sitemap,space='  ')

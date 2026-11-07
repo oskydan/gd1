@@ -24,7 +24,7 @@ class Page(HTMLParser):
         if tag=='h1':self.h1+=1
         if tag=='img':require(bool(a.get('alt')),f'{self.path.name}: image missing description')
         for key in ('href','src','data-src','poster'):
-            if a.get(key):self.refs.append(a[key])
+            if a.get(key) and tag!='base':self.refs.append(a[key])
         if a.get('srcset'):
             self.refs.extend(item.strip().split()[0] for item in a['srcset'].split(','))
         if tag=='video':
@@ -43,7 +43,8 @@ for path in ROOT.glob('*.html'):
     require(p.h1<=1,f'{path.name}: duplicate main headings')
     peer=path.name.replace('-uk.html','.html') if lang=='uk' else path.stem+'-uk.html'
     require((ROOT/peer).exists(),f'{path.name}: missing language counterpart')
-    require(set(p.alternates)=={'en','uk','x-default'},f'{path.name}: missing language alternates')
+    expected_alternates=set() if path.name in ('404.html','404-uk.html') else {'en','uk','x-default'}
+    require(set(p.alternates)==expected_alternates,f'{path.name}: incorrect language alternates')
     for asset in ('script.js','analytics.js','styles.css'):
         require(any(urlsplit(ref).path==asset for ref in p.refs),f'{path.name}: missing shared {asset}')
     if p.campid:

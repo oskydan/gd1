@@ -2,7 +2,8 @@
   'use strict';
   // Derive reporting language from the route, never from browser-translated DOM.
   const pageFilename = location.pathname.split('/').pop() || 'index.html';
-  const ukrainian = pageFilename.endsWith('-uk.html');
+  const isNotFound = document.body.classList.contains('not-found-page');
+  const ukrainian = isNotFound ? pageFilename === '404-uk.html' : pageFilename.endsWith('-uk.html');
   const text = (english, uk) => ukrainian ? uk : english;
   const pageTitles = {
     'index.html': ['GD1 Hockey | Camps & Player Development', 'GD1 Hockey | Кемпи та розвиток гравців'],
@@ -12,7 +13,7 @@
     'gallery.html': ['GD1 Gallery | Camp Photos', 'Галерея GD1 | Фото та відео кемпів'],
     'contact.html': ['Contact GD1 | GD1 School', 'Контакти GD1 | Школа GD1'],
   };
-  const titlePair = pageTitles[pageFilename.replace(/-uk\.html$/, '.html')] || ['GD1 Hockey', 'GD1 Hockey'];
+  const titlePair = isNotFound ? ['Page not found | GD1', 'Сторінку не знайдено | GD1'] : pageTitles[pageFilename.replace(/-uk\.html$/, '.html')] || ['GD1 Hockey', 'GD1 Hockey'];
   const reportingCamp = (window.GD1_CAMPS || []).find(camp => camp.page === pageFilename);
   const reportingTitle = reportingCamp ? `${reportingCamp.title} | ${ukrainian ? 'Кемп GD1' : 'GD1 Camp'}` : titlePair[ukrainian ? 1 : 0];
 

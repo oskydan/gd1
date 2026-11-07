@@ -11,7 +11,7 @@ from camps import read, translations
 from urllib.parse import urlsplit, urlunsplit
 
 ROOT = Path(__file__).resolve().parent
-PAGES = ['index.html', 'camps.html', 'coach.html', 'school.html', 'gallery.html', 'contact.html']
+PAGES = ['index.html', 'camps.html', 'coach.html', 'school.html', 'gallery.html', 'contact.html', '404.html']
 CATALOG = json.loads((ROOT / 'translations-uk.json').read_text())
 CATALOG.update(translations(read(ROOT)))
 CATALOG.update({'English': 'Англійська', 'Ukrainian': 'Українська', 'Choose language': 'Обрати мову'})

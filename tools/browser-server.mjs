@@ -11,10 +11,14 @@ http.createServer((req,res)=>{
   try{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname);file=path.resolve(root,'.'+(pathname==='/'?'/index.html':pathname))}catch{res.writeHead(400);return res.end()}
   if(!file.startsWith(root+path.sep)){res.writeHead(403);return res.end()}
   fs.stat(file,(error,stat)=>{
-    if(error||!stat.isFile()){res.writeHead(404);return res.end('Not found')}
+    const missing=Boolean(error||!stat.isFile());
+    if(missing){
+      file=path.join(root,'404.html');
+      try{stat=fs.statSync(file)}catch{res.writeHead(404);return res.end('Not found')}
+    }
     const headers={'Content-Type':types[path.extname(file)]||'application/octet-stream','Accept-Ranges':'bytes','Cache-Control':'no-store'};
-    let start=0,end=stat.size-1,status=200;
-    if(req.headers.range){
+    let start=0,end=stat.size-1,status=missing?404:200;
+    if(req.headers.range&&!missing){
       const range=/^bytes=(\d+)-(\d*)$/.exec(req.headers.range);
       if(!range){res.writeHead(416,{'Content-Range':`bytes */${stat.size}`});return res.end()}
       start=Number(range[1]);end=range[2]?Math.min(Number(range[2]),end):end;
