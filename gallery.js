@@ -90,6 +90,17 @@ if (photoViewer) {
   photoViewer.querySelector('.gallery-lightbox-prev').addEventListener('click', () => showPhoto(current - 1));
   photoViewer.querySelector('.gallery-lightbox-next').addEventListener('click', () => showPhoto(current + 1));
   photoViewer.addEventListener('keydown', event => {
+    if (event.key === 'Tab') {
+      const controls = [...photoViewer.querySelectorAll('button:not([disabled])')];
+      const first = controls[0], last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       event.preventDefault();
       showPhoto(current + (event.key === 'ArrowRight' ? 1 : -1));

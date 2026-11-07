@@ -97,3 +97,27 @@ Event generation uses the build date in Europe/Warsaw. Completed camps lose upco
 `python3 tools/check-seo.py` checks canonicals, reciprocal language links, sitemap coverage, event JSON and registration prices. Both GitHub workflows run it before publication. The public package includes the sitemap and robots file.
 
 After publishing, submit `https://gd1.pro/sitemap.xml` in Google Search Console and inspect the camp URLs using Google's Rich Results Test. Local validation cannot guarantee indexing or enhanced search results. References: https://developers.google.com/search/docs/appearance/structured-data/event and https://developers.google.com/search/docs/specialty/international/localized-versions .
+
+## Real-browser tests
+
+Playwright tests the packaged website in desktop Chromium, mobile Chromium (Pixel profile), and WebKit with an iPhone-sized viewport. Device profiles emulate browser/touch behaviour; they do not replace testing on a physical phone.
+
+The suite opens all 18 pages in both languages and checks horizontal overflow, loaded images, menus, language switching, chronological camps, external registration tabs, photo-viewer controls/focus/scroll restoration, video playback without preloading other films, 12-camp pagination and a 320px menu layout. Tests run against `dist/`, the same package that is published.
+
+To run locally with Node.js 24 and Python 3.12+:
+
+```sh
+npm ci
+npx playwright install chromium webkit
+python3 tools/build.py
+python3 tools/package-site.py
+npm run test:browser
+```
+
+On Linux, install browser system dependencies with `npx playwright install --with-deps chromium webkit`. On a Mac with Chrome installed, set `GD1_TEST_CHROME_PATH` to the Chrome executable if you want to use it for the Chromium projects. The default uses Playwright's bundled Chromium.
+
+The runner starts and stops its own loopback-only server on port 4173. It fixes the browser date relative to the configured camps so the tests remain useful after those camps end. Registration destinations are intercepted with harmless test responses; no real form is contacted or submitted. Local analytics is disabled, and unexpected external requests fail the tests.
+
+Both GitHub workflows run the suite before publication. Failures block deployment and produce an HTML report, screenshot and trace, available as a workflow artifact for 7 days. Test dependencies, reports and screenshots are excluded from the published site and ignored by Git.
+
+Playwright configuration reference: https://playwright.dev/docs/test-configuration and CI guidance: https://playwright.dev/docs/ci-intro .

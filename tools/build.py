@@ -48,7 +48,7 @@ if __name__=='__main__':
         with tempfile.TemporaryDirectory(prefix='gd1-check-') as folder:
             temp=Path(folder)
             for p in ROOT.iterdir():
-                if p.name in ('.git','assets','dist','__pycache__'):continue
+                if p.name in ('.git','assets','dist','__pycache__','node_modules','playwright-report','test-results'):continue
                 if p.is_dir():shutil.copytree(p,temp/p.name,ignore=shutil.ignore_patterns('__pycache__'))
                 else:shutil.copy2(p,temp/p.name)
             generate(temp)
