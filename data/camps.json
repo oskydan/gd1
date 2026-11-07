@@ -1,0 +1,580 @@
+{
+  "schemaVersion": 1,
+  "footerCampIds": [
+    "prague-december-2026",
+    "elektrenai-december-2026",
+    "kranevo-april-2027"
+  ],
+  "defaults": {
+    "onIceDaily": 2,
+    "offIceDaily": 2,
+    "prepaymentEuro": 100,
+    "cancellationMonths": 1
+  },
+  "camps": [
+    {
+      "id": "elektrenai-december-2026",
+      "startsOn": "2026-12-27",
+      "endsOn": "2026-12-30",
+      "image": "assets/power-skating.jpg",
+      "page": "elektrenai-lithuania-dec-2026.html",
+      "registrationUrl": "https://forms.gle/YNDhoywEVgocm9i38",
+      "status": "open",
+      "copy": {
+        "en": {
+          "title": "Elektrenai, Lithuania",
+          "imageAlt": "Player training on the ice during a GD1 power skating camp",
+          "shortDescription": "A skating skills-focused hockey camp in Elektrenai, with {onIce} on-ice and {offIce} off-ice training sessions daily during the winter break.",
+          "longDescription": "Develop stronger skating fundamentals at Elektrenai Ice Arena with focused daily on-ice and off-ice training. The camp fee is €{campFee} per session, or €{campFeeWithLunch} including lunch.",
+          "heroLabel": "GD1 POWER SKATING SKILLS CAMP",
+          "heroHeading": [
+            "Elektrenai,",
+            "Lithuania."
+          ],
+          "heroLead": "A comprehensive skating skills-focused hockey camp with {onIce} on-ice and {offIce} off-ice training sessions every day.",
+          "formatHeading": [
+            "Build a stronger",
+            "skating foundation."
+          ],
+          "formatDescription": "Develop your skating skills with a focused daily program that combines on-ice training at Elektrenai Ice Arena with off-ice work.",
+          "venue": "Elektrenai Ice Arena",
+          "accommodation": "",
+          "costHeading": [
+            "Choose your",
+            "camp option."
+          ]
+        },
+        "uk": {
+          "title": "Електренай, Литва",
+          "imageAlt": "Гравець тренується на льоду під час кемпу GD1 з техніки катання",
+          "shortDescription": "Хокейний кемп із фокусом на техніці катання в Електренаї: щодня {onIce} тренування на льоду та {offIce} поза льодом під час зимових канікул.",
+          "longDescription": "Розвивайте міцні навички катання на Elektrenai Ice Arena завдяки щоденним тренуванням на льоду та поза льодом. Вартість однієї сесії - {campFee} €, або {campFeeWithLunch} € з обідом.",
+          "heroLabel": "КЕМП GD1 ІЗ ТЕХНІКИ СИЛОВОГО КАТАННЯ",
+          "heroHeading": [
+            "Електренай,",
+            "Литва."
+          ],
+          "heroLead": "Комплексний хокейний кемп із фокусом на техніці катання: щодня {onIce} тренування на льоду та {offIce} поза льодом.",
+          "formatHeading": [
+            "Закладіть міцну",
+            "основу катання."
+          ],
+          "formatDescription": "Удосконалюйте техніку катання за щоденною програмою, що поєднує тренування на льоду Elektrenai Ice Arena з роботою поза льодом.",
+          "venue": "Elektrenai Ice Arena",
+          "accommodation": "",
+          "costHeading": [
+            "Оберіть",
+            "варіант участі."
+          ]
+        }
+      },
+      "detail": {
+        "bodyClass": "camp-detail-page kranevo-camp-page",
+        "venueUrl": "https://www.google.com/maps/search/?api=1&query=Elektrenai+Ice+Arena+Lithuania",
+        "mapArrow": false,
+        "prices": [
+          {
+            "amount": 300,
+            "label": {
+              "en": "Camp fee",
+              "uk": "Участь у кемпі"
+            },
+            "unit": {
+              "en": "",
+              "uk": ""
+            },
+            "note": {
+              "en": "One session",
+              "uk": "Одна сесія"
+            },
+            "id": "campFee"
+          },
+          {
+            "amount": 380,
+            "label": {
+              "en": "Camp fee with lunch",
+              "uk": "Вартість кемпу з обідом"
+            },
+            "unit": {
+              "en": "",
+              "uk": ""
+            },
+            "note": {
+              "en": "One session, including lunch",
+              "uk": "Одна сесія з обідом"
+            },
+            "id": "campFeeWithLunch"
+          }
+        ]
+      }
+    },
+    {
+      "id": "prague-december-2026",
+      "startsOn": "2026-12-21",
+      "endsOn": "2026-12-26",
+      "image": "assets/prague-city.png",
+      "page": "prague-czech-republic-dec-2026.html",
+      "registrationUrl": "https://forms.gle/PFzz2LfBapTnM2As7",
+      "status": "open",
+      "copy": {
+        "en": {
+          "title": "Prague, Czech Republic",
+          "imageAlt": "Prague at dusk, the host city for the GD1 Christmas camp",
+          "shortDescription": "A Christmas power skating camp in Prague, with focused work on stronger edges and quicker strides during the winter holiday season.",
+          "longDescription": "Use the winter break to focus on skating technique and build more control, speed, and confidence on the ice. Training is paired with time in Prague, creating a distinctive holiday camp experience for players and families.",
+          "heroLabel": "GD1 WINTER HOCKEY CAMP",
+          "heroHeading": [
+            "Prague,",
+            "Czechia."
+          ],
+          "heroLead": "A comprehensive winter hockey camp with {onIce} on-ice and {offIce} off-ice training sessions every day.",
+          "formatHeading": [
+            "Train through",
+            "the winter break."
+          ],
+          "formatDescription": "Make the most of the holiday week with a focused daily program that balances on-ice hockey training and off-ice work.",
+          "venue": "Skoda Icerink",
+          "accommodation": "Optional, by request",
+          "costHeading": [
+            "Plan your",
+            "stay."
+          ]
+        },
+        "uk": {
+          "title": "Прага, Чехія",
+          "imageAlt": "Вечірня Прага - місто різдвяного кемпу GD1",
+          "shortDescription": "Різдвяний кемп із техніки катання у Празі: цілеспрямована робота над контролем ребер і швидкістю кроку під час зимових канікул.",
+          "longDescription": "Використайте зимові канікули для вдосконалення техніки катання, контролю рухів, швидкості та впевненості на льоду. Тренування й час у Празі подарують особливий святковий досвід гравцям та їхнім родинам.",
+          "heroLabel": "ЗИМОВИЙ ХОКЕЙНИЙ КЕМП GD1",
+          "heroHeading": [
+            "Прага,",
+            "Чехія."
+          ],
+          "heroLead": "Комплексний зимовий хокейний кемп: щодня по два тренування на льоду та поза льодом.",
+          "formatHeading": [
+            "Тренуйся під час",
+            "зимових канікул."
+          ],
+          "formatDescription": "Проведіть святковий тиждень із користю за цілеспрямованою щоденною програмою, що поєднує хокейні тренування на льоду й підготовку поза ним.",
+          "venue": "Skoda Icerink",
+          "accommodation": "За бажанням, за запитом",
+          "costHeading": [
+            "Сплануйте",
+            "перебування."
+          ]
+        }
+      },
+      "detail": {
+        "bodyClass": "camp-detail-page prague-camp-page",
+        "venueUrl": "https://www.google.com/maps/place/P%C5%99etluck%C3%A1+3422%2F23,+100+00+Stra%C5%A1nice,+Czechia/@50.0629653,14.5091196,17z/data=!3m1!4b1!4m6!3m5!1s0x470b92feb8b3b9eb:0xfeda17654d477962!8m2!3d50.0629619!4d14.5116999!16s%2Fg%2F11v3xp6k9_?entry=ttu&g_ep=EgoyMDI0MTExMy4xIKXMDSoASAFQAw%3D%3D",
+        "mapArrow": true,
+        "prices": [
+          {
+            "amount": 400,
+            "label": {
+              "en": "Camp fee",
+              "uk": "Участь у кемпі"
+            },
+            "unit": {
+              "en": "",
+              "uk": ""
+            },
+            "note": {
+              "en": "Accommodation not included",
+              "uk": "Проживання не включено"
+            },
+            "id": "campFee"
+          },
+          {
+            "amount": 75,
+            "label": {
+              "en": "Optional accommodation",
+              "uk": "Проживання за бажанням"
+            },
+            "unit": {
+              "en": "/ night",
+              "uk": "/ ніч"
+            },
+            "note": {
+              "en": "Hotel Astra, including meals, arranged by request",
+              "uk": "Готель Astra, з харчуванням, за попереднім запитом"
+            },
+            "id": "accommodationFee"
+          }
+        ]
+      }
+    },
+    {
+      "id": "prague-december-2025",
+      "startsOn": "2025-12-22",
+      "endsOn": "2025-12-27",
+      "image": "assets/prague-city.png",
+      "page": "",
+      "registrationUrl": "",
+      "status": "closed",
+      "copy": {
+        "en": {
+          "title": "Prague, Czech Republic",
+          "imageAlt": "Prague at dusk, the host city for the GD1 Christmas camp",
+          "shortDescription": "A Christmas power skating camp in Prague focused on stronger edges, quicker acceleration, and more confident movement on the ice.",
+          "longDescription": "A holiday training week dedicated to power skating and building efficient movement on the ice. Players worked on edge control, stride mechanics, balance, and acceleration, with the atmosphere of Prague during the winter holiday season."
+        },
+        "uk": {
+          "title": "Прага, Чехія",
+          "imageAlt": "Вечірня Прага - місто різдвяного кемпу GD1",
+          "shortDescription": "Різдвяний кемп у Празі з акцентом на контроль ребер, швидке прискорення та впевнене катання.",
+          "longDescription": "Святковий тиждень тренувань із техніки катання та ефективного руху на льоду. Гравці працювали над контролем ребер, механікою кроку, балансом і прискоренням у зимовій атмосфері Праги."
+        }
+      }
+    },
+    {
+      "id": "prague-summer-2026",
+      "startsOn": "2026-06-29",
+      "endsOn": "2026-07-25",
+      "image": "assets/prague-city.png",
+      "page": "",
+      "registrationUrl": "",
+      "status": "closed",
+      "copy": {
+        "en": {
+          "title": "Prague, Czech Republic",
+          "imageAlt": "Prague at dusk, the host city for the GD1 summer camp",
+          "shortDescription": "A summer power skating camp in Prague focused on edge control, efficient stride mechanics, and acceleration.",
+          "longDescription": "A summer training camp dedicated to refining skating technique and building more efficient movement on the ice. Players focus on edge control, balance, stride mechanics, and acceleration while training in Prague."
+        },
+        "uk": {
+          "title": "Прага, Чехія",
+          "imageAlt": "Вечірня Прага - місто літнього кемпу GD1",
+          "shortDescription": "Літній кемп із техніки катання у Празі: контроль ребер, ефективна механіка кроку та прискорення.",
+          "longDescription": "Літній тренувальний кемп для вдосконалення техніки катання й ефективності рухів на льоду. У Празі гравці працюють над контролем ребер, балансом, механікою кроку та прискоренням."
+        }
+      }
+    },
+    {
+      "id": "prague-summer-2025",
+      "startsOn": "2025-06-30",
+      "endsOn": "2025-07-26",
+      "image": "assets/prague-city.png",
+      "page": "",
+      "registrationUrl": "",
+      "status": "closed",
+      "copy": {
+        "en": {
+          "title": "Prague, Czech Republic",
+          "imageAlt": "Prague at dusk, the host city for the GD1 summer camp",
+          "shortDescription": "A summer power skating camp in Prague focused on edge control, efficient stride mechanics, and acceleration.",
+          "longDescription": "A summer training camp dedicated to refining skating technique and building more efficient movement on the ice. Players focus on edge control, balance, stride mechanics, and acceleration while training in Prague."
+        },
+        "uk": {
+          "title": "Прага, Чехія",
+          "imageAlt": "Вечірня Прага - місто літнього кемпу GD1",
+          "shortDescription": "Літній кемп із техніки катання у Празі: контроль ребер, ефективна механіка кроку та прискорення.",
+          "longDescription": "Літній тренувальний кемп для вдосконалення техніки катання й ефективності рухів на льоду. У Празі гравці працюють над контролем ребер, балансом, механікою кроку та прискоренням."
+        }
+      }
+    },
+    {
+      "id": "prague-june-2024",
+      "startsOn": "2024-06-01",
+      "endsOn": "2024-06-20",
+      "image": "assets/prague-city.png",
+      "page": "",
+      "registrationUrl": "",
+      "status": "closed",
+      "copy": {
+        "en": {
+          "title": "Prague, Czech Republic",
+          "imageAlt": "Prague at dusk, the host city for the GD1 summer camp",
+          "shortDescription": "A summer power skating camp in Prague focused on edge control, balance, and stronger stride mechanics.",
+          "longDescription": "A summer training camp for players to sharpen skating fundamentals and develop more efficient movement on the ice. Training focuses on edge work, balance, stride mechanics, and acceleration in Prague."
+        },
+        "uk": {
+          "title": "Прага, Чехія",
+          "imageAlt": "Вечірня Прага - місто літнього кемпу GD1",
+          "shortDescription": "Літній кемп у Празі для розвитку контролю ребер, балансу та правильної механіки кроку.",
+          "longDescription": "Літній тренувальний кемп для вдосконалення базових навичок катання й ефективного руху на льоду. Програма у Празі зосереджена на роботі з ребрами, балансі, механіці кроку та прискоренні."
+        }
+      }
+    },
+    {
+      "id": "sisak-october-2024",
+      "startsOn": "2024-10-26",
+      "endsOn": "2024-10-31",
+      "image": "assets/sisak.jpg",
+      "page": "",
+      "registrationUrl": "",
+      "status": "closed",
+      "copy": {
+        "en": {
+          "title": "Sisak, Croatia",
+          "imageAlt": "Sisak riverside with its historic bridge",
+          "shortDescription": "A focused power skating camp in Sisak to build stronger edges, better balance, and more efficient strides.",
+          "longDescription": "Dedicated on-ice training for players to refine skating fundamentals and develop greater control in motion. Sessions focus on edge work, stride mechanics, balance, and acceleration."
+        },
+        "uk": {
+          "title": "Сисак, Хорватія",
+          "imageAlt": "Набережна Сисака з історичним мостом",
+          "shortDescription": "Кемп із техніки катання в Сисаку для кращого контролю ребер, балансу та ефективності кроку.",
+          "longDescription": "Цілеспрямовані тренування на льоду для вдосконалення базових навичок катання та контролю рухів. Програма охоплює роботу з ребрами, механіку кроку, баланс і прискорення."
+        }
+      }
+    },
+    {
+      "id": "elektrenai-march-2026",
+      "startsOn": "2026-03-29",
+      "endsOn": "2026-04-03",
+      "image": "assets/elektrenai-rink.jpg",
+      "page": "",
+      "registrationUrl": "",
+      "status": "closed",
+      "copy": {
+        "en": {
+          "title": "Elektrenai, Lithuania",
+          "imageAlt": "Snow-covered ice arena in Elektrenai, Lithuania",
+          "shortDescription": "A focused power skating camp in Elektrenai, Lithuania, built around stronger edges, better balance, and more efficient strides.",
+          "longDescription": "Dedicated ice time for players to work on skating fundamentals, including edge control, balance, stride mechanics, and acceleration. The camp takes place in Elektrenai, home to Lithuania’s distinctive domed ice arena."
+        },
+        "uk": {
+          "title": "Електренай, Литва",
+          "imageAlt": "Засніжена льодова арена в Електренаї, Литва",
+          "shortDescription": "Кемп із техніки катання в Електренаї, Литва: контроль ребер, кращий баланс та ефективніший крок.",
+          "longDescription": "Тренування на льоду для розвитку базових навичок: контролю ребер, балансу, механіки кроку та прискорення. Кемп проходить в Електренаї, відомому своєю льодовою ареною з куполом."
+        }
+      }
+    },
+    {
+      "id": "elektrenai-november-2025",
+      "startsOn": "2025-11-05",
+      "endsOn": "2025-11-09",
+      "image": "assets/elektrenai-rink.jpg",
+      "page": "",
+      "registrationUrl": "",
+      "status": "closed",
+      "copy": {
+        "en": {
+          "title": "Elektrenai, Lithuania",
+          "imageAlt": "Snow-covered ice arena in Elektrenai, Lithuania",
+          "shortDescription": "Power skating training in Elektrenai focused on edge control, balance, and building a more efficient stride.",
+          "longDescription": "A focused training camp for players to develop stronger skating fundamentals and more control on the ice. Sessions center on edge work, balance, stride mechanics, and acceleration at the Elektrenai rink."
+        },
+        "uk": {
+          "title": "Електренай, Литва",
+          "imageAlt": "Засніжена льодова арена в Електренаї, Литва",
+          "shortDescription": "Тренування з техніки катання в Електренаї: контроль ребер, баланс та ефективніший крок.",
+          "longDescription": "Кемп для зміцнення базових навичок катання та впевненішого контролю рухів на льоду. На ковзанці Електреная гравці працюють над ребрами, балансом, механікою кроку та прискоренням."
+        }
+      }
+    },
+    {
+      "id": "elektrenai-december-2024",
+      "startsOn": "2024-12-23",
+      "endsOn": "2024-12-28",
+      "image": "assets/elektrenai-rink.jpg",
+      "page": "",
+      "registrationUrl": "",
+      "status": "closed",
+      "copy": {
+        "en": {
+          "title": "Elektrenai, Lithuania",
+          "imageAlt": "Snow-covered ice arena in Elektrenai, Lithuania",
+          "shortDescription": "A winter power skating camp in Elektrenai focused on edge control, balance, and confident movement on the ice.",
+          "longDescription": "A holiday training week dedicated to building skating fundamentals and refining stride mechanics. Players focus on edge work, balance, and acceleration at the Elektrenai rink during the winter break."
+        },
+        "uk": {
+          "title": "Електренай, Литва",
+          "imageAlt": "Засніжена льодова арена в Електренаї, Литва",
+          "shortDescription": "Зимовий кемп в Електренаї з акцентом на контроль ребер, баланс та впевнене катання.",
+          "longDescription": "Святковий тренувальний тиждень для розвитку базових навичок катання та вдосконалення механіки кроку. Під час зимових канікул гравці працюють над ребрами, балансом і прискоренням на ковзанці Електреная."
+        }
+      }
+    },
+    {
+      "id": "kranevo-april-2027",
+      "startsOn": "2027-04-06",
+      "endsOn": "2027-04-11",
+      "image": "assets/kranevo-rink.jpg",
+      "page": "kranevo-bulgaria-apr-2027.html",
+      "registrationUrl": "https://forms.gle/CPYv3m3kc4zTCFVL6",
+      "status": "open",
+      "copy": {
+        "en": {
+          "title": "Kranevo, Bulgaria",
+          "imageAlt": "The seaside rink in Kranevo, Bulgaria",
+          "shortDescription": "Start 2027 on the ice with GD1’s first power skating camp of the year. Build stronger, more efficient strides beside the Black Sea in Kranevo.",
+          "longDescription": "Return to the ice in spring for dedicated power skating development. Sessions focus on refining stride efficiency, edge work, and acceleration, with the Black Sea coast nearby and Kranevo’s seaside setting as the backdrop.",
+          "heroLabel": "GD1 POWER SKATING SKILLS CAMP",
+          "heroHeading": [
+            "Kranevo,",
+            "Bulgaria."
+          ],
+          "heroLead": "A comprehensive skating skills-focused hockey camp with {onIce} on-ice and {offIce} off-ice training sessions every day.",
+          "formatHeading": [
+            "Build a stronger",
+            "skating foundation."
+          ],
+          "formatDescription": "Develop your skating skills with a focused daily program that combines on-ice training at Black Sea Ice Arena with off-ice work.",
+          "venue": "Black Sea Ice Arena",
+          "accommodation": "Therma Camp Hotel",
+          "costHeading": [
+            "Plan your",
+            "stay."
+          ]
+        },
+        "uk": {
+          "title": "Кранево, Болгарія",
+          "imageAlt": "Ковзанка біля моря у Кранево, Болгарія",
+          "shortDescription": "Розпочніть 2027 рік на льоду з першим кемпом GD1 цього року. Розвивайте потужний та ефективний крок біля Чорного моря у Кранево.",
+          "longDescription": "Поверніться на лід навесні для цілеспрямованої роботи над технікою катання. Удосконалюйте ефективність кроку, роботу з ребрами та прискорення у приморській атмосфері Кранево на узбережжі Чорного моря.",
+          "heroLabel": "КЕМП GD1 ІЗ ТЕХНІКИ СИЛОВОГО КАТАННЯ",
+          "heroHeading": [
+            "Кранево,",
+            "Болгарія."
+          ],
+          "heroLead": "Комплексний хокейний кемп із фокусом на техніці катання: щодня {onIce} тренування на льоду та {offIce} поза льодом.",
+          "formatHeading": [
+            "Закладіть міцну",
+            "основу катання."
+          ],
+          "formatDescription": "Удосконалюйте техніку катання за щоденною програмою, що поєднує тренування на льоду Black Sea Ice Arena з роботою поза льодом.",
+          "venue": "Black Sea Ice Arena",
+          "accommodation": "Therma Camp Hotel",
+          "costHeading": [
+            "Сплануйте",
+            "перебування."
+          ]
+        }
+      },
+      "detail": {
+        "bodyClass": "camp-detail-page kranevo-camp-page",
+        "venueUrl": "https://www.google.com/maps/search/?api=1&query=Black+Sea+Ice+Arena+Kranevo+Bulgaria",
+        "mapArrow": false,
+        "prices": [
+          {
+            "amount": 400,
+            "label": {
+              "en": "Camp fee",
+              "uk": "Участь у кемпі"
+            },
+            "unit": {
+              "en": "",
+              "uk": ""
+            },
+            "note": {
+              "en": "Accommodation not included",
+              "uk": "Проживання не включено"
+            },
+            "id": "campFee"
+          },
+          {
+            "amount": 75,
+            "label": {
+              "en": "Accommodation",
+              "uk": "Проживання"
+            },
+            "unit": {
+              "en": "/ day",
+              "uk": "/ день"
+            },
+            "note": {
+              "en": "Therma Camp Hotel, per participant",
+              "uk": "Therma Camp Hotel, за одного учасника"
+            },
+            "id": "accommodationFee"
+          }
+        ]
+      }
+    },
+    {
+      "id": "kranevo-april-2026",
+      "startsOn": "2026-04-07",
+      "endsOn": "2026-04-12",
+      "image": "assets/kranevo-rink.jpg",
+      "page": "",
+      "registrationUrl": "",
+      "status": "closed",
+      "copy": {
+        "en": {
+          "title": "Kranevo, Bulgaria",
+          "imageAlt": "The seaside rink in Kranevo, Bulgaria",
+          "shortDescription": "Power skating training in Kranevo focused on stronger edges, quicker acceleration, and more efficient movement on the ice.",
+          "longDescription": "A dedicated power skating camp for players looking to refine stride mechanics, edge control, balance, and acceleration. Set in Kranevo, Bulgaria, the camp combines focused on-ice development with the seaside setting of the Black Sea coast."
+        },
+        "uk": {
+          "title": "Кранево, Болгарія",
+          "imageAlt": "Ковзанка біля моря у Кранево, Болгарія",
+          "shortDescription": "Тренування з техніки катання у Кранево: контроль ребер, швидке прискорення та ефективніші рухи на льоду.",
+          "longDescription": "Кемп для гравців, які прагнуть удосконалити механіку кроку, контроль ребер, баланс і прискорення. У Кранево, Болгарія, цілеспрямовані тренування поєднуються з приморською атмосферою Чорного моря."
+        }
+      }
+    },
+    {
+      "id": "kranevo-october-2025",
+      "startsOn": "2025-10-29",
+      "endsOn": "2025-11-03",
+      "image": "assets/kranevo-rink.jpg",
+      "page": "",
+      "registrationUrl": "",
+      "status": "closed",
+      "copy": {
+        "en": {
+          "title": "Kranevo, Bulgaria",
+          "imageAlt": "The seaside rink in Kranevo, Bulgaria",
+          "shortDescription": "A power skating camp in Kranevo focused on stronger edges, better balance, and more powerful strides.",
+          "longDescription": "Focused on-ice training for players looking to refine skating fundamentals, including edge control, stride mechanics, balance, and acceleration. The camp takes place in seaside Kranevo, Bulgaria."
+        },
+        "uk": {
+          "title": "Кранево, Болгарія",
+          "imageAlt": "Ковзанка біля моря у Кранево, Болгарія",
+          "shortDescription": "Кемп із техніки катання у Кранево для кращого контролю ребер, балансу та потужнішого кроку.",
+          "longDescription": "Цілеспрямовані тренування на льоду для вдосконалення базових навичок: контролю ребер, механіки кроку, балансу та прискорення. Кемп проходить у приморському Кранево, Болгарія."
+        }
+      }
+    },
+    {
+      "id": "kaunas-february-2024",
+      "startsOn": "2024-02-19",
+      "endsOn": "2024-02-23",
+      "image": "assets/kaunas.jpg",
+      "page": "",
+      "registrationUrl": "",
+      "status": "closed",
+      "copy": {
+        "en": {
+          "title": "Kaunas, Lithuania",
+          "imageAlt": "View across Kaunas, Lithuania",
+          "shortDescription": "A focused power skating camp in Kaunas to build balance, edge control, and more efficient strides.",
+          "longDescription": "A dedicated training camp for players to sharpen skating fundamentals and gain greater control on the ice. Sessions focus on edge work, balance, stride mechanics, and acceleration."
+        },
+        "uk": {
+          "title": "Каунас, Литва",
+          "imageAlt": "Краєвид Каунаса, Литва",
+          "shortDescription": "Кемп із техніки катання в Каунасі для розвитку балансу, контролю ребер та ефективнішого кроку.",
+          "longDescription": "Тренувальний кемп для вдосконалення базових навичок катання й кращого контролю рухів на льоду. Програма охоплює роботу з ребрами, баланс, механіку кроку та прискорення."
+        }
+      }
+    },
+    {
+      "id": "nymburk-december-2023",
+      "startsOn": "2023-12-18",
+      "endsOn": "2023-12-27",
+      "image": "assets/nymburk.jpg",
+      "page": "",
+      "registrationUrl": "",
+      "status": "closed",
+      "copy": {
+        "en": {
+          "title": "Nymburk, Czech Republic",
+          "imageAlt": "Snow-covered historic buildings in Nymburk, Czech Republic",
+          "shortDescription": "A winter power skating camp in Nymburk focused on stronger edges, balance, and efficient movement on the ice.",
+          "longDescription": "A holiday training camp for players to refine skating technique and build greater control on the ice. Training focuses on edge work, balance, stride mechanics, and acceleration in Nymburk."
+        },
+        "uk": {
+          "title": "Німбурк, Чехія",
+          "imageAlt": "Засніжені історичні будівлі Німбурка, Чехія",
+          "shortDescription": "Зимовий кемп у Німбурку для розвитку контролю ребер, балансу та ефективного катання.",
+          "longDescription": "Святковий тренувальний кемп для вдосконалення техніки катання й контролю рухів на льоду. У Німбурку гравці працюють над ребрами, балансом, механікою кроку та прискоренням."
+        }
+      }
+    }
+  ]
+}

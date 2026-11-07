@@ -14,7 +14,7 @@ Open `index.html` in a browser. For local development, a simple static server ca
 4. In the GitHub repository, open **Settings → Pages** and set the publishing source to **GitHub Actions**.
 5. Push a change to `main` (or run the **Deploy static site to GitHub Pages** workflow from the Actions tab). GitHub will provide the published site URL under **Settings → Pages**.
 
-The included workflow publishes this folder directly. It does not install dependencies or build the site.
+The deployment workflow checks generated content, local links/assets, translations, and JavaScript behaviour before publishing. It packages only public website files into `dist/`; source data, templates, and check scripts are excluded. A failed check stops publication. The separate **Check website** workflow also runs on pull requests.
 
 ## Publish with Vercel
 
@@ -22,13 +22,36 @@ Import the repository into Vercel and set the project root to this folder if the
 
 ## Update camp information
 
-Upcoming and past camp details are stored in `camps-data.js`. The pages use `script.js` to render camp cards. Camp detail pages and their images are regular HTML and asset files; keep their relative paths intact when adding or editing content.
+`data/camps.json` is the single source for camp dates, images, registration links, status, English/Ukrainian descriptions, prices, venues and detail-page content. Edit this file rather than generated `camps-data*.js` or camp HTML pages.
+
+- `startsOn` / `endsOn`: ISO dates such as `2026-12-27`; displayed dates are generated.
+- `status`: `open`, `soon`, `cancelled`, or `closed`. Open registration requires an HTTPS `registrationUrl`.
+- `image`: local asset path shared by the card and detail page; `copy.en` / `copy.uk` contain accessible descriptions and page text.
+- `page`: detail-page filename, or an empty string for archive-only camps. Detail pages are generated using `templates/camp.html`.
+- `detail.prices`: numeric euro amounts with English/Ukrainian labels, units and notes. Venue map URL is in `detail.venueUrl`.
+- `defaults`: shared daily training counts and prepayment/cancellation terms.
+- `footerCampIds`: camps to show in every footer, sorted by start date automatically.
+
+After editing, run from the repository folder:
+
+```sh
+python3 tools/build.py
+python3 tools/build.py --check
+python3 tools/check-site.py
+node tools/check-js.mjs
+```
+
+Python 3.12+ and Node.js 24 are used in GitHub Actions. There are no package dependencies to install. Commit the source change and regenerated files together using GitHub Desktop. Push as usual; the checks run before deployment. No change to your GitHub Pages settings is needed.
+
+`--check` builds in a temporary directory and fails if committed outputs are stale; it does not rewrite your files. Local checks do not send analytics or contact registration services. They verify internal links, local assets, bilingual navigation, camp data, registration URLs/new tabs, chronological cards, disabled states and 12-camp pagination. External website availability and real-device rendering remain manual checks.
+
+To prepare the same clean public folder locally, run `python3 tools/package-site.py` after the checks pass. `dist/` is ignored by Git.
 
 ## Mixpanel analytics
 
 All English and Ukrainian pages load `analytics.js`, configured for the European Mixpanel endpoint (`https://api-eu.mixpanel.com`). The project token is a public browser token, not a secret API credential. Each custom event includes `page_language` (`en` or `uk`); camp IDs stay the same across languages.
 
-Reporting titles and languages come from a fixed route-to-title map in `analytics.js`, rather than the browser's translated document title or language attribute. The event hook also normalizes SDK-generated heatmap/page-view title properties. Add an English/Ukrainian title pair when introducing a new page. This applies to newly collected events; previously stored titles remain in Mixpanel.
+Reporting titles and languages come from a fixed route-to-title map in `analytics.js`, rather than the browser's translated document title or language attribute. The event hook also normalizes SDK-generated heatmap/page-view title properties. Camp reporting titles are derived from generated camp data; add a title pair only for a new non-camp page. This applies to newly collected events; previously stored titles remain in Mixpanel.
 
 Analytics loads only after a visitor chooses **Allow analytics**. Visitors can reject analytics in the consent banner. The footer **Analytics preferences** control is hidden in both languages. The choice is remembered for 180 days and synchronized across open tabs. Browser Do Not Track / Global Privacy Control requests are respected. File previews, localhost, and loopback previews do not load analytics.
 
@@ -46,6 +69,6 @@ English is the default. Each page has a Ukrainian counterpart with an `-uk.html`
 
 Mixpanel records **Language Switched** when a visitor clicks an available language link, with `from_language`, `to_language`, `destination_path`, and `placement`, plus the common `page_path`, `page_title`, and `page_language`. Destination paths omit query strings and fragments. The destination page separately records **Page Viewed** in the selected language. All Ukrainian pages share the same event and heatmap integration as English. Consent is shared across languages; no events are sent before consent.
 
-English HTML remains the source template. Ukrainian text, including image descriptions and accessibility labels, is maintained in `translations-uk.json`. Run `python3 build-uk.py` after editing the English templates or translation catalog to regenerate Ukrainian pages. The script reports missing translations rather than silently leaving new English text. All generated HTML is committed, so hosting needs no build step. Camp translations are in `camps-data-uk.js`; dynamic navigation, registration states and analytics consent are localized in the shared scripts.
+English HTML remains the source template. Ukrainian text, including image descriptions and accessibility labels, is maintained in `translations-uk.json`. Run `python3 tools/build.py` after editing English templates, the translation catalog or camp data to regenerate all affected pages. The script reports missing translations rather than silently leaving new English text. Generated HTML is committed and checked before deployment. Camp translations are maintained alongside English text in `data/camps.json`; `camps-data-uk.js` is generated.  dynamic navigation, registration states and analytics consent are localized in the shared scripts.
 
 Ukrainian typography uses local Cyrillic subsets of Inter and Oswald in `assets/fonts/`, with their font declarations in `fonts-cyrillic.css`.

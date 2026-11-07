@@ -19,16 +19,32 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Check out source
         uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Check generated content
+        run: python3 tools/build.py --check
+      - name: Check links and camp data
+        run: python3 tools/check-site.py
+      - name: Check validator regressions
+        run: python3 tools/test-checks.py
+      - name: Check JavaScript and camp behaviour
+        run: node tools/check-js.mjs
+      - name: Package public website
+        run: python3 tools/package-site.py
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload website files
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: dist
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

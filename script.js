@@ -83,6 +83,8 @@ const registrationAttributes = (camp) => {
 };
 const registrationButton = (camp) => camp.cancelled
   ? `<span class="button register-button is-disabled" role="status" aria-disabled="true">${ui('Cancelled', 'Скасовано')}</span>`
+  : camp.registrationClosed
+  ? `<span class="button register-button is-disabled" role="status" aria-disabled="true">${ui('Registration Closed', 'Реєстрацію закрито')}</span>`
   : camp.registrationComingSoon
   ? `<span class="button register-button is-disabled" role="status" aria-disabled="true">${ui('Registration soon', 'Реєстрація незабаром')}</span>`
   : `<a class="button register-button" ${registrationAttributes(camp)} data-camp-end="${safe(camp.endsOn)}">${ui('Register Now', 'Зареєструватися')}</a>`;
@@ -97,7 +99,7 @@ function renderHomeCamps() {
   }
   container.innerHTML = upcoming.map((camp) => `
     <article class="upcoming-camp-card" data-camp-id="${safe(camp.id)}">
-      ${!camp.page || camp.cancelled || camp.registrationComingSoon ? '' : `<a class="camp-card-hitarea" href="${safe(camp.page)}" aria-label="${ui('Open camp page for', 'Відкрити сторінку кемпу:')} ${safe(camp.title)}, ${safe(camp.period)}"></a>`}
+      ${!camp.page || camp.cancelled || camp.registrationClosed || camp.registrationComingSoon ? '' : `<a class="camp-card-hitarea" href="${safe(camp.page)}" aria-label="${ui('Open camp page for', 'Відкрити сторінку кемпу:')} ${safe(camp.title)}, ${safe(camp.period)}"></a>`}
       <div class="upcoming-camp-photo"><img src="${safe(camp.image)}" alt="${safe(camp.imageAlt)}" loading="lazy" decoding="async"></div>
       <div class="upcoming-camp-info">
         <p class="eyebrow dark">${safe(camp.period.toUpperCase())}</p>
@@ -111,7 +113,7 @@ function renderHomeCamps() {
 function renderArchiveCard(camp, past) {
   return `
     <article class="camp-archive-card${past ? ' is-past' : ''}" id="${safe(camp.id)}" data-camp-id="${safe(camp.id)}">
-      ${past || !camp.page || camp.cancelled || camp.registrationComingSoon ? '' : `<a class="camp-card-hitarea" href="${safe(camp.page)}" aria-label="${ui('Open camp page for', 'Відкрити сторінку кемпу:')} ${safe(camp.title)}, ${safe(camp.period)}"></a>`}
+      ${past || !camp.page || camp.cancelled || camp.registrationClosed || camp.registrationComingSoon ? '' : `<a class="camp-card-hitarea" href="${safe(camp.page)}" aria-label="${ui('Open camp page for', 'Відкрити сторінку кемпу:')} ${safe(camp.title)}, ${safe(camp.period)}"></a>`}
       <div class="camp-archive-photo"><img src="${safe(camp.image)}" alt="${safe(camp.imageAlt)}" loading="lazy" decoding="async"></div>
       <div class="camp-archive-info">
         <p class="eyebrow dark">${safe(camp.period.toUpperCase())}</p>

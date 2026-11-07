@@ -5,18 +5,16 @@
   const ukrainian = pageFilename.endsWith('-uk.html');
   const text = (english, uk) => ukrainian ? uk : english;
   const pageTitles = {
-    'elektrenai-lithuania-dec-2026.html': ['Elektrenai, Lithuania | GD1 Camp', 'Електренай, Литва | Кемп GD1'],
-    'kranevo-bulgaria-apr-2027.html': ['Kranevo, Bulgaria | GD1 Camp', 'Кранево, Болгарія | Кемп GD1'],
     'index.html': ['GD1 Hockey | Camps & Player Development', 'GD1 Hockey | Кемпи та розвиток гравців'],
     'camps.html': ['GD1 Camps | Upcoming & Past Camps', 'Кемпи GD1 | Найближчі та минулі кемпи'],
     'coach.html': ['Coach | GD1 School', 'Тренер | Школа GD1'],
     'school.html': ['The GD1 School | Training Through Camps', 'Школа GD1 | Розвиток через кемпи'],
     'gallery.html': ['GD1 Gallery | Camp Photos', 'Галерея GD1 | Фото та відео кемпів'],
     'contact.html': ['Contact GD1 | GD1 School', 'Контакти GD1 | Школа GD1'],
-    'prague-czech-republic-dec-2026.html': ['Prague, Czech Republic | GD1 Camp', 'Прага, Чехія | Кемп GD1']
   };
   const titlePair = pageTitles[pageFilename.replace(/-uk\.html$/, '.html')] || ['GD1 Hockey', 'GD1 Hockey'];
-  const reportingTitle = titlePair[ukrainian ? 1 : 0];
+  const reportingCamp = (window.GD1_CAMPS || []).find(camp => camp.page === pageFilename);
+  const reportingTitle = reportingCamp ? `${reportingCamp.title} | ${ukrainian ? 'Кемп GD1' : 'GD1 Camp'}` : titlePair[ukrainian ? 1 : 0];
 
   // Keep file previews and local development out of the production project.
   if (!['https:', 'http:'].includes(location.protocol) ||

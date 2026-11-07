@@ -4,12 +4,16 @@ from html.parser import HTMLParser
 from pathlib import Path
 import json
 import re
+import sys
+import hashlib
+sys.path.insert(0, str(Path(__file__).resolve().parent / "tools"))
+from camps import read, translations
 from urllib.parse import urlsplit, urlunsplit
 
 ROOT = Path(__file__).resolve().parent
-PAGES = ['index.html', 'camps.html', 'coach.html', 'school.html', 'gallery.html',
-         'contact.html', 'prague-czech-republic-dec-2026.html', 'kranevo-bulgaria-apr-2027.html', 'elektrenai-lithuania-dec-2026.html']
+PAGES = ['index.html', 'camps.html', 'coach.html', 'school.html', 'gallery.html', 'contact.html']
 CATALOG = json.loads((ROOT / 'translations-uk.json').read_text())
+CATALOG.update(translations(read(ROOT)))
 CATALOG.update({'English': 'Англійська', 'Ukrainian': 'Українська', 'Choose language': 'Обрати мову'})
 SWITCHER_PATTERN = r'<div class="language-switcher".*?</div>|<details class="language-switcher".*?</details>'
 
@@ -84,13 +88,12 @@ class Translator(HTMLParser):
         self.parts.append('<!--' + comment + '-->')
 
 
+PAGES = PAGES + [c["page"] for c in read(ROOT)["camps"] if c["page"]]
+
 for name in PAGES:
     page = ROOT / name
     source = page.read_text()
     source = re.sub(SWITCHER_PATTERN, switcher(name, 'en'), source, flags=re.S)
-    source = re.sub(r'styles\.css\?v=\d+', 'styles.css?v=149', source)
-    source = re.sub(r'(?<![\w-])script\.js\?v=\d+', 'script.js?v=36', source)
-    source = re.sub(r'analytics\.js\?v=\d+', 'analytics.js?v=10', source)
     source = re.sub(r'\s*<link rel="alternate"[^>]*>', '', source)
     alternates = f'  <link rel="alternate" hreflang="en" href="{name}">\n  <link rel="alternate" hreflang="uk" href="{uk_name(name)}">\n'
     source = source.replace('</head>', alternates + '</head>')
@@ -100,7 +103,8 @@ for name in PAGES:
     translated = ''.join(translator.parts)
     translated = re.sub(SWITCHER_PATTERN, switcher(name, 'uk'), translated, flags=re.S)
     translated = translated.replace('</head>', '  <link rel="stylesheet" href="fonts-cyrillic.css?v=1">\n  <link rel="preload" href="assets/fonts/inter-cyrillic.woff2" as="font" type="font/woff2" crossorigin>\n  <link rel="preload" href="assets/fonts/oswald-cyrillic.woff2" as="font" type="font/woff2" crossorigin>\n</head>')
-    translated = translated.replace('  <script src="script.js?v=36">', '  <script src="camps-data-uk.js?v=2"></script>\n  <script src="script.js?v=36">')
+    version = hashlib.sha256((ROOT / 'camps-data-uk.js').read_bytes()).hexdigest()[:10]
+    translated = re.sub(r'(  <script src="script\.js\?v=[^"]+">)', lambda m: f'  <script src="camps-data-uk.js?v={version}"></script>\n' + m[1], translated)
     (ROOT / uk_name(name)).write_text(translated)
 
 print('Generated Ukrainian pages and enabled matching language links.')
