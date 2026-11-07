@@ -72,3 +72,11 @@ Mixpanel records **Language Switched** when a visitor clicks an available langua
 English HTML remains the source template. Ukrainian text, including image descriptions and accessibility labels, is maintained in `translations-uk.json`. Run `python3 tools/build.py` after editing English templates, the translation catalog or camp data to regenerate all affected pages. The script reports missing translations rather than silently leaving new English text. Generated HTML is committed and checked before deployment. Camp translations are maintained alongside English text in `data/camps.json`; `camps-data-uk.js` is generated.  dynamic navigation, registration states and analytics consent are localized in the shared scripts.
 
 Ukrainian typography uses local Cyrillic subsets of Inter and Oswald in `assets/fonts/`, with their font declarations in `fonts-cyrillic.css`.
+
+## Image and video optimization
+
+Original media remains under `assets/`. Prepared WebP image sizes, video covers and smaller MP4 copies are in `assets/optimized/`; `data/media.json` maps source files to the versions used by the site. The build adds responsive image sizes, image dimensions and cache versions automatically. The publishing package omits superseded originals, while the repository keeps them for future edits.
+
+Gallery films load only when their Play button is pressed. Selecting the Videos tab downloads covers rather than seven movies. Original chosen covers are preserved, including the Nymburk photo. Native video controls and inline mobile playback remain available.
+
+To prepare newly added media locally, install Pillow and imageio-ffmpeg in a temporary Python environment, then run `python3 tools/optimize-media.py` followed by `python3 tools/build.py` and the normal checks. This preparation is optional for new files; commit the generated manifest and assets. CI builds use the prepared assets and do not need imaging/video dependencies. `node tools/check-gallery.mjs` verifies that tab selection does not load films and Play loads only the selected film.

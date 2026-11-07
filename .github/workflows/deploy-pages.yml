@@ -37,6 +37,10 @@ jobs:
         run: python3 tools/test-checks.py
       - name: Check JavaScript and camp behaviour
         run: node tools/check-js.mjs
+      - name: Check deferred video loading
+        run: node tools/check-gallery.mjs
+      - name: Check photo viewer
+        run: node tools/check-lightbox.mjs
       - name: Package public website
         run: python3 tools/package-site.py
       - name: Configure GitHub Pages

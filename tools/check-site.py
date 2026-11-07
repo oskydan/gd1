@@ -5,7 +5,9 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
 import re,sys
 from camps import read,period
+from media import load,image_info
 ROOT=Path(__file__).resolve().parents[1]
+manifest=load(ROOT)
 errors=[]
 def require(ok,message):
     if not ok:errors.append(message)
@@ -23,6 +25,11 @@ class Page(HTMLParser):
         if tag=='img':require(bool(a.get('alt')),f'{self.path.name}: image missing description')
         for key in ('href','src','data-src','poster'):
             if a.get(key):self.refs.append(a[key])
+        if a.get('srcset'):
+            self.refs.extend(item.strip().split()[0] for item in a['srcset'].split(','))
+        if tag=='video':
+            require(a.get('preload')=='none',f'{self.path.name}: video must not download before play')
+            require(bool(a.get('poster')),f'{self.path.name}: missing video cover')
         if tag=='link' and a.get('rel')=='alternate':self.alternates[a.get('hreflang')]=a.get('href')
         if tag=='a' and a.get('target')=='_blank':require('noopener' in a.get('rel',''),f'{self.path.name}: external tab missing noopener')
         if tag=='a' and ('camp-detail-cta' in a.get('class','')):self.registrations.append(a)
@@ -67,7 +74,7 @@ for c in camps:
         if not p:continue
         text=(ROOT/name).read_text()
         require(period(c,lang) in text,name+': wrong dates')
-        require(c['image'] in text,name+': wrong image')
+        require((image_info(manifest,c['image']) or {'src':c['image']})['src'] in text,name+': wrong image')
         if c['status']=='open':
             require(len(p.registrations)==2,name+': expected two registration links')
             require(all(a.get('href')==c['registrationUrl'] and a.get('target')=='_blank' for a in p.registrations),name+': wrong registration link or tab')

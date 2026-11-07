@@ -5,7 +5,7 @@ if (document.documentElement.lang === 'uk') {
     "id": "elektrenai-december-2026",
     "startsOn": "2026-12-27",
     "endsOn": "2026-12-30",
-    "image": "assets/power-skating.jpg",
+    "image": "assets/optimized/power-skating-1600.webp",
     "registrationUrl": "https://forms.gle/YNDhoywEVgocm9i38",
     "title": "Електренай, Литва",
     "imageAlt": "Гравець тренується на льоду під час кемпу GD1 з техніки катання",
@@ -15,13 +15,16 @@ if (document.documentElement.lang === 'uk') {
     "page": "elektrenai-lithuania-dec-2026-uk.html",
     "cancelled": false,
     "registrationComingSoon": false,
-    "registrationClosed": false
+    "registrationClosed": false,
+    "imageSrcset": "assets/optimized/power-skating-480.webp 480w, assets/optimized/power-skating-960.webp 960w, assets/optimized/power-skating-1600.webp 1600w",
+    "imageWidth": 2560,
+    "imageHeight": 1707
   },
   {
     "id": "prague-december-2026",
     "startsOn": "2026-12-21",
     "endsOn": "2026-12-26",
-    "image": "assets/prague-city.png",
+    "image": "assets/optimized/prague-city-1500.webp",
     "registrationUrl": "https://forms.gle/PFzz2LfBapTnM2As7",
     "title": "Прага, Чехія",
     "imageAlt": "Вечірня Прага - місто різдвяного кемпу GD1",
@@ -31,13 +34,16 @@ if (document.documentElement.lang === 'uk') {
     "page": "prague-czech-republic-dec-2026-uk.html",
     "cancelled": false,
     "registrationComingSoon": false,
-    "registrationClosed": false
+    "registrationClosed": false,
+    "imageSrcset": "assets/optimized/prague-city-480.webp 480w, assets/optimized/prague-city-960.webp 960w, assets/optimized/prague-city-1500.webp 1500w",
+    "imageWidth": 1500,
+    "imageHeight": 830
   },
   {
     "id": "prague-december-2025",
     "startsOn": "2025-12-22",
     "endsOn": "2025-12-27",
-    "image": "assets/prague-city.png",
+    "image": "assets/optimized/prague-city-1500.webp",
     "registrationUrl": "",
     "title": "Прага, Чехія",
     "imageAlt": "Вечірня Прага - місто різдвяного кемпу GD1",
@@ -47,13 +53,16 @@ if (document.documentElement.lang === 'uk') {
     "page": "",
     "cancelled": false,
     "registrationComingSoon": false,
-    "registrationClosed": true
+    "registrationClosed": true,
+    "imageSrcset": "assets/optimized/prague-city-480.webp 480w, assets/optimized/prague-city-960.webp 960w, assets/optimized/prague-city-1500.webp 1500w",
+    "imageWidth": 1500,
+    "imageHeight": 830
   },
   {
     "id": "prague-summer-2026",
     "startsOn": "2026-06-29",
     "endsOn": "2026-07-25",
-    "image": "assets/prague-city.png",
+    "image": "assets/optimized/prague-city-1500.webp",
     "registrationUrl": "",
     "title": "Прага, Чехія",
     "imageAlt": "Вечірня Прага - місто літнього кемпу GD1",
@@ -63,13 +72,16 @@ if (document.documentElement.lang === 'uk') {
     "page": "",
     "cancelled": false,
     "registrationComingSoon": false,
-    "registrationClosed": true
+    "registrationClosed": true,
+    "imageSrcset": "assets/optimized/prague-city-480.webp 480w, assets/optimized/prague-city-960.webp 960w, assets/optimized/prague-city-1500.webp 1500w",
+    "imageWidth": 1500,
+    "imageHeight": 830
   },
   {
     "id": "prague-summer-2025",
     "startsOn": "2025-06-30",
     "endsOn": "2025-07-26",
-    "image": "assets/prague-city.png",
+    "image": "assets/optimized/prague-city-1500.webp",
     "registrationUrl": "",
     "title": "Прага, Чехія",
     "imageAlt": "Вечірня Прага - місто літнього кемпу GD1",
@@ -79,13 +91,16 @@ if (document.documentElement.lang === 'uk') {
     "page": "",
     "cancelled": false,
     "registrationComingSoon": false,
-    "registrationClosed": true
+    "registrationClosed": true,
+    "imageSrcset": "assets/optimized/prague-city-480.webp 480w, assets/optimized/prague-city-960.webp 960w, assets/optimized/prague-city-1500.webp 1500w",
+    "imageWidth": 1500,
+    "imageHeight": 830
   },
   {
     "id": "prague-june-2024",
     "startsOn": "2024-06-01",
     "endsOn": "2024-06-20",
-    "image": "assets/prague-city.png",
+    "image": "assets/optimized/prague-city-1500.webp",
     "registrationUrl": "",
     "title": "Прага, Чехія",
     "imageAlt": "Вечірня Прага - місто літнього кемпу GD1",
@@ -95,13 +110,16 @@ if (document.documentElement.lang === 'uk') {
     "page": "",
     "cancelled": false,
     "registrationComingSoon": false,
-    "registrationClosed": true
+    "registrationClosed": true,
+    "imageSrcset": "assets/optimized/prague-city-480.webp 480w, assets/optimized/prague-city-960.webp 960w, assets/optimized/prague-city-1500.webp 1500w",
+    "imageWidth": 1500,
+    "imageHeight": 830
   },
   {
     "id": "sisak-october-2024",
     "startsOn": "2024-10-26",
     "endsOn": "2024-10-31",
-    "image": "assets/sisak.jpg",
+    "image": "assets/optimized/sisak-1024.webp",
     "registrationUrl": "",
     "title": "Сисак, Хорватія",
     "imageAlt": "Набережна Сисака з історичним мостом",
@@ -111,13 +129,16 @@ if (document.documentElement.lang === 'uk') {
     "page": "",
     "cancelled": false,
     "registrationComingSoon": false,
-    "registrationClosed": true
+    "registrationClosed": true,
+    "imageSrcset": "assets/optimized/sisak-480.webp 480w, assets/optimized/sisak-960.webp 960w, assets/optimized/sisak-1024.webp 1024w",
+    "imageWidth": 1024,
+    "imageHeight": 683
   },
   {
     "id": "elektrenai-march-2026",
     "startsOn": "2026-03-29",
     "endsOn": "2026-04-03",
-    "image": "assets/elektrenai-rink.jpg",
+    "image": "assets/optimized/elektrenai-rink-1600.webp",
     "registrationUrl": "",
     "title": "Електренай, Литва",
     "imageAlt": "Засніжена льодова арена в Електренаї, Литва",
@@ -127,13 +148,16 @@ if (document.documentElement.lang === 'uk') {
     "page": "",
     "cancelled": false,
     "registrationComingSoon": false,
-    "registrationClosed": true
+    "registrationClosed": true,
+    "imageSrcset": "assets/optimized/elektrenai-rink-480.webp 480w, assets/optimized/elektrenai-rink-960.webp 960w, assets/optimized/elektrenai-rink-1600.webp 1600w",
+    "imageWidth": 2560,
+    "imageHeight": 1707
   },
   {
     "id": "elektrenai-november-2025",
     "startsOn": "2025-11-05",
     "endsOn": "2025-11-09",
-    "image": "assets/elektrenai-rink.jpg",
+    "image": "assets/optimized/elektrenai-rink-1600.webp",
     "registrationUrl": "",
     "title": "Електренай, Литва",
     "imageAlt": "Засніжена льодова арена в Електренаї, Литва",
@@ -143,13 +167,16 @@ if (document.documentElement.lang === 'uk') {
     "page": "",
     "cancelled": false,
     "registrationComingSoon": false,
-    "registrationClosed": true
+    "registrationClosed": true,
+    "imageSrcset": "assets/optimized/elektrenai-rink-480.webp 480w, assets/optimized/elektrenai-rink-960.webp 960w, assets/optimized/elektrenai-rink-1600.webp 1600w",
+    "imageWidth": 2560,
+    "imageHeight": 1707
   },
   {
     "id": "elektrenai-december-2024",
     "startsOn": "2024-12-23",
     "endsOn": "2024-12-28",
-    "image": "assets/elektrenai-rink.jpg",
+    "image": "assets/optimized/elektrenai-rink-1600.webp",
     "registrationUrl": "",
     "title": "Електренай, Литва",
     "imageAlt": "Засніжена льодова арена в Електренаї, Литва",
@@ -159,13 +186,16 @@ if (document.documentElement.lang === 'uk') {
     "page": "",
     "cancelled": false,
     "registrationComingSoon": false,
-    "registrationClosed": true
+    "registrationClosed": true,
+    "imageSrcset": "assets/optimized/elektrenai-rink-480.webp 480w, assets/optimized/elektrenai-rink-960.webp 960w, assets/optimized/elektrenai-rink-1600.webp 1600w",
+    "imageWidth": 2560,
+    "imageHeight": 1707
   },
   {
     "id": "kranevo-april-2027",
     "startsOn": "2027-04-06",
     "endsOn": "2027-04-11",
-    "image": "assets/kranevo-rink.jpg",
+    "image": "assets/optimized/kranevo-rink-900.webp",
     "registrationUrl": "https://forms.gle/CPYv3m3kc4zTCFVL6",
     "title": "Кранево, Болгарія",
     "imageAlt": "Ковзанка біля моря у Кранево, Болгарія",
@@ -175,13 +205,16 @@ if (document.documentElement.lang === 'uk') {
     "page": "kranevo-bulgaria-apr-2027-uk.html",
     "cancelled": false,
     "registrationComingSoon": false,
-    "registrationClosed": false
+    "registrationClosed": false,
+    "imageSrcset": "assets/optimized/kranevo-rink-480.webp 480w, assets/optimized/kranevo-rink-900.webp 900w",
+    "imageWidth": 900,
+    "imageHeight": 600
   },
   {
     "id": "kranevo-april-2026",
     "startsOn": "2026-04-07",
     "endsOn": "2026-04-12",
-    "image": "assets/kranevo-rink.jpg",
+    "image": "assets/optimized/kranevo-rink-900.webp",
     "registrationUrl": "",
     "title": "Кранево, Болгарія",
     "imageAlt": "Ковзанка біля моря у Кранево, Болгарія",
@@ -191,13 +224,16 @@ if (document.documentElement.lang === 'uk') {
     "page": "",
     "cancelled": false,
     "registrationComingSoon": false,
-    "registrationClosed": true
+    "registrationClosed": true,
+    "imageSrcset": "assets/optimized/kranevo-rink-480.webp 480w, assets/optimized/kranevo-rink-900.webp 900w",
+    "imageWidth": 900,
+    "imageHeight": 600
   },
   {
     "id": "kranevo-october-2025",
     "startsOn": "2025-10-29",
     "endsOn": "2025-11-03",
-    "image": "assets/kranevo-rink.jpg",
+    "image": "assets/optimized/kranevo-rink-900.webp",
     "registrationUrl": "",
     "title": "Кранево, Болгарія",
     "imageAlt": "Ковзанка біля моря у Кранево, Болгарія",
@@ -207,13 +243,16 @@ if (document.documentElement.lang === 'uk') {
     "page": "",
     "cancelled": false,
     "registrationComingSoon": false,
-    "registrationClosed": true
+    "registrationClosed": true,
+    "imageSrcset": "assets/optimized/kranevo-rink-480.webp 480w, assets/optimized/kranevo-rink-900.webp 900w",
+    "imageWidth": 900,
+    "imageHeight": 600
   },
   {
     "id": "kaunas-february-2024",
     "startsOn": "2024-02-19",
     "endsOn": "2024-02-23",
-    "image": "assets/kaunas.jpg",
+    "image": "assets/optimized/kaunas-1600.webp",
     "registrationUrl": "",
     "title": "Каунас, Литва",
     "imageAlt": "Краєвид Каунаса, Литва",
@@ -223,13 +262,16 @@ if (document.documentElement.lang === 'uk') {
     "page": "",
     "cancelled": false,
     "registrationComingSoon": false,
-    "registrationClosed": true
+    "registrationClosed": true,
+    "imageSrcset": "assets/optimized/kaunas-480.webp 480w, assets/optimized/kaunas-960.webp 960w, assets/optimized/kaunas-1600.webp 1600w",
+    "imageWidth": 1800,
+    "imageHeight": 1200
   },
   {
     "id": "nymburk-december-2023",
     "startsOn": "2023-12-18",
     "endsOn": "2023-12-27",
-    "image": "assets/nymburk.jpg",
+    "image": "assets/optimized/nymburk-832.webp",
     "registrationUrl": "",
     "title": "Німбурк, Чехія",
     "imageAlt": "Засніжені історичні будівлі Німбурка, Чехія",
@@ -239,7 +281,10 @@ if (document.documentElement.lang === 'uk') {
     "page": "",
     "cancelled": false,
     "registrationComingSoon": false,
-    "registrationClosed": true
+    "registrationClosed": true,
+    "imageSrcset": "assets/optimized/nymburk-480.webp 480w, assets/optimized/nymburk-832.webp 832w",
+    "imageWidth": 832,
+    "imageHeight": 555
   }
 ];
 }

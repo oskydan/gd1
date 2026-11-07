@@ -1,0 +1,250 @@
+{
+  "images": {
+    "assets/elektrenai-rink.jpg": {
+      "src": "assets/optimized/elektrenai-rink-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/elektrenai-rink-480.webp 480w, assets/optimized/elektrenai-rink-960.webp 960w, assets/optimized/elektrenai-rink-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-001.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-001-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-001-480.webp 480w, assets/optimized/gallery/gd1-photo-001-960.webp 960w, assets/optimized/gallery/gd1-photo-001-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-002.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-002-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-002-480.webp 480w, assets/optimized/gallery/gd1-photo-002-960.webp 960w, assets/optimized/gallery/gd1-photo-002-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-003.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-003-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-003-480.webp 480w, assets/optimized/gallery/gd1-photo-003-960.webp 960w, assets/optimized/gallery/gd1-photo-003-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-004.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-004-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-004-480.webp 480w, assets/optimized/gallery/gd1-photo-004-960.webp 960w, assets/optimized/gallery/gd1-photo-004-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-005.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-005-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-005-480.webp 480w, assets/optimized/gallery/gd1-photo-005-960.webp 960w, assets/optimized/gallery/gd1-photo-005-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-006.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-006-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-006-480.webp 480w, assets/optimized/gallery/gd1-photo-006-960.webp 960w, assets/optimized/gallery/gd1-photo-006-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-007.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-007-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-007-480.webp 480w, assets/optimized/gallery/gd1-photo-007-960.webp 960w, assets/optimized/gallery/gd1-photo-007-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-008.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-008-1600.webp",
+      "width": 2560,
+      "height": 1706,
+      "srcset": "assets/optimized/gallery/gd1-photo-008-480.webp 480w, assets/optimized/gallery/gd1-photo-008-960.webp 960w, assets/optimized/gallery/gd1-photo-008-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-009.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-009-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-009-480.webp 480w, assets/optimized/gallery/gd1-photo-009-960.webp 960w, assets/optimized/gallery/gd1-photo-009-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-010.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-010-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-010-480.webp 480w, assets/optimized/gallery/gd1-photo-010-960.webp 960w, assets/optimized/gallery/gd1-photo-010-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-011.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-011-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-011-480.webp 480w, assets/optimized/gallery/gd1-photo-011-960.webp 960w, assets/optimized/gallery/gd1-photo-011-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-012.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-012-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-012-480.webp 480w, assets/optimized/gallery/gd1-photo-012-960.webp 960w, assets/optimized/gallery/gd1-photo-012-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-013.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-013-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-013-480.webp 480w, assets/optimized/gallery/gd1-photo-013-960.webp 960w, assets/optimized/gallery/gd1-photo-013-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-014.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-014-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-014-480.webp 480w, assets/optimized/gallery/gd1-photo-014-960.webp 960w, assets/optimized/gallery/gd1-photo-014-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-015.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-015-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-015-480.webp 480w, assets/optimized/gallery/gd1-photo-015-960.webp 960w, assets/optimized/gallery/gd1-photo-015-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-017.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-017-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-017-480.webp 480w, assets/optimized/gallery/gd1-photo-017-960.webp 960w, assets/optimized/gallery/gd1-photo-017-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-018.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-018-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-018-480.webp 480w, assets/optimized/gallery/gd1-photo-018-960.webp 960w, assets/optimized/gallery/gd1-photo-018-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-019.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-019-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-019-480.webp 480w, assets/optimized/gallery/gd1-photo-019-960.webp 960w, assets/optimized/gallery/gd1-photo-019-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-020.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-020-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-020-480.webp 480w, assets/optimized/gallery/gd1-photo-020-960.webp 960w, assets/optimized/gallery/gd1-photo-020-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-021.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-021-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-021-480.webp 480w, assets/optimized/gallery/gd1-photo-021-960.webp 960w, assets/optimized/gallery/gd1-photo-021-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-023.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-023-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-023-480.webp 480w, assets/optimized/gallery/gd1-photo-023-960.webp 960w, assets/optimized/gallery/gd1-photo-023-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-024.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-024-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-024-480.webp 480w, assets/optimized/gallery/gd1-photo-024-960.webp 960w, assets/optimized/gallery/gd1-photo-024-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-025.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-025-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-025-480.webp 480w, assets/optimized/gallery/gd1-photo-025-960.webp 960w, assets/optimized/gallery/gd1-photo-025-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-026.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-026-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-026-480.webp 480w, assets/optimized/gallery/gd1-photo-026-960.webp 960w, assets/optimized/gallery/gd1-photo-026-1600.webp 1600w"
+    },
+    "assets/gallery/gd1-photo-027.jpg": {
+      "src": "assets/optimized/gallery/gd1-photo-027-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gallery/gd1-photo-027-480.webp 480w, assets/optimized/gallery/gd1-photo-027-960.webp 960w, assets/optimized/gallery/gd1-photo-027-1600.webp 1600w"
+    },
+    "assets/gd1-coach-players.jpg": {
+      "src": "assets/optimized/gd1-coach-players-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gd1-coach-players-480.webp 480w, assets/optimized/gd1-coach-players-960.webp 960w, assets/optimized/gd1-coach-players-1600.webp 1600w"
+    },
+    "assets/gnitko.jpg": {
+      "src": "assets/optimized/gnitko-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/gnitko-480.webp 480w, assets/optimized/gnitko-960.webp 960w, assets/optimized/gnitko-1600.webp 1600w"
+    },
+    "assets/kaunas.jpg": {
+      "src": "assets/optimized/kaunas-1600.webp",
+      "width": 1800,
+      "height": 1200,
+      "srcset": "assets/optimized/kaunas-480.webp 480w, assets/optimized/kaunas-960.webp 960w, assets/optimized/kaunas-1600.webp 1600w"
+    },
+    "assets/kranevo-rink.jpg": {
+      "src": "assets/optimized/kranevo-rink-900.webp",
+      "width": 900,
+      "height": 600,
+      "srcset": "assets/optimized/kranevo-rink-480.webp 480w, assets/optimized/kranevo-rink-900.webp 900w"
+    },
+    "assets/nymburk.jpg": {
+      "src": "assets/optimized/nymburk-832.webp",
+      "width": 832,
+      "height": 555,
+      "srcset": "assets/optimized/nymburk-480.webp 480w, assets/optimized/nymburk-832.webp 832w"
+    },
+    "assets/power-skating.jpg": {
+      "src": "assets/optimized/power-skating-1600.webp",
+      "width": 2560,
+      "height": 1707,
+      "srcset": "assets/optimized/power-skating-480.webp 480w, assets/optimized/power-skating-960.webp 960w, assets/optimized/power-skating-1600.webp 1600w"
+    },
+    "assets/prague-city.png": {
+      "src": "assets/optimized/prague-city-1500.webp",
+      "width": 1500,
+      "height": 830,
+      "srcset": "assets/optimized/prague-city-480.webp 480w, assets/optimized/prague-city-960.webp 960w, assets/optimized/prague-city-1500.webp 1500w"
+    },
+    "assets/sisak.jpg": {
+      "src": "assets/optimized/sisak-1024.webp",
+      "width": 1024,
+      "height": 683,
+      "srcset": "assets/optimized/sisak-480.webp 480w, assets/optimized/sisak-960.webp 960w, assets/optimized/sisak-1024.webp 1024w"
+    },
+    "assets/team-camp.png": {
+      "src": "assets/optimized/team-camp-1600.webp",
+      "width": 2560,
+      "height": 1123,
+      "srcset": "assets/optimized/team-camp-480.webp 480w, assets/optimized/team-camp-960.webp 960w, assets/optimized/team-camp-1600.webp 1600w"
+    },
+    "assets/videos/gd1-nymburk-2023.jpg": {
+      "src": "assets/optimized/videos/gd1-nymburk-2023-1600.webp",
+      "width": 2560,
+      "height": 1920,
+      "srcset": "assets/optimized/videos/gd1-nymburk-2023-480.webp 480w, assets/optimized/videos/gd1-nymburk-2023-960.webp 960w, assets/optimized/videos/gd1-nymburk-2023-1600.webp 1600w"
+    }
+  },
+  "videos": {
+    "assets/videos/gd1-nymburk-2023.mp4": {
+      "src": "assets/optimized/videos/gd1-nymburk-2023.mp4",
+      "poster": "assets/optimized/videos/gd1-nymburk-2023-cover.webp"
+    },
+    "assets/videos/gd1-prague-2024-1.mp4": {
+      "src": "assets/optimized/videos/gd1-prague-2024-1.mp4",
+      "poster": "assets/optimized/videos/gd1-prague-2024-1-cover.webp"
+    },
+    "assets/videos/gd1-prague-2024-11.mp4": {
+      "src": "assets/optimized/videos/gd1-prague-2024-11.mp4",
+      "poster": "assets/optimized/videos/gd1-prague-2024-11-cover.webp"
+    },
+    "assets/videos/gd1-prague-2024-2.mp4": {
+      "src": "assets/optimized/videos/gd1-prague-2024-2.mp4",
+      "poster": "assets/optimized/videos/gd1-prague-2024-2-cover.webp"
+    },
+    "assets/videos/gd1-prague-2024-3.mp4": {
+      "src": "assets/optimized/videos/gd1-prague-2024-3.mp4",
+      "poster": "assets/optimized/videos/gd1-prague-2024-3-cover.webp"
+    },
+    "assets/videos/gd1-prague-2024-4.mp4": {
+      "src": "assets/optimized/videos/gd1-prague-2024-4.mp4",
+      "poster": "assets/optimized/videos/gd1-prague-2024-4-cover.webp"
+    },
+    "assets/videos/gd1-prague-2026.mp4": {
+      "src": "assets/optimized/videos/gd1-prague-2026.mp4",
+      "poster": "assets/optimized/videos/gd1-prague-2026-cover.webp"
+    }
+  }
+}

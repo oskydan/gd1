@@ -4,13 +4,18 @@ from pathlib import Path
 from html import escape
 import hashlib, json, re, shutil, subprocess, sys, tempfile
 from camps import read, runtime, main_html, period
+import media
 
 ROOT=Path(__file__).resolve().parents[1]
 
 def generate(root):
     data=read(root)
+    manifest=media.load(root)
+    media.styles(root,manifest)
     en=[runtime(c,'en') for c in data['camps']]
     uk=[runtime(c,'uk') for c in data['camps']]
+    media.cards(en,manifest)
+    media.cards(uk,manifest)
     def write(name,text): (root/name).write_text(text)
     write('camps-data.js','// Generated from data/camps.json. Run python3 tools/build.py.\nwindow.GD1_CAMPS = '+json.dumps(en,ensure_ascii=False,indent=2)+';\n')
     write('camps-data-uk.js',"// Generated from data/camps.json.\nif (document.documentElement.lang === 'uk') {\n  window.GD1_CAMPS = "+json.dumps(uk,ensure_ascii=False,indent=2)+';\n}\n')
@@ -27,10 +32,10 @@ def generate(root):
         write(c['page'],html)
     for p in root.glob('*.html'):
         if p.name.endswith('-uk.html'):continue
-        s=p.read_text()
+        s=media.html(p.read_text(),manifest)
         s,n=re.subn(r'(<nav class="footer-links" aria-label="Upcoming camps">).*?(</nav>)',lambda m:m[1]+''.join(footer)+m[2],s,flags=re.S)
         assert n==1,f'{p.name}: footer camp navigation missing'
-        for asset in ('camps-data.js','script.js','analytics.js','styles.css'):
+        for asset in ('camps-data.js','script.js','analytics.js','styles.css','gallery.js'):
             version=hashlib.sha256((root/asset).read_bytes()).hexdigest()[:10]
             s=re.sub(re.escape(asset)+r'\?v=[^"\s]+',asset+'?v='+version,s)
         p.write_text(s)
