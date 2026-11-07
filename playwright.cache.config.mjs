@@ -1,0 +1,3 @@
+import base from './playwright.config.mjs';
+import {defineConfig} from 'playwright/test';
+export default defineConfig({...base,testDir:'./tests/cache',fullyParallel:false,workers:1,timeout:45000,projects:base.projects.filter(p=>['desktop-chrome','iphone-webkit'].includes(p.name)),use:{...base.use,baseURL:'http://127.0.0.1:4174'},reporter:[['list'],['html',{outputFolder:'cache-report',open:'never'}]],outputDir:'cache-results',webServer:[{command:`"${process.execPath}" tests/cache/server.mjs`,url:'http://127.0.0.1:4174',reuseExistingServer:false,timeout:15000},{command:`"${process.execPath}" tools/browser-server.mjs`,url:'http://127.0.0.1:4173',reuseExistingServer:false,timeout:15000}]});

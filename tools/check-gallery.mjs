@@ -7,12 +7,15 @@ let loads=0,plays=0;
 const videos=Array.from({length:7},()=>{
   const source={dataset:{src:'film.mp4'},removeAttribute(){delete this.dataset.src}};
   const button={hidden:false,listeners:{},addEventListener(e,f){this.listeners[e]=f}};
-  return {source,button,listeners:{},parentElement:{querySelector(){return button}},querySelector(){return source.dataset.src?source:null},addEventListener(e,f){this.listeners[e]=f},pause(){},load(){loads++},async play(){plays++;this.listeners.play()}};
+  return {dataset:{poster:"cover.webp"},source,button,listeners:{},parentElement:{querySelector(){return button}},querySelector(){return source.dataset.src?source:null},addEventListener(e,f){this.listeners[e]=f},pause(){},load(){loads++},async play(){plays++;this.listeners.play()}};
 });
 const panels={photos:{hidden:false},videos:{hidden:true}};
 const tabs=['photos','videos'].map(name=>({id:name+'-tab',tabIndex:0,listeners:{},setAttribute(){},getAttribute(){return name},addEventListener(e,f){this.listeners[e]=f}}));
-const ctx={document:{querySelectorAll:s=>s==='.gallery-tab'?tabs:videos,getElementById:id=>panels[id]||tabs.find(t=>t.id===id)},window:{location:{hash:'#videos'},addEventListener(){}}};
+const ctx={document:{querySelectorAll:s=>s==='.gallery-tab'?tabs:videos,getElementById:id=>panels[id]||tabs.find(t=>t.id===id)},window:{location:{hash:''},addEventListener(){}}};
 vm.createContext(ctx);vm.runInContext(fs.readFileSync(path.join(root,'gallery.js'),'utf8'),ctx);
+assert.ok(videos.every(v=>!v.poster),'Photo tab must not load hidden video covers');
+tabs[1].listeners.click();
+assert.ok(videos.every(v=>v.poster==='cover.webp'),'Opening the video tab reveals its covers');
 assert.equal(loads,0,'Opening the video tab must not load films');
 assert.equal(plays,0);
 await videos[0].button.listeners.click();

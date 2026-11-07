@@ -9,6 +9,7 @@ def load(root):
     return json.loads(path.read_text()) if path.exists() else {'images':{},'videos':{}}
 
 def image_info(manifest,src):
+    src=src.split('?',1)[0] if src else src
     return manifest['images'].get(src) or next((v for v in manifest['images'].values() if v['src']==src),None)
 
 def cards(camps,manifest):
@@ -31,8 +32,8 @@ class ResponsiveHTML(HTMLParser):
             if info:updates['data-src' if 'data-src' in a else 'src']=info['src']
         if tag=='video':
             updates['preload']='none'
-            poster=image_info(self.manifest,a.get('poster'))
-            if poster:updates['poster']=poster['src']
+            poster=image_info(self.manifest,a.get('data-poster',a.get('poster')))
+            if poster:updates['data-poster']=poster['src']
         for key,value in updates.items():
             attr=key+'="'+escape(value,quote=True)+'"'
             if key in a:raw=re.sub(r'\b'+key+r'=("[^"]*"|\x27[^\x27]*\x27)',lambda _:attr,raw,count=1)
@@ -53,7 +54,7 @@ def html(text,manifest):
         source=re.search(r'data-src="([^"]+)"',block)
         if not source:return block
         info=manifest['videos'].get(source[1]) or next((v for v in manifest['videos'].values() if v['src']==source[1]),None)
-        return block.replace('<video ','<video poster="'+info['poster']+'" ',1) if info else block
+        return block.replace('<video ','<video data-poster="'+info['poster']+'" ',1) if info else block
     text=re.sub(r'<video\b.*?</video>',cover,text,flags=re.S)
     parser=ResponsiveHTML(manifest);parser.feed(text);return ''.join(parser.parts)
 

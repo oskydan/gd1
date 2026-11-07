@@ -2,6 +2,12 @@ const galleryTabs = [...document.querySelectorAll('.gallery-tab')];
 const galleryVideos = [...document.querySelectorAll('.gallery-video-item video')];
 
 function selectGalleryTab(tab) {
+  if (tab.id === 'videos-tab') galleryVideos.forEach(video => {
+    if (video.dataset.poster) {
+      video.poster = video.dataset.poster;
+      delete video.dataset.poster;
+    }
+  });
   galleryTabs.forEach((item) => {
     const selected = item === tab;
     item.setAttribute('aria-selected', String(selected));

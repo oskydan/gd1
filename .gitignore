@@ -13,3 +13,11 @@ playwright-report/
 test-results/
 
 monitor-report.md
+
+accessibility-report/
+accessibility-results/
+.lighthouseci/
+lighthouse-report/
+
+cache-report/
+cache-results/

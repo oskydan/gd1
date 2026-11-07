@@ -29,7 +29,7 @@ def switcher(name, language):
         en = '<span class="language-option is-current" lang="en" aria-current="true" aria-label="English (current language)">English</span>'
     else:
         uk = '<span class="language-option is-current" lang="uk" aria-current="true" aria-label="Українська (поточна мова)">Українська</span>'
-    label = 'Choose language' if language == 'en' else 'Обрати мову'
+    label = 'ENG - Choose language' if language == 'en' else 'УКР - Обрати мову'
     current = 'ENG' if language == 'en' else 'УКР'
     globe = '<svg class="language-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg>'
     return f'<details class="language-switcher"><summary class="language-toggle" aria-label="{label}">{globe}<span lang="{language}">{current}</span></summary><div class="language-menu">{en}{uk}</div></details>'

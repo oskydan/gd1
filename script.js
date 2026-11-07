@@ -110,11 +110,11 @@ function renderHomeCamps() {
     </article>`).join('');
 }
 
-function renderArchiveCard(camp, past) {
+function renderArchiveCard(camp, past, first = false) {
   return `
     <article class="camp-archive-card${past ? ' is-past' : ''}" id="${safe(camp.id)}" data-camp-id="${safe(camp.id)}">
       ${past || !camp.page || camp.cancelled || camp.registrationClosed || camp.registrationComingSoon ? '' : `<a class="camp-card-hitarea" href="${safe(camp.page)}" aria-label="${ui('Open camp page for', 'Відкрити сторінку кемпу:')} ${safe(camp.title)}, ${safe(camp.period)}"></a>`}
-      <div class="camp-archive-photo"><img src="${safe(camp.image)}" alt="${safe(camp.imageAlt)}" ${camp.imageSrcset ? `srcset="${safe(camp.imageSrcset)}" sizes="(max-width:800px) calc(100vw - 40px), 600px" width="${camp.imageWidth}" height="${camp.imageHeight}"` : ''} loading="lazy" decoding="async"></div>
+      <div class="camp-archive-photo"><img src="${safe(camp.image)}" alt="${safe(camp.imageAlt)}" ${camp.imageSrcset ? `srcset="${safe(camp.imageSrcset)}" sizes="(max-width:800px) calc(100vw - 40px), 600px" width="${camp.imageWidth}" height="${camp.imageHeight}"` : ''} loading="${first ? 'eager' : 'lazy'}" ${first ? 'fetchpriority="high"' : ''} decoding="async"></div>
       <div class="camp-archive-info">
         <p class="eyebrow dark">${safe(camp.period.toUpperCase())}</p>
         <h3>${safe(camp.title)}</h3>
@@ -133,7 +133,7 @@ function renderCampArchive() {
   if (!upcomingContainer || !pastContainer) return;
   const upcoming = campList.filter((camp) => !isCampPast(camp)).sort((a, b) => a.startsOn.localeCompare(b.startsOn));
   const past = campList.filter(isCampPast).sort((a, b) => b.startsOn.localeCompare(a.startsOn));
-  upcomingContainer.innerHTML = upcoming.map((camp) => renderArchiveCard(camp, false)).join('');
+  upcomingContainer.innerHTML = upcoming.map((camp, index) => renderArchiveCard(camp, false, index === 0)).join('');
   const pageSize = 12;
   let visiblePastCount = Math.min(pageSize, past.length);
   pastContainer.innerHTML = past.slice(0, visiblePastCount).map((camp) => renderArchiveCard(camp, true)).join('');

@@ -171,3 +171,34 @@ Limits live in `data/performance-budgets.json`. Five existing larger optimized f
 To receive email alerts: in your GitHub account notification settings, enable Actions email notifications and choose failed workflows only. Scheduled-run notifications go to the workflow schedule owner (normally the account that pushes this workflow); check your email settings after publishing. No email service or secret is required. A failed run is also visible in Actions. GitHub schedules are best-effort, not continuous uptime monitoring; inactive public-repository schedules may be disabled after 60 days without activity. Form availability checks do not prove successful submission or payment.
 
 Run locally with `node tools/monitor-live.mjs` after `npm ci` and installing Playwright Chromium. This checks the live published version, so unpublished local changes can intentionally produce failures until deployed.
+
+## Lighthouse and accessibility gates
+
+Both check and deployment workflows now run two quality gates against the packaged site, before publication:
+
+- `npm run test:accessibility` scans every English/Ukrainian page in desktop and mobile Chrome using axe, including open navigation/language menus and gallery photo/video states. Detected WCAG 2 A/AA, 2.1 A/AA and 2.2 AA violations fail the run. No rules or page regions are excluded. Reports attach affected selectors, remediation guidance and incomplete checks needing manual review.
+- `npm run test:lighthouse` audits mobile homepage, Camps, School, Coach, Gallery, Contact and the shared camp detail template in both languages. It runs each URL three times and uses the median run. Required: performance at least 90/100, automated accessibility 100/100, largest contentful paint at most 3.5 seconds, layout shift at most 0.1, and total blocking time at most 200 milliseconds. Thresholds are in `lighthouserc.cjs`. The initial LCP regression ceiling is 3.5 seconds; the improvement target remains 2.5 seconds.
+
+Use Node.js 24. Run `npm ci`, install the Playwright browsers, and package the site with `python3 tools/package-site.py` first. Lighthouse uses the pinned Playwright Chromium by default (or `CHROME_PATH`); both suites also support the local `GD1_TEST_CHROME_PATH` override. Run suites sequentially because they share the local test server and competing browser work can distort performance measurements.
+
+The GitHub run summary shows a Lighthouse scores/metrics table. GitHub stores the accessibility and Lighthouse HTML/JSON reports for 14 days in the run's `quality-report` artifact. Reports stay in GitHub artifacts rather than being uploaded to public Lighthouse storage or the website. Local report folders are ignored by Git and excluded from the public site. Localhost checks do not send Mixpanel visits.
+
+These checks catch regressions but do not establish full accessibility compliance. Keyboard/screen-reader usability and video captions still require human review. Lighthouse uses simulated mobile conditions on a local server; it is not a measurement of every visitor's connection or production caching.
+
+The pinned `basic-ftp` override supplies the patched transitive dependency used by Lighthouse's tooling; it is not included in the published website.
+
+## Returning-visitor caching
+
+The published GitHub Pages responses were reviewed: images, fonts, styles and scripts currently have `Cache-Control: max-age=600` plus validators. The site now supplements that short host cache with a demand-only service-worker cache for versioned static assets. No hosting/DNS changes are required.
+
+`tools/versions.py` adds content-derived `?v=` versions to images, font files, both stylesheets and site scripts, including runtime camp data and responsive image choices. Changing an image/font updates its URL and the version of dependent CSS/JavaScript. Unchanged bytes keep the same URL across deployments, so reusable files do not expire merely because another camp was edited. The build/check command remains idempotent.
+
+`cache.js` registers `sw.js` after page loading on HTTPS. File previews and localhost retain normal behavior unless the browser test explicitly enables caching. Root domains and `/gd1/` GitHub project paths are supported. After the worker controls the site, requested static files are stored as they are used; it does not prefetch the gallery or movies. Repeat visits can reuse those assets beyond GitHub's ten-minute cache lifetime.
+
+The worker validates response bytes against the URL's content version before storing. Storage is limited to 64 files, at most 512 KiB each (roughly 32 MiB of content), expiring after 30 days; oldest entries are evicted when full. Larger images retain normal hosting/browser caching. Failed/partial responses and unversioned URLs are not stored. Storage/registration restrictions fall back to ordinary loading.
+
+HTML navigation is revalidated against the network and is never saved as an offline page. Forms, tracking requests, third-party resources, MP4 files and byte-range requests are not added to this cache. Updated HTML therefore selects new asset versions without purging unchanged files. Normal hosting deployment propagation still applies. Both languages have the same behavior.
+
+Run `python3 tools/test-versions.py` and `npm run test:cache` to check content-version dependency updates, real repeat-request avoidance, deployment updates, both language fonts, cache limits/expiry, root/project paths, video ranges and excluded requests. These tests run in desktop Chrome and iPhone-sized WebKit before publishing; their reports are included in the quality-report artifact. Browser caching tests deliberately disable the ordinary HTTP cache on their fixture server so they prove the service-worker behavior.
+
+To change cache policy, edit `sw.js` and deploy it at the same URL; registration uses `updateViaCache: 'none'`. If this feature ever needs to be retired, deploy a pass-through worker that deletes only this site's `gd1-assets-*` cache and unregisters itself. Simply removing `sw.js` does not remove workers already installed in visitors' browsers.

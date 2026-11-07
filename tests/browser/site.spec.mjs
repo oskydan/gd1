@@ -100,7 +100,9 @@ for(const language of ['en','uk']){
 
   test(`${language}: gallery downloads a film only after Play and plays it`,async({page})=>{
     const requests=[];page.on('request',request=>{if(/\.mp4(?:\?|$)/.test(request.url()))requests.push(request.url())});
-    await page.goto(`/gallery${suffix}.html#videos`);await expect(page.locator('#videos-panel')).toBeVisible();
+    await page.goto(`/gallery${suffix}.html`);
+    expect(await page.locator('.gallery-video-item video').evaluateAll(videos=>videos.every(v=>!v.poster&&Boolean(v.dataset.poster))),'Photo tab defers all video covers').toBe(true);
+    await page.locator('#videos-tab').click();await expect(page.locator('#videos-panel')).toBeVisible();
     expect(requests).toHaveLength(0);
     const video=page.locator('.gallery-video-item video').first();
     await expect.poll(()=>video.evaluate(v=>Boolean(v.poster))).toBe(true);

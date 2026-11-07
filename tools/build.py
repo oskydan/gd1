@@ -2,10 +2,11 @@
 """Build static camp content and Ukrainian pages; --check detects stale output."""
 from pathlib import Path
 from html import escape
-import hashlib, json, re, shutil, subprocess, sys, tempfile
+import json, re, shutil, subprocess, sys, tempfile
 from camps import read, runtime, main_html, period
 import media
 import seo
+import versions
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -36,19 +37,19 @@ def generate(root):
         s=media.html(p.read_text(),manifest)
         s,n=re.subn(r'(<nav class="footer-links" aria-label="Upcoming camps">).*?(</nav>)',lambda m:m[1]+''.join(footer)+m[2],s,flags=re.S)
         assert n==1,f'{p.name}: footer camp navigation missing'
-        for asset in ('camps-data.js','script.js','analytics.js','styles.css','gallery.js'):
-            version=hashlib.sha256((root/asset).read_bytes()).hexdigest()[:10]
-            s=re.sub(re.escape(asset)+r'\?v=[^"\s]+',asset+'?v='+version,s)
+        if 'src="cache.js' not in s:
+            s=s.replace('</body>','  <script src="cache.js?v=1" defer></script>\n</body>')
         p.write_text(s)
     subprocess.run([sys.executable,str(root/'build-uk.py')],check=True)
     seo.generate(root,data)
+    versions.apply(root,ROOT/'assets' if root!=ROOT else None)
 
 if __name__=='__main__':
     if '--check' in sys.argv:
         with tempfile.TemporaryDirectory(prefix='gd1-check-') as folder:
             temp=Path(folder)
             for p in ROOT.iterdir():
-                if p.name in ('.git','assets','dist','__pycache__','node_modules','playwright-report','test-results'):continue
+                if p.name in ('.git','assets','dist','__pycache__','node_modules','playwright-report','test-results','accessibility-report','accessibility-results','.lighthouseci','lighthouse-report','cache-report','cache-results'):continue
                 if p.is_dir():shutil.copytree(p,temp/p.name,ignore=shutil.ignore_patterns('__pycache__'))
                 else:shutil.copy2(p,temp/p.name)
             generate(temp)

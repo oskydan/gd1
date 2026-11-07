@@ -23,13 +23,13 @@ class Page(HTMLParser):
         if tag=='body':self.campid=a.get('data-camp-id')
         if tag=='h1':self.h1+=1
         if tag=='img':require(bool(a.get('alt')),f'{self.path.name}: image missing description')
-        for key in ('href','src','data-src','poster'):
+        for key in ('href','src','data-src','poster','data-poster'):
             if a.get(key) and tag!='base':self.refs.append(a[key])
         if a.get('srcset'):
             self.refs.extend(item.strip().split()[0] for item in a['srcset'].split(','))
         if tag=='video':
             require(a.get('preload')=='none',f'{self.path.name}: video must not download before play')
-            require(bool(a.get('poster')),f'{self.path.name}: missing video cover')
+            require(bool(a.get('poster') or a.get('data-poster')),f'{self.path.name}: missing video cover')
         if tag=='link' and a.get('rel')=='alternate':self.alternates[a.get('hreflang')]=a.get('href')
         if tag=='a' and a.get('target')=='_blank':require('noopener' in a.get('rel',''),f'{self.path.name}: external tab missing noopener')
         if tag=='a' and ('camp-detail-cta' in a.get('class','')):self.registrations.append(a)

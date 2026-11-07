@@ -2,6 +2,8 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
+import {gzipSync} from 'node:zlib';
+const compressed=new Map();
 const root=path.resolve(import.meta.dirname,'../dist');
 if(!fs.existsSync(path.join(root,'index.html')))throw new Error('Run python3 tools/package-site.py before browser tests.');
 const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.webp':'image/webp','.png':'image/png','.jpg':'image/jpeg','.woff2':'font/woff2','.mp4':'video/mp4','.xml':'application/xml','.txt':'text/plain'};
@@ -24,6 +26,14 @@ http.createServer((req,res)=>{
       start=Number(range[1]);end=range[2]?Math.min(Number(range[2]),end):end;
       if(start>end){res.writeHead(416,{'Content-Range':`bytes */${stat.size}`});return res.end()}
       status=206;headers['Content-Range']=`bytes ${start}-${end}/${stat.size}`;
+    }
+    // GitHub Pages compresses text responses; model that transfer cost for Lighthouse.
+    if(!req.headers.range && /(?:^|[,\s])gzip(?:[,;\s]|$)/.test(req.headers['accept-encoding']||'') && ['.html','.css','.js','.xml','.txt','.svg'].includes(path.extname(file))){
+      const key=file+':'+stat.mtimeMs;
+      if(!compressed.has(key))compressed.set(key,gzipSync(fs.readFileSync(file)));
+      const body=compressed.get(key);
+      headers['Content-Encoding']='gzip';headers['Vary']='Accept-Encoding';headers['Content-Length']=body.length;
+      res.writeHead(status,headers);return res.end(req.method==='HEAD'?undefined:body);
     }
     headers['Content-Length']=end-start+1;
     res.writeHead(status,headers);
