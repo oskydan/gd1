@@ -33,6 +33,8 @@ jobs:
         run: python3 tools/build.py --check
       - name: Check links and camp data
         run: python3 tools/check-site.py
+      - name: Check search metadata
+        run: python3 tools/check-seo.py
       - name: Check validator regressions
         run: python3 tools/test-checks.py
       - name: Check JavaScript and camp behaviour

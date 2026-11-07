@@ -105,7 +105,14 @@
             },
             "id": "campFeeWithLunch"
           }
-        ]
+        ],
+        "address": {
+          "streetAddress": "Draugystės g. 24",
+          "addressLocality": "Elektrėnai",
+          "postalCode": "LT-26115",
+          "addressCountry": "LT"
+        },
+        "addressSource": "https://www.elektrenuledas.lt/kontaktai/"
       }
     },
     {
@@ -201,7 +208,14 @@
             },
             "id": "accommodationFee"
           }
-        ]
+        ],
+        "address": {
+          "streetAddress": "Přetlucká 3422/23",
+          "addressLocality": "Prague",
+          "postalCode": "100 00",
+          "addressCountry": "CZ"
+        },
+        "addressSource": "https://prague.eu/en/objevujte/skoda-icerink/"
       }
     },
     {
@@ -481,7 +495,14 @@
             },
             "id": "accommodationFee"
           }
-        ]
+        ],
+        "address": {
+          "streetAddress": "Masiv 25",
+          "addressLocality": "Kranevo",
+          "postalCode": "9649",
+          "addressCountry": "BG"
+        },
+        "addressSource": "https://www.blackseaicearena.com/en/article/69/sport-za-decata-na-obshtina-balchik.html"
       }
     },
     {

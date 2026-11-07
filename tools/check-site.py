@@ -43,7 +43,7 @@ for path in ROOT.glob('*.html'):
     require(p.h1<=1,f'{path.name}: duplicate main headings')
     peer=path.name.replace('-uk.html','.html') if lang=='uk' else path.stem+'-uk.html'
     require((ROOT/peer).exists(),f'{path.name}: missing language counterpart')
-    require(set(p.alternates)=={'en','uk'},f'{path.name}: missing language alternates')
+    require(set(p.alternates)=={'en','uk','x-default'},f'{path.name}: missing language alternates')
     for asset in ('script.js','analytics.js','styles.css'):
         require(any(urlsplit(ref).path==asset for ref in p.refs),f'{path.name}: missing shared {asset}')
     if p.campid:

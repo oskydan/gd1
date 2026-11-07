@@ -6,7 +6,7 @@ out=root/'dist'
 if out.exists():shutil.rmtree(out)
 out.mkdir()
 for p in root.iterdir():
-    if p.is_file() and (p.suffix in ('.html','.css','.js') or p.name in ('CNAME','.nojekyll')):shutil.copy2(p,out/p.name)
+    if p.is_file() and (p.suffix in ('.html','.css','.js') or p.name in ('CNAME','.nojekyll','sitemap.xml','robots.txt')):shutil.copy2(p,out/p.name)
 manifest=json.loads((root/'data/media.json').read_text()) if (root/'data/media.json').exists() else {'images':{},'videos':{}}
 served='\n'.join(p.read_text() for p in out.iterdir() if p.suffix in ('.html','.css','.js'))
 replaced={source for group in manifest.values() for source,info in group.items() if source!=info['src'] and source not in served}

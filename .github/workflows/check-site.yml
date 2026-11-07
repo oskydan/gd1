@@ -19,6 +19,8 @@ jobs:
           node-version: '24'
       - run: python3 tools/build.py --check
       - run: python3 tools/check-site.py
+      - name: Check search metadata
+        run: python3 tools/check-seo.py
       - run: python3 tools/test-checks.py
       - run: node tools/check-js.mjs
       - name: Check deferred video loading

@@ -5,6 +5,7 @@ from html import escape
 import hashlib, json, re, shutil, subprocess, sys, tempfile
 from camps import read, runtime, main_html, period
 import media
+import seo
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -40,6 +41,7 @@ def generate(root):
             s=re.sub(re.escape(asset)+r'\?v=[^"\s]+',asset+'?v='+version,s)
         p.write_text(s)
     subprocess.run([sys.executable,str(root/'build-uk.py')],check=True)
+    seo.generate(root,data)
 
 if __name__=='__main__':
     if '--check' in sys.argv:
@@ -50,7 +52,7 @@ if __name__=='__main__':
                 if p.is_dir():shutil.copytree(p,temp/p.name,ignore=shutil.ignore_patterns('__pycache__'))
                 else:shutil.copy2(p,temp/p.name)
             generate(temp)
-            changed=[p.name for p in temp.iterdir() if p.is_file() and p.suffix in ('.html','.js') and (not (ROOT/p.name).exists() or p.read_bytes()!=(ROOT/p.name).read_bytes())]
+            changed=[p.name for p in temp.iterdir() if p.is_file() and (p.suffix in ('.html','.js','.css','.xml') or p.name=='robots.txt') and (not (ROOT/p.name).exists() or p.read_bytes()!=(ROOT/p.name).read_bytes())]
             if changed:raise SystemExit('Generated files are stale. Run python3 tools/build.py:\n'+ '\n'.join(changed))
             print('Generated camp content and Ukrainian translations are up to date.')
     else:generate(ROOT)

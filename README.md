@@ -80,3 +80,20 @@ Original media remains under `assets/`. Prepared WebP image sizes, video covers 
 Gallery films load only when their Play button is pressed. Selecting the Videos tab downloads covers rather than seven movies. Original chosen covers are preserved, including the Nymburk photo. Native video controls and inline mobile playback remain available.
 
 To prepare newly added media locally, install Pillow and imageio-ffmpeg in a temporary Python environment, then run `python3 tools/optimize-media.py` followed by `python3 tools/build.py` and the normal checks. This preparation is optional for new files; commit the generated manifest and assets. CI builds use the prepared assets and do not need imaging/video dependencies. `node tools/check-gallery.mjs` verifies that tab selection does not load films and Play loads only the selected film.
+
+## Search-engine information
+
+The production hostname comes from `CNAME` (currently `gd1.pro`). `python3 tools/build.py` generates:
+
+- One absolute, self-referencing canonical URL on each page. English homepage uses `https://gd1.pro/`; Ukrainian pages retain their own canonical URLs.
+- Reciprocal `en` / `uk` language references, with English as `x-default`.
+- `sitemap.xml` containing all canonical pages, and `robots.txt` pointing to it. No artificial modification dates are added.
+- Localized Event JSON-LD on upcoming camp detail pages, with dates, arena/address, organizer, image and available registration offers. Accommodation is not advertised as a camp admission price. Start times are omitted because none have been supplied.
+
+Camp dates, prices, registration status and venue addresses come from `data/camps.json`. `detail.addressSource` records the address reference. Venue sources: https://www.elektrenuledas.lt/kontaktai/ , https://www.blackseaicearena.com/en/article/69/sport-za-decata-na-obshtina-balchik.html and https://prague.eu/en/objevujte/skoda-icerink/ .
+
+Event generation uses the build date in Europe/Warsaw. Completed camps lose upcoming-event markup at the next build; cancelled camps with retained pages keep their dates and receive EventCancelled status. Run the build when a date/status changes or an event ends.
+
+`python3 tools/check-seo.py` checks canonicals, reciprocal language links, sitemap coverage, event JSON and registration prices. Both GitHub workflows run it before publication. The public package includes the sitemap and robots file.
+
+After publishing, submit `https://gd1.pro/sitemap.xml` in Google Search Console and inspect the camp URLs using Google's Rich Results Test. Local validation cannot guarantee indexing or enhanced search results. References: https://developers.google.com/search/docs/appearance/structured-data/event and https://developers.google.com/search/docs/specialty/international/localized-versions .

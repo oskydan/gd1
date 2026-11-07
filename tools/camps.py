@@ -39,6 +39,9 @@ def read(root):
             pages.add(c['page'])
             assert c.get('detail') and c['detail']['prices'],c['id']+': missing page details'
             assert urlsplit(c['detail']['venueUrl']).scheme=='https',c['id']+': invalid venue URL'
+            address=c['detail'].get('address',{})
+            assert all(address.get(k) for k in ('streetAddress','addressLocality','addressCountry')),c['id']+': venue address required for search metadata'
+            assert re.fullmatch('[A-Z]{2}',address['addressCountry']),c['id']+': use a two-letter country code'
             assert all(isinstance(p['amount'],int) and p['amount']>0 for p in c['detail']['prices']),c['id']+': invalid price'
             amounts={p['id']:str(p['amount']) for p in c['detail']['prices']}
             for t in c['copy'].values():
