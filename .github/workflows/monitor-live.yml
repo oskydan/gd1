@@ -1,0 +1,34 @@
+name: Monitor published site
+on:
+  schedule:
+    - cron: '23 7 * * *'
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['Deploy static site to GitHub Pages']
+    types: [completed]
+permissions:
+  contents: read
+concurrency:
+  group: monitor-live
+  cancel-in-progress: false
+jobs:
+  monitor:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Check live pages and registration forms
+        run: node tools/monitor-live.mjs
+      - name: Save monitoring report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: published-site-monitor
+          path: monitor-report.md
+          retention-days: 14

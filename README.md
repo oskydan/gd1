@@ -163,3 +163,11 @@ python3 tools/check-performance.py
 ```
 
 Limits live in `data/performance-budgets.json`. Five existing larger optimized files have exact SHA-256-pinned exceptions. Their replacement or growth is not automatically allowed, and they still count toward cumulative limits. Optimize new media first; change a limit or exception only after reviewing the impact. Remove an exception when its file is removed.
+
+## Published site monitoring
+
+`Monitor published site` runs daily at 07:23 UTC, after a successful Pages deployment, or manually from Actions → Monitor published site → Run workflow. It reads the domain from CNAME and checks English/Ukrainian key pages, future open camp pages, rendered registration links and their new-tab targets, and essential requested resources. Google Forms are fetched without submitting anything; obvious closed, missing or inaccessible forms fail. Each failed check is retried twice, five seconds apart. Reports appear in the run summary and are retained as artifacts for 14 days. Monitoring blocks Mixpanel requests.
+
+To receive email alerts: in your GitHub account notification settings, enable Actions email notifications and choose failed workflows only. Scheduled-run notifications go to the workflow schedule owner (normally the account that pushes this workflow); check your email settings after publishing. No email service or secret is required. A failed run is also visible in Actions. GitHub schedules are best-effort, not continuous uptime monitoring; inactive public-repository schedules may be disabled after 60 days without activity. Form availability checks do not prove successful submission or payment.
+
+Run locally with `node tools/monitor-live.mjs` after `npm ci` and installing Playwright Chromium. This checks the live published version, so unpublished local changes can intentionally produce failures until deployed.
