@@ -192,6 +192,24 @@ function renderCampArchive() {
   }
 }
 
+// Keep the camp action within reach on small screens, including after expiry.
+let mobileCampBar;
+if (document.body.classList.contains('camp-detail-page') && campPage) {
+  mobileCampBar = document.createElement('aside');
+  mobileCampBar.className = 'mobile-camp-bar';
+  mobileCampBar.setAttribute('aria-label', ui('Camp registration', 'Реєстрація на кемп'));
+  document.body.append(mobileCampBar);
+  document.body.classList.add('has-mobile-camp-bar');
+}
+function updateMobileCampBar() {
+  if (!mobileCampBar) return;
+  const completed = isCampPast(campPage);
+  const action = completed
+    ? `<a class="button" href="${ui('camps.html', 'camps-uk.html')}">${ui('View upcoming camps', 'Майбутні кемпи')}</a>`
+    : registrationButton(campPage);
+  mobileCampBar.innerHTML = `<div class="mobile-camp-bar-inner"><div class="mobile-camp-bar-price"><span>${ui('Camp fee', 'Вартість кемпу')}</span><strong>${ui('€' + campPage.campFee, campPage.campFee + ' €')}</strong></div>${action}</div>`;
+}
+
 const detailRegistrations = [...document.querySelectorAll('.camp-detail-cta')].map(button => ({
   current: button, original: button.cloneNode(true)
 }));
@@ -204,6 +222,7 @@ function refreshCampState() {
   const snapshot = campList.map(camp => `${camp.id}:${isCampPast(camp)}`).join('|');
   if (snapshot !== campStateSnapshot) {
     campStateSnapshot = snapshot;
+    updateMobileCampBar();
     renderHomeCamps();
     renderCampArchive();
     footerCampLinks.forEach(({link,camp}) => { link.hidden = isCampPast(camp); });

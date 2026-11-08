@@ -4699,3 +4699,37 @@ details.language-switcher:not([open])>.language-menu {
   .camp-card-facts { grid-template-columns: 1fr; gap: 3px; }
   .camp-card-facts dd + dt { margin-top: 5px; }
 }
+
+.mobile-camp-bar { display: none; }
+@media (max-width:700px) {
+  .has-mobile-camp-bar { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+  html:has(.has-mobile-camp-bar) { scroll-padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px)); }
+  .mobile-camp-bar {
+    display: block; position: fixed; inset: auto 0 0; z-index: 80;
+    background: #fff; color: #111; border-top: 1px solid #dedede;
+    padding: 12px 20px calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+  .mobile-camp-bar-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .mobile-camp-bar-price { flex: none; display: flex; flex-direction: column; }
+  .mobile-camp-bar-price span { font: 400 14px/1.4 var(--font); color: #555; }
+  .mobile-camp-bar-price strong { font: 500 28px/1.2 var(--display); }
+  .mobile-camp-bar .button {
+    margin: 0; min-height: 48px; flex: 1; max-width: 280px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 10px 12px; text-align: center; font-size: 14px; line-height: 1.4;
+  }
+}
+
+.mobile-camp-bar a.button {
+  background: #111;
+  color: #fff;
+  border: 1px solid #111;
+}
+.mobile-camp-bar a.button:hover,
+.mobile-camp-bar a.button:focus-visible {
+  background: #fff !important;
+  color: #111 !important;
+  border-color: #111 !important;
+  box-shadow: none;
+}
+.mobile-camp-bar a.button:focus-visible { outline: 2px solid #111; outline-offset: 3px; }
