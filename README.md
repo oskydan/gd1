@@ -25,6 +25,7 @@ Import the repository into Vercel and set the project root to this folder if the
 `data/camps.json` is the single source for camp dates, images, registration links, status, English/Ukrainian descriptions, prices, venues and detail-page content. Edit this file rather than generated `camps-data*.js` or camp HTML pages.
 
 - `startsOn` / `endsOn`: ISO dates such as `2026-12-27`; displayed dates are generated.
+- `timeZone`: venue's IANA zone, such as `Europe/Prague`, `Europe/Vilnius` or `Europe/Sofia`; completion uses this zone rather than the visitor's.
 - `status`: `open`, `soon`, `cancelled`, or `closed`. Open registration requires an HTTPS `registrationUrl`.
 - `image`: local asset path shared by the card and detail page; `copy.en` / `copy.uk` contain accessible descriptions and page text.
 - `page`: detail-page filename, or an empty string for archive-only camps. Detail pages are generated using `templates/camp.html`.
@@ -202,3 +203,13 @@ HTML navigation is revalidated against the network and is never saved as an offl
 Run `python3 tools/test-versions.py` and `npm run test:cache` to check content-version dependency updates, real repeat-request avoidance, deployment updates, both language fonts, cache limits/expiry, root/project paths, video ranges and excluded requests. These tests run in desktop Chrome and iPhone-sized WebKit before publishing; their reports are included in the quality-report artifact. Browser caching tests deliberately disable the ordinary HTTP cache on their fixture server so they prove the service-worker behavior.
 
 To change cache policy, edit `sw.js` and deploy it at the same URL; registration uses `updateViaCache: 'none'`. If this feature ever needs to be retired, deploy a pass-through worker that deletes only this site's `gd1-assets-*` cache and unregisters itself. Simply removing `sw.js` does not remove workers already installed in visitors' browsers.
+
+## Automatic camp completion
+
+A camp stays active throughout its `endsOn` date in its `timeZone`. At midnight beginning the following day it leaves the homepage/upcoming list, appears in Past camps, and its registration becomes a non-interactive “Camp Completed” status (“Кемп завершено” in Ukrainian). Both registration buttons on a dedicated camp page also close. Completed camps leave the footer Upcoming camps list; an empty list shows a new-dates message. Cancelled camps retain their Cancelled label. Manually closed registration remains supported before a camp ends.
+
+The page schedules the next boundary, rechecks on focus, visibility and history restoration, and guards registration/camp-card clicks against a suspended timer. This works on already-open pages without a deployment or reload. Past camps with a dedicated details page link to it; camps without a details page stay non-clickable. Registration remains disabled for completed camps. Past camps are sorted newest first, in batches of 12; an open archive keeps its loaded batch size when a camp completes. Dates handle daylight-saving changes and visitors in other time zones.
+
+Runtime state comes from the visitor device's clock and the venue time zone. Google Forms are external: this closes the website buttons, not submissions through a previously saved direct form URL. Search metadata uses the same venue-local final day when rebuilt, and live monitoring no longer expects registration buttons for completed camps.
+
+`tools/check-js.mjs` tests exact boundaries and daylight-saving transitions. Browser expiry tests independently calculate expected boundaries using Python's IANA zone library and simulate visitors in Los Angeles, including open tabs, detail pages, stale clicks and archive pagination.

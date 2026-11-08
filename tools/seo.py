@@ -28,7 +28,7 @@ def event(c,lang,base,manifest):
 
 def generate(root,data,as_of=None):
     base=origin(root);manifest=load(root)
-    today=as_of or datetime.now(ZoneInfo('Europe/Warsaw')).date()
+    # All-day events remain current through the venue's final local day.
     by_page={c['page']:c for c in data['camps'] if c['page']}
     pages=sorted(root.glob('*.html'))
     for path in pages:
@@ -48,7 +48,7 @@ def generate(root,data,as_of=None):
         for code,name in [('en',english),('uk',uk),('x-default',english)]:
             links+=f'  <link rel="alternate" hreflang="{code}" href="{canonical(base,name)}">\n'
         camp=by_page.get(english)
-        if camp and date.fromisoformat(camp['endsOn'])>=today:
+        if camp and date.fromisoformat(camp['endsOn'])>=(as_of or datetime.now(ZoneInfo(camp['timeZone'])).date()):
             payload=json.dumps(event(camp,lang,base,manifest),ensure_ascii=False,indent=2).replace('<','\\u003c')
             links+='  <script type="application/ld+json" id="gd1-event-data">\n'+payload+'\n  </script>\n'
         path.write_text(s.replace('</head>',links+'</head>'))

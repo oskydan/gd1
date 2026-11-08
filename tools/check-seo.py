@@ -10,7 +10,6 @@ from seo import origin,canonical,event,ERROR_PAGES
 from media import load
 ROOT=Path(__file__).resolve().parents[1]
 base=origin(ROOT);data=read(ROOT)
-today=datetime.now(ZoneInfo('Europe/Warsaw')).date()
 by_page={c['page']:c for c in data['camps'] if c['page']}
 class Metadata(HTMLParser):
     def __init__(self,text):
@@ -39,7 +38,7 @@ for p in ROOT.glob('*.html'):
     en=p.name.replace('-uk.html','.html');uk=en.replace('.html','-uk.html')
     assert parsed.alternates=={'en':canonical(base,en),'uk':canonical(base,uk),'x-default':canonical(base,en)},p.name+': invalid language references'
     camp=by_page.get(en)
-    expected=bool(camp and date.fromisoformat(camp['endsOn'])>=today)
+    expected=bool(camp and date.fromisoformat(camp['endsOn'])>=datetime.now(ZoneInfo(camp['timeZone'])).date())
     assert len(parsed.events)==int(expected),p.name+': incorrect number of event records'
     if not expected:continue
     event_count+=1;value=parsed.events[0]

@@ -7,8 +7,11 @@ import { setTimeout as delay } from 'node:timers/promises';
 const root=fileURLToPath(new URL('../',import.meta.url));
 const origin='https://'+readFileSync(resolve(root,'CNAME'),'utf8').trim();
 const data=JSON.parse(readFileSync(resolve(root,'data/camps.json'),'utf8'));
-const today=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Warsaw',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-const camps=data.camps.filter(c=>c.status==='open'&&c.endsOn>=today);
+const active = c => {
+ const parts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone:c.timeZone,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).map(p=>[p.type,p.value]));
+ return c.status==='open' && c.endsOn>=`${parts.year}-${parts.month}-${parts.day}`;
+};
+const camps=data.camps.filter(active);
 const browser=await chromium.launch(process.env.GD1_TEST_CHROME_PATH?{executablePath:process.env.GD1_TEST_CHROME_PATH}:{});
 const context=await browser.newContext();
 const formRequests=await request.newContext();
@@ -39,7 +42,7 @@ try{
     if(!await page.locator('main').innerText({timeout:5000}))throw Error('Missing page content');
     if(await page.locator('body').evaluate(el=>el.classList.contains('not-found-page')))throw Error('404 content returned');
     const relevant=file.startsWith('index')||file.startsWith('camps')?camps:camps.filter(c=>file===c.page?.replace('.html',suffix+'.html'));
-    for(const camp of relevant){
+    for(const camp of relevant.filter(active)){
      const links=page.locator('a').filter({hasText:language==='uk'?/реєстр/i:/register/i});
      const targets=await links.evaluateAll(els=>els.map(el=>({href:el.href,target:el.target})));
      if(!targets.some(a=>a.href===camp.registrationUrl&&a.target==='_blank'))throw Error('Missing new-tab registration link for '+camp.id);
@@ -50,7 +53,7 @@ try{
    }finally{await page.close();}
   });
  }
- for(const url of new Set(camps.map(c=>c.registrationUrl)))await check('Registration '+url,async()=>{
+ for(const url of new Set(camps.filter(active).map(c=>c.registrationUrl)))await check('Registration '+url,async()=>{
   const response=await formRequests.get(url,{timeout:30000,maxRedirects:10});
   if(response.status()!==200)throw Error('Form status '+response.status());
   const html=await response.text();

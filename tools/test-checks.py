@@ -11,6 +11,8 @@ class InvalidDataTests(unittest.TestCase):
             root=Path(folder);(root/'data').mkdir();(root/'data/camps.json').write_text(json.dumps(self.data))
             with self.assertRaises((AssertionError,ValueError,KeyError)):read(root)
     def test_duplicate_id(self):self.rejects(lambda d:d['camps'].append(copy.deepcopy(d['camps'][0])))
+    def test_missing_timezone(self):self.rejects(lambda d:d['camps'][0].pop('timeZone'))
+    def test_invalid_timezone(self):self.rejects(lambda d:d['camps'][0].update(timeZone='invalid/place'))
     def test_reversed_dates(self):self.rejects(lambda d:d['camps'][0].update(endsOn='2020-01-01'))
     def test_missing_translation(self):self.rejects(lambda d:d['camps'][0]['copy']['uk'].update(title=''))
     def test_missing_registration(self):self.rejects(lambda d:d['camps'][0].update(registrationUrl=''))

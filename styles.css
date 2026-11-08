@@ -653,6 +653,17 @@ h3 {
   transition: color .18s ease;
 }
 
+.footer-links a[hidden] {
+  display: none !important;
+}
+
+.footer-camp-empty {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #bdbdbd;
+}
+
 .footer-links a:hover {
   color: #fff;
 }
@@ -2902,6 +2913,14 @@ h3 {
   background: #fff;
   color: #111;
   border-color: #111;
+}
+
+.camp-detail-cta.is-disabled {
+  background: #e7e7e7;
+  color: #626262;
+  border-color: #d0d0d0;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .camp-detail-section {

@@ -1,5 +1,6 @@
 """Camp data, validation, rendering and bilingual text used by the site build."""
 from datetime import date
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 from html import escape
 from pathlib import Path
 import json, re
@@ -22,6 +23,9 @@ def read(root):
         assert re.fullmatch('[a-z0-9-]+',c['id']), 'Invalid camp ID'
         assert c['id'] not in ids, 'Duplicate camp ID: '+c['id']
         ids.add(c['id'])
+        assert isinstance(c.get('timeZone'),str),c['id']+': timeZone required'
+        try:ZoneInfo(c.get('timeZone',''))
+        except (ValueError,ZoneInfoNotFoundError):raise AssertionError(c['id']+': valid IANA timeZone required')
         assert date.fromisoformat(c['startsOn'])<=date.fromisoformat(c['endsOn']),c['id']+': reversed dates'
         assert c['status'] in ('open','soon','cancelled','closed'),c['id']+': invalid status'
         assert c['image'].startswith('assets/') and '..' not in c['image'],c['id']+': invalid image path'
@@ -63,7 +67,7 @@ def read(root):
     return data
 
 def runtime(c,lang):
-    result={k:c[k] for k in ('id','startsOn','endsOn','image','registrationUrl')}
+    result={k:c[k] for k in ('id','startsOn','endsOn','image','registrationUrl','timeZone')}
     result.update({k:c['copy'][lang][k] for k in ('title','imageAlt','shortDescription','longDescription')})
     result.update(period=period(c,lang),page=c['page'].replace('.html','-uk.html') if lang=='uk' else c['page'],cancelled=c['status']=='cancelled',registrationComingSoon=c['status']=='soon',registrationClosed=c['status']=='closed')
     return result
