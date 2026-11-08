@@ -213,3 +213,7 @@ The page schedules the next boundary, rechecks on focus, visibility and history 
 Runtime state comes from the visitor device's clock and the venue time zone. Google Forms are external: this closes the website buttons, not submissions through a previously saved direct form URL. Search metadata uses the same venue-local final day when rebuilt, and live monitoring no longer expects registration buttons for completed camps.
 
 `tools/check-js.mjs` tests exact boundaries and daylight-saving transitions. Browser expiry tests independently calculate expected boundaries using Python's IANA zone library and simulate visitors in Los Angeles, including open tabs, detail pages, stale clicks and archive pagination.
+
+## Camp overview cards
+
+Home and upcoming Camps share one renderer: date/duration, short summary, daily ice/off-ice training, arena, camp fee, inclusion note, View camp details, and Register Now. `copy.en`/`copy.uk` provide `cardSummary` and `cardPriceNote`; prices, arena, day counts and training counts are derived from existing camp data. Use price placeholders such as `{campFeeWithLunch}` in notes to avoid maintaining the same number twice. Cards without a details page omit that action; existing disabled-registration behavior and past-camp links are retained.

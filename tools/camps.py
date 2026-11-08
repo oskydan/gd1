@@ -47,6 +47,7 @@ def read(root):
             assert all(address.get(k) for k in ('streetAddress','addressLocality','addressCountry')),c['id']+': venue address required for search metadata'
             assert re.fullmatch('[A-Z]{2}',address['addressCountry']),c['id']+': use a two-letter country code'
             assert all(isinstance(p['amount'],int) and p['amount']>0 for p in c['detail']['prices']),c['id']+': invalid price'
+            assert any(p.get('id')=='campFee' for p in c['detail']['prices']),c['id']+': campFee required for the camp card'
             amounts={p['id']:str(p['amount']) for p in c['detail']['prices']}
             for t in c['copy'].values():
                 for key,value in list(t.items()):
@@ -61,14 +62,17 @@ def read(root):
                 start=date.fromisoformat(c['startsOn'])
                 t['breadcrumb']=f'{t["title"].split(",")[0]}, {MONTHS[lang][start.month-1]} {start.year}'
             for lang in ('en','uk'):
-                assert all(c['copy'][lang].get(k) for k in ('meta','breadcrumb','heroLabel','heroHeading','heroLead','formatHeading','formatDescription','venue','costHeading')),c['id']+': missing detail translation'
+                assert all(c['copy'][lang].get(k) for k in ('meta','breadcrumb','heroLabel','heroHeading','heroLead','formatHeading','formatDescription','venue','costHeading','cardSummary','cardPriceNote')),c['id']+': missing detail translation'
     assert len(set(data['footerCampIds']))==len(data['footerCampIds']) and set(data['footerCampIds'])<=ids,'Unknown or duplicate footer camp'
     assert all(isinstance(v,int) and v>0 for v in data['defaults'].values()),'Invalid training/prepayment settings'
     return data
 
-def runtime(c,lang):
+def runtime(c,lang,defaults):
     result={k:c[k] for k in ('id','startsOn','endsOn','image','registrationUrl','timeZone')}
     result.update({k:c['copy'][lang][k] for k in ('title','imageAlt','shortDescription','longDescription')})
+    result.update(durationDays=(date.fromisoformat(c['endsOn'])-date.fromisoformat(c['startsOn'])).days+1,onIceDaily=defaults['onIceDaily'],offIceDaily=defaults['offIceDaily'])
+    if c['page']:
+        result.update(cardSummary=c['copy'][lang]['cardSummary'],cardPriceNote=c['copy'][lang]['cardPriceNote'],venue=c['copy'][lang]['venue'],campFee=next(p['amount'] for p in c['detail']['prices'] if p['id']=='campFee'))
     result.update(period=period(c,lang),page=c['page'].replace('.html','-uk.html') if lang=='uk' else c['page'],cancelled=c['status']=='cancelled',registrationComingSoon=c['status']=='soon',registrationClosed=c['status']=='closed')
     return result
 

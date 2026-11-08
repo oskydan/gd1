@@ -14,8 +14,8 @@ def generate(root):
     data=read(root)
     manifest=media.load(root)
     media.styles(root,manifest)
-    en=[runtime(c,'en') for c in data['camps']]
-    uk=[runtime(c,'uk') for c in data['camps']]
+    en=[runtime(c,'en',data['defaults']) for c in data['camps']]
+    uk=[runtime(c,'uk',data['defaults']) for c in data['camps']]
     media.cards(en,manifest)
     media.cards(uk,manifest)
     def write(name,text): (root/name).write_text(text)

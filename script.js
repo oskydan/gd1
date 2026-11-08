@@ -108,6 +108,37 @@ const registrationButton = (camp) => camp.cancelled
   ? `<span class="button register-button is-disabled" role="status" aria-disabled="true">${ui('Registration soon', 'Реєстрація незабаром')}</span>`
   : `<a class="button register-button" ${registrationAttributes(camp)} data-camp-end="${safe(camp.endsOn)}">${ui('Register Now', 'Зареєструватися')}</a>`;
 
+function campDuration(camp) {
+  const days = camp.durationDays;
+  const ukrainian = days % 10 === 1 && days % 100 !== 11 ? 'день'
+    : days % 10 >= 2 && days % 10 <= 4 && (days % 100 < 12 || days % 100 > 14) ? 'дні' : 'днів';
+  return `${days} ${ui(days === 1 ? 'day' : 'days', ukrainian)}`;
+}
+function renderUpcomingCard(camp, home = false, first = false) {
+  const details = camp.page && !camp.cancelled && !camp.registrationClosed && !camp.registrationComingSoon;
+  const description = camp.cardSummary || camp.shortDescription;
+  const label = `${ui('View camp details for', 'Деталі кемпу:')} ${camp.title}, ${camp.period}`;
+  return `
+    <article class="${home ? 'upcoming-camp-card' : 'camp-archive-card'} camp-overview-card" ${home ? '' : `id="${safe(camp.id)}"`} data-camp-id="${safe(camp.id)}">
+      ${details ? `<a class="camp-card-hitarea" href="${safe(camp.page)}" aria-label="${safe(label)}" aria-hidden="true" tabindex="-1"></a>` : ''}
+      <div class="camp-card-photo">${details ? `<a class="camp-card-photo-link" href="${safe(camp.page)}" aria-label="${safe(label)}" tabindex="-1">` : ''}<img src="${safe(camp.image)}" alt="${safe(camp.imageAlt)}" ${camp.imageSrcset ? `srcset="${safe(camp.imageSrcset)}" sizes="(max-width:700px) calc(100vw - 48px), (max-width:1000px) 50vw, 440px" width="${camp.imageWidth}" height="${camp.imageHeight}"` : ''} loading="${first ? 'eager' : 'lazy'}" ${first ? 'fetchpriority="high"' : ''} decoding="async">${details ? '</a>' : ''}</div>
+      <div class="camp-card-content">
+        <p class="camp-card-date"><span>${safe(camp.period)}</span><span class="camp-card-duration">${safe(campDuration(camp))}</span></p>
+        <h3>${safe(camp.title)}</h3>
+        <p class="camp-card-summary">${safe(description)}</p>
+        <dl class="camp-card-facts">
+          <dt>${ui('Daily sessions', 'Щодня')}</dt><dd class="camp-card-sessions">${camp.onIceDaily} ${ui('on-ice', 'на льоду')} + ${camp.offIceDaily} ${ui('off-ice', 'поза льодом')}</dd>
+          ${camp.venue ? `<dt>${ui('Ice arena', 'Арена')}</dt><dd>${safe(camp.venue)}</dd>` : ''}
+        </dl>
+        ${camp.campFee ? `<div class="camp-card-price"><span>${ui('Camp fee', 'Вартість кемпу')}</span><strong>${ui('€' + camp.campFee, camp.campFee + ' €')}</strong></div>` : ''}
+        <div class="camp-card-actions${details ? ' has-details' : ''}">
+          ${details ? `<a class="button camp-details-button" href="${safe(camp.page)}" aria-label="${safe(label)}">${ui('View camp details', 'Деталі кемпу')}</a>` : ''}
+          ${registrationButton(camp)}
+        </div>
+      </div>
+    </article>`;
+}
+
 function renderHomeCamps() {
   const container = document.querySelector('#home-camp-list');
   if (!container) return;
@@ -116,30 +147,18 @@ function renderHomeCamps() {
     container.innerHTML = `<p class="camp-empty-state">${ui('No upcoming camps are scheduled right now. Check back soon for new dates.', 'Наразі найближчі кемпи ще не заплановані. Завітайте згодом, щоб дізнатися нові дати.')}</p>`;
     return;
   }
-  container.innerHTML = upcoming.map((camp) => `
-    <article class="upcoming-camp-card" data-camp-id="${safe(camp.id)}">
-      ${!camp.page || camp.cancelled || camp.registrationClosed || camp.registrationComingSoon ? '' : `<a class="camp-card-hitarea" href="${safe(camp.page)}" aria-label="${ui('Open camp page for', 'Відкрити сторінку кемпу:')} ${safe(camp.title)}, ${safe(camp.period)}"></a>`}
-      <div class="upcoming-camp-photo"><img src="${safe(camp.image)}" alt="${safe(camp.imageAlt)}" ${camp.imageSrcset ? `srcset="${safe(camp.imageSrcset)}" sizes="(max-width:800px) calc(100vw - 40px), 600px" width="${camp.imageWidth}" height="${camp.imageHeight}"` : ''} loading="lazy" decoding="async"></div>
-      <div class="upcoming-camp-info">
-        <p class="eyebrow dark">${safe(camp.period.toUpperCase())}</p>
-        <h3>${safe(camp.title)}</h3>
-        <p class="camp-card-description">${safe(camp.shortDescription)}</p>
-        ${registrationButton(camp)}
-      </div>
-    </article>`).join('');
+  container.innerHTML = upcoming.map(camp => renderUpcomingCard(camp, true)).join('');
 }
 
 let visiblePastLimit = 12;
-function renderArchiveCard(camp, past, first = false) {
+function renderPastCard(camp) {
   return `
-    <article class="camp-archive-card${past ? ' is-past' : ''}" id="${safe(camp.id)}" data-camp-id="${safe(camp.id)}">
-      ${!camp.page || (!past && (camp.cancelled || camp.registrationClosed || camp.registrationComingSoon)) ? '' : `<a class="camp-card-hitarea" href="${safe(camp.page)}" aria-label="${ui('Open camp page for', 'Відкрити сторінку кемпу:')} ${safe(camp.title)}, ${safe(camp.period)}"></a>`}
-      <div class="camp-archive-photo"><img src="${safe(camp.image)}" alt="${safe(camp.imageAlt)}" ${camp.imageSrcset ? `srcset="${safe(camp.imageSrcset)}" sizes="(max-width:800px) calc(100vw - 40px), 600px" width="${camp.imageWidth}" height="${camp.imageHeight}"` : ''} loading="${first ? 'eager' : 'lazy'}" ${first ? 'fetchpriority="high"' : ''} decoding="async"></div>
+    <article class="camp-archive-card is-past" id="${safe(camp.id)}" data-camp-id="${safe(camp.id)}">
+      ${camp.page ? `<a class="camp-card-hitarea" href="${safe(camp.page)}" aria-label="${ui('Open camp page for', 'Відкрити сторінку кемпу:')} ${safe(camp.title)}, ${safe(camp.period)}"></a>` : ''}
+      <div class="camp-archive-photo"><img src="${safe(camp.image)}" alt="${safe(camp.imageAlt)}" ${camp.imageSrcset ? `srcset="${safe(camp.imageSrcset)}" sizes="(max-width:620px) calc(100vw - 40px), (max-width:900px) 50vw, 440px" width="${camp.imageWidth}" height="${camp.imageHeight}"` : ''} loading="lazy" decoding="async"></div>
       <div class="camp-archive-info">
         <p class="eyebrow dark">${safe(camp.period.toUpperCase())}</p>
         <h3>${safe(camp.title)}</h3>
-        ${past ? '' : `<p class="camp-archive-short">${safe(camp.shortDescription)}</p>`}
-        ${past ? '' : `<p class="camp-archive-long">${safe(camp.longDescription)}</p>`}
         ${registrationButton(camp)}
       </div>
     </article>`;
@@ -151,17 +170,17 @@ function renderCampArchive() {
   if (!upcomingContainer || !pastContainer) return;
   const upcoming = campList.filter((camp) => !isCampPast(camp)).sort((a, b) => a.startsOn.localeCompare(b.startsOn));
   const past = campList.filter(isCampPast).sort((a, b) => b.startsOn.localeCompare(a.startsOn));
-  upcomingContainer.innerHTML = upcoming.map((camp, index) => renderArchiveCard(camp, false, index === 0)).join('');
+  upcomingContainer.innerHTML = upcoming.map((camp, index) => renderUpcomingCard(camp, false, index === 0)).join('');
   const pageSize = 12;
   let visiblePastCount = Math.min(visiblePastLimit, past.length);
-  pastContainer.innerHTML = past.slice(0, visiblePastCount).map((camp) => renderArchiveCard(camp, true)).join('');
+  pastContainer.innerHTML = past.slice(0, visiblePastCount).map((camp) => renderPastCard(camp)).join('');
   document.querySelector('#upcoming-empty').hidden = upcoming.length > 0;
   document.querySelector('#past-empty').hidden = past.length > 0;
   const loadMoreButton = document.querySelector('#past-camps-load-more');
   const loadNextBatch = () => {
     if (visiblePastCount >= past.length) return;
     const nextCount = Math.min(visiblePastCount + pageSize, past.length);
-    pastContainer.insertAdjacentHTML('beforeend', past.slice(visiblePastCount, nextCount).map((camp) => renderArchiveCard(camp, true)).join(''));
+    pastContainer.insertAdjacentHTML('beforeend', past.slice(visiblePastCount, nextCount).map((camp) => renderPastCard(camp)).join(''));
     visiblePastCount = nextCount;
     visiblePastLimit = nextCount;
     const hasMore = visiblePastCount < past.length;

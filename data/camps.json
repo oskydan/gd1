@@ -42,7 +42,9 @@
           "costHeading": [
             "Choose your",
             "camp option."
-          ]
+          ],
+          "cardSummary": "Four days of focused skating training and individual player development.",
+          "cardPriceNote": "€{campFeeWithLunch} including lunch."
         },
         "uk": {
           "title": "Електренай, Литва",
@@ -65,7 +67,9 @@
           "costHeading": [
             "Оберіть",
             "варіант участі."
-          ]
+          ],
+          "cardSummary": "Чотири дні тренувань із техніки катання та індивідуального розвитку гравців.",
+          "cardPriceNote": "{campFeeWithLunch} € з обідом."
         }
       },
       "detail": {
@@ -146,7 +150,9 @@
           "costHeading": [
             "Plan your",
             "stay."
-          ]
+          ],
+          "cardSummary": "Winter hockey camp focused on skating skills and individual development.",
+          "cardPriceNote": "Accommodation and meals are extra."
         },
         "uk": {
           "title": "Прага, Чехія",
@@ -169,7 +175,9 @@
           "costHeading": [
             "Сплануйте",
             "перебування."
-          ]
+          ],
+          "cardSummary": "Зимовий хокейний кемп із фокусом на техніці катання та індивідуальному розвитку.",
+          "cardPriceNote": "Проживання та харчування оплачуються окремо."
         }
       },
       "detail": {
@@ -442,7 +450,9 @@
           "costHeading": [
             "Plan your",
             "stay."
-          ]
+          ],
+          "cardSummary": "Power skating training to build stronger edges, quicker strides, and control.",
+          "cardPriceNote": "Accommodation is extra."
         },
         "uk": {
           "title": "Кранево, Болгарія",
@@ -465,7 +475,9 @@
           "costHeading": [
             "Сплануйте",
             "перебування."
-          ]
+          ],
+          "cardSummary": "Тренування з power skating для кращого контролю ребер, швидшого руху та впевненого катання.",
+          "cardPriceNote": "Проживання оплачується окремо."
         }
       },
       "detail": {

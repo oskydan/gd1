@@ -72,6 +72,15 @@ for(const language of ['en','uk']){
       expect(ids).toEqual(shown.map(c=>c.id));
       for(const camp of shown){
         const button=page.locator(`[data-camp-id="${camp.id}"] .register-button`);
+        const card=page.locator(`[data-camp-id="${camp.id}"]`);
+        await expect(card.locator('.camp-card-date')).toContainText(String((Date.parse(camp.endsOn)-Date.parse(camp.startsOn))/86400000+1));
+        const fee=camp.detail?.prices.find(p=>p.id==='campFee');
+        if(fee){
+          await expect(card.locator('.camp-card-price strong')).toContainText(String(fee.amount));
+          await expect(card.locator('.camp-card-facts')).toContainText(camp.copy[language].venue);
+          await expect(card.locator('.camp-details-button')).toHaveAttribute('href',camp.page.replace('.html',suffix+'.html'));
+        }
+
         if(camp.status!=='open'){
           await expect(button).toHaveAttribute('aria-disabled','true');
           expect(await button.getAttribute('href')).toBeNull();continue;
@@ -80,6 +89,18 @@ for(const language of ['en','uk']){
         const pending=context.waitForEvent('page');await button.click();const popup=await pending;
         await popup.waitForLoadState('domcontentloaded');expect(popup.url()).toBe(camp.registrationUrl);await popup.close();
       }
+    }
+  });
+
+  test(`${language}: overview details button opens the camp page`,async({page})=>{
+    const camp=upcoming.find(c=>c.page&&c.status==='open');
+    if(!camp)return;
+    for(const filename of [`index${suffix}.html`,`camps${suffix}.html`]){
+      await page.goto('/'+filename);
+      await page.locator(`[data-camp-id="${camp.id}"] .camp-details-button`).click();
+      await expect(page).toHaveURL(new RegExp('/'+camp.page.replace('.html',suffix+'\\.html')+'$'));
+      await expect(page.locator('h1')).toBeVisible();
+      await expect(page.locator('a.camp-detail-cta')).toHaveCount(2);
     }
   });
 
