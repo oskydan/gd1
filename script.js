@@ -247,6 +247,50 @@ function renderCampArchive() {
   }
 }
 
+// Calendar dates are all-day; DTEND is exclusive, including the final camp day.
+let campCalendar;
+if (document.body.classList.contains('camp-detail-page') && campPage) {
+  const url = document.querySelector('link[rel="canonical"]')?.href;
+  const start = campPage.startsOn.replaceAll('-', '');
+  const endDate = new Date(campPage.endsOn + 'T00:00:00Z');
+  endDate.setUTCDate(endDate.getUTCDate() + 1);
+  const end = endDate.toISOString().slice(0, 10).replaceAll('-', '');
+  const title = `GD1 · ${campPage.title}`;
+  const location = `${campPage.venue || ''}, ${campPage.title}`;
+  const description = `${ui('Camp details', 'Деталі кемпу')}: ${url}`;
+  const google = new URL('https://calendar.google.com/calendar/render');
+  google.search = new URLSearchParams({ action: 'TEMPLATE', text: title, dates: `${start}/${end}`, location, details: description }).toString();
+  const escapeCalendar = value => String(value).replace(/\\/g, '\\\\').replace(/\r?\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
+  const foldCalendar = line => {
+    let result = '', current = '', size = 0;
+    for (const char of line) {
+      const bytes = new TextEncoder().encode(char).length;
+      if (size + bytes > 75) { result += current + '\r\n';current = ' ';size = 1; }
+      current += char;size += bytes;
+    }
+    return result + current;
+  };
+  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//GD1//Camp Calendar//EN', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT',
+    `UID:${campPage.id}@gd1.pro`, `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '')}`,
+    `DTSTART;VALUE=DATE:${start}`, `DTEND;VALUE=DATE:${end}`, `SUMMARY:${escapeCalendar(title)}`,
+    `LOCATION:${escapeCalendar(location)}`, `DESCRIPTION:${escapeCalendar(description)}`, `URL:${url}`, 'END:VEVENT', 'END:VCALENDAR'];
+  const downloadUrl = URL.createObjectURL(new Blob([lines.map(foldCalendar).join('\r\n') + '\r\n'], {type: 'text/calendar;charset=utf-8'}));
+  campCalendar = document.createElement('details');
+  campCalendar.className = 'camp-calendar';
+  campCalendar.innerHTML = `<summary>${ui('Add to calendar', 'Додати до календаря')}</summary><div class="camp-calendar-options"><a href="${safe(google.href)}" target="_blank" rel="noopener noreferrer" data-calendar-option="google">Google Calendar</a><a href="${downloadUrl}" download="${safe(campPage.id)}.ics" data-calendar-option="ics">${ui('Apple Calendar / Outlook (.ics)', 'Apple Calendar / Outlook (.ics)')}</a><p>${ui('Includes all camp dates. Training times will be provided separately. Saved events will not update automatically.', 'Подія охоплює всі дні кемпу. Час тренувань повідомимо окремо. Збережені події не оновлюються автоматично.')}</p></div>`;
+  document.querySelector('.camp-detail-hero-copy')?.append(campCalendar);
+  campCalendar.addEventListener('click', event => {
+    const option = event.target.closest('[data-calendar-option]');
+    if (!option) return;
+    campCalendar.open = false;
+    campCalendar.querySelector('summary').focus({preventScroll: true});
+    if (isCampPast(campPage) || campPage.cancelled) { event.preventDefault();return; }
+    document.dispatchEvent(new CustomEvent('gd1:camp-calendar', {detail: {camp_id: campPage.id, calendar_option: option.dataset.calendarOption}}));
+  });
+  document.addEventListener('click', event => { if (campCalendar.open && !campCalendar.contains(event.target)) campCalendar.open = false; });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape' && campCalendar.open) { campCalendar.open = false;campCalendar.querySelector('summary').focus(); } });
+}
+
 // Keep the camp action within reach on small screens, including after expiry.
 let mobileCampBar;
 if (document.body.classList.contains('camp-detail-page') && campPage) {
@@ -278,6 +322,7 @@ function refreshCampState() {
   if (snapshot !== campStateSnapshot) {
     campStateSnapshot = snapshot;
     updateMobileCampBar();
+    if (campCalendar) campCalendar.hidden = isCampPast(campPage) || Boolean(campPage.cancelled);
     renderHomeCamps();
     renderCampArchive();
     footerCampLinks.forEach(({link,camp}) => { link.hidden = isCampPast(camp); });

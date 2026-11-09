@@ -218,6 +218,13 @@
     footer.insertBefore(button, footer.lastElementChild);
   }
 
+  document.addEventListener('gd1:camp-calendar', event => {
+    const {camp_id, calendar_option} = event.detail || {};
+    const camp = (window.GD1_CAMPS || []).find(item => item.id === camp_id);
+    if (!camp || !['google', 'ics'].includes(calendar_option)) return;
+    track('Camp Calendar Clicked', {camp_id, camp_name: camp.title, camp_dates: camp.period, calendar_option, placement: 'camp_detail'});
+  });
+
   document.addEventListener('gd1:camp-share', (event) => {
     const { camp_id, outcome, method } = event.detail || {};
     const camp = (window.GD1_CAMPS || []).find(item => item.id === camp_id);
