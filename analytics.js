@@ -218,6 +218,16 @@
     footer.insertBefore(button, footer.lastElementChild);
   }
 
+  document.addEventListener('gd1:camp-share', (event) => {
+    const { camp_id, outcome, method } = event.detail || {};
+    const camp = (window.GD1_CAMPS || []).find(item => item.id === camp_id);
+    if (!camp || !['started', 'shared', 'copied', 'cancelled', 'manual_copy_shown'].includes(outcome) || !['native', 'clipboard', 'manual'].includes(method)) return;
+    track('Camp Share', {
+      camp_id, camp_name: camp.title, camp_dates: camp.period,
+      share_method: method, share_outcome: outcome, placement: 'camp_detail'
+    });
+  });
+
   const placement = (element) => element.closest('header') ? 'header'
     : element.closest('footer') ? 'footer' : 'content';
 

@@ -4733,3 +4733,26 @@ details.language-switcher:not([open])>.language-menu {
   box-shadow: none;
 }
 .mobile-camp-bar a.button:focus-visible { outline: 2px solid #111; outline-offset: 3px; }
+
+.camp-share { margin-top: 16px; display: grid; grid-template-columns: minmax(0, 1fr) 48px; align-items: start; gap: 8px 10px; width: 340px; max-width: 100%; }
+.camp-share > .camp-detail-cta { height: 48px; min-height: 48px; min-width: 0; margin: 0; padding: 0 16px; font-size: 14px; letter-spacing: 1px; white-space: normal; }
+.camp-share-button {
+  appearance: none; border: 1px solid #111; border-radius: 0; background: #fff; color: #111;
+  width: 48px; height: 48px; padding: 0; display: flex; align-items: center; justify-content: center; cursor: pointer;
+  transition: background-color .18s ease, color .18s ease;
+}
+.camp-share-button:hover { background: #111; color: #fff; }
+.camp-share-button:focus-visible { outline: 2px solid #111; outline-offset: 3px; }
+.camp-share-button:disabled { cursor: wait; opacity: .65; }
+.camp-share-status { grid-column: 1 / -1; font: 400 14px/1.5 var(--font); color: #555; }
+.camp-share-link { grid-column: 1 / -1; width: 100%; min-width: 0; border: 1px solid #777; border-radius: 0; padding: 10px; font: 400 14px/1.5 var(--font); }
+
+@media (max-width:700px) {
+  .camp-detail-hero-copy { display: flex; flex-direction: column; }
+  .camp-detail-hero-copy > .eyebrow { order: 0; }
+  .camp-detail-hero-copy > h1 { order: 1; }
+  .camp-detail-hero-copy > .camp-share { order: 2; margin-top: 0; margin-bottom: 20px; width: 100%; align-items: center; }
+  .camp-detail-hero-copy > .camp-detail-lead { order: 3; }
+  .camp-share > .camp-detail-date { margin: 0; min-width: 0; }
+  .camp-share > .camp-detail-cta { display: none; }
+}

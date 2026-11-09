@@ -65,6 +65,61 @@ const campPage = campList.find((camp) => camp.id === campPageId);
 if (document.body.classList.contains('camp-detail-page') && campPage) {
   document.title = `${campPage.title} | ${ui('GD1 Camp', 'Кемп GD1')}`;
 }
+// Share the public, language-specific camp URL rather than a local preview URL.
+if (document.body.classList.contains('camp-detail-page') && campPage) {
+  const host = document.querySelector('.camp-detail-hero-copy');
+  const share = document.createElement('div');
+  share.className = 'camp-share';
+  share.innerHTML = `<button type="button" class="camp-share-button" aria-label="${ui('Share camp', 'Поділитися кемпом')}" title="${ui('Share camp', 'Поділитися кемпом')}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8.6 10.5 6.8-4m-6.8 7 6.8 4"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="5" r="3"/><circle cx="18" cy="19" r="3"/></svg></button><span class="camp-share-status" role="status" aria-live="polite"></span><input class="camp-share-link" type="text" readonly hidden aria-label="${ui('Camp link', 'Посилання на кемп')}">`;
+  const registration = host?.querySelector('.camp-detail-cta');
+  if (registration) share.prepend(registration);
+  host?.append(share);
+  const button = share.querySelector('button');
+  const status = share.querySelector('[role="status"]');
+  const input = share.querySelector('input');
+  const dates = host?.querySelector('.camp-detail-date');
+  const originalDateParent = dates?.parentElement;
+  const originalDateNext = dates?.nextSibling;
+  const mobileShare = window.matchMedia('(max-width:700px)');
+  const arrangeCampActions = () => {
+    if (!dates || !originalDateParent) return;
+    if (mobileShare.matches) share.prepend(dates);
+    else originalDateParent.insertBefore(dates, originalDateNext);
+  };
+  mobileShare.addEventListener('change', arrangeCampActions);
+  arrangeCampActions();
+  const url = document.querySelector('link[rel="canonical"]')?.href;
+  const title = `GD1 · ${campPage.title} · ${campPage.period}`;
+  const record = (outcome, method) => document.dispatchEvent(new CustomEvent('gd1:camp-share', { detail: { camp_id: campPage.id, outcome, method } }));
+  button.addEventListener('click', async () => {
+    if (!url || button.disabled) return;
+    button.disabled = true;status.textContent = '';input.hidden = true;
+    const native = typeof navigator.share === 'function';
+    record('started', native ? 'native' : 'clipboard');
+    try {
+      if (native) {
+        try {
+          await navigator.share({ title, url });
+          record('shared', 'native');
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') { record('cancelled', 'native');return; }
+          // Unsupported or blocked sharing still offers a usable copy action.
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(url);
+        status.textContent = ui('Link copied.', 'Посилання скопійовано.');
+        record('copied', 'clipboard');
+      } catch {
+        input.value = url;input.hidden = false;input.focus();input.select();
+        status.textContent = ui('Copy the link below.', 'Скопіюйте посилання нижче.');
+        record('manual_copy_shown', 'manual');
+      }
+    } finally { button.disabled = false; }
+  });
+}
+
 // Completion is midnight after the final day in the venue's time zone.
 const campEndInstants = new Map();
 const campEndsAt = (camp) => {
