@@ -77,16 +77,18 @@ if (document.body.classList.contains('camp-detail-page') && campPage) {
   const button = share.querySelector('button');
   const shareIcon = button.innerHTML;
   let copyConfirmationTimer;
-  const confirmCopy = () => {
+  const confirmCopy = (message = ui('Link copied', 'Посилання скопійовано')) => {
     window.clearTimeout(copyConfirmationTimer);
     button.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>';
     button.classList.add('is-copied');
-    button.title = ui('Link copied', 'Посилання скопійовано');
+    button.title = message;
+    button.setAttribute('aria-label', message);
     copyConfirmationTimer = window.setTimeout(() => {
       button.innerHTML = shareIcon;
       button.classList.remove('is-copied');
       button.title = ui('Share camp', 'Поділитися кемпом');
-    }, 1800);
+      button.setAttribute('aria-label', button.title);
+    }, 3000);
   };
   const status = share.querySelector('[role="status"]');
   const input = share.querySelector('input');
@@ -117,6 +119,7 @@ if (document.body.classList.contains('camp-detail-page') && campPage) {
       if (native) {
         try {
           await navigator.share({ title, url });
+          confirmCopy(ui('Sharing completed', 'Поширення завершено'));
           record('shared', 'native');
           return;
         } catch (error) {
