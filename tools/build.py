@@ -35,6 +35,16 @@ def generate(root):
     for p in root.glob('*.html'):
         if p.name.endswith('-uk.html'):continue
         s=media.html(p.read_text(),manifest)
+        def school_menu(match):
+            nav=match[0]
+            if 'nav-camps-group' not in nav:
+                nav=re.sub(r'<a\b[^>]*href="camps.html"[^>]*>Camps</a>', lambda link:'<div class="nav-school-group nav-camps-group">'+link[0]+'<div class="school-submenu"><a href="faq.html">FAQ</a></div></div>',nav)
+            if 'nav-school-group' not in nav:
+                nav=re.sub(r'<a\b[^>]*href="school.html"[^>]*>School</a>', lambda link:'<div class="nav-school-group">'+link[0]+'<div class="school-submenu"><a href="growing-with-gd1.html">Player Stories</a></div></div>',nav)
+            return nav
+        s=re.sub(r'<nav class="main-nav".*?</nav>',school_menu,s,flags=re.S)
+        s=re.sub(r'(<nav class="footer-links" aria-label="Explore GD1">)(.*?)(</nav>)',lambda m:m[1]+(m[2] if 'growing-with-gd1.html' in m[2] else m[2].replace('<a href="school.html">School</a>','<a href="school.html">School</a><a href="growing-with-gd1.html">Player Stories</a>'))+m[3],s,flags=re.S)
+
         s,n=re.subn(r'(<nav class="footer-links" aria-label="Upcoming camps">).*?(</nav>)',lambda m:m[1]+''.join(footer)+m[2],s,flags=re.S)
         assert n==1,f'{p.name}: footer camp navigation missing'
         if 'src="cache.js' not in s:

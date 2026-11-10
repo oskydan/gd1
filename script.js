@@ -25,6 +25,13 @@ if (languagePicker) {
       languagePicker.querySelector('summary').focus();
     }
   });
+  const languageHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+  languagePicker.addEventListener('mouseenter', () => {
+    if (!mobileLanguageMenu.matches && languageHover.matches) languagePicker.open = true;
+  });
+  languagePicker.addEventListener('mouseleave', () => {
+    if (!mobileLanguageMenu.matches && languageHover.matches && !languagePicker.contains(document.activeElement)) languagePicker.open = false;
+  });
   languagePicker.addEventListener('focusout', (event) => {
     if (!mobileLanguageMenu.matches && !languagePicker.contains(event.relatedTarget)) languagePicker.open = false;
   });

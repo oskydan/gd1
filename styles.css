@@ -4879,3 +4879,84 @@ details.language-switcher:not([open])>.language-menu {
 @media (max-width:800px) and (prefers-reduced-motion: reduce) {
   .site-header .main-nav, .site-header .main-nav.open, .menu-toggle-icon > span { transition: none; }
 }
+
+.nav-school-group { position: relative; }
+.nav-school-group > a { font: 500 12px var(--display); letter-spacing: 2px; text-transform: uppercase; }
+.school-submenu { position: absolute; top: 100%; left: -16px; min-width: 200px; padding: 12px 0; background: #111; border: 1px solid #333; visibility: hidden; opacity: 0; }
+.school-submenu a { display: block; padding: 12px 16px; font: 500 14px/1.5 var(--font); color: #ddd; }
+.nav-school-group:hover .school-submenu, .nav-school-group:focus-within .school-submenu { visibility: visible; opacity: 1; }
+.school-submenu a:hover, .school-submenu a:focus-visible { background: #262626; color: #fff; }
+.player-stories-placeholder { padding: 100px 0 120px; min-height: 55vh; background: #f1f1f1; }
+.player-stories-placeholder h1 { font: 600 clamp(48px,7vw,90px)/1.1 var(--display); text-transform: uppercase; margin: 16px 0 24px; }
+.player-stories-placeholder p { max-width: 600px; }
+.player-stories-status { font-weight: 600; }
+.player-stories-placeholder .button {
+  margin-top: 24px; display: inline-flex; align-items: center; justify-content: center;
+  height: 42px; min-height: 42px; padding: 0 26px;
+  font: 500 12px/1 var(--display); letter-spacing: 1.8px; text-transform: uppercase;
+  background: #111; color: #fff; border: 1px solid #111; border-radius: 0;
+}
+.player-stories-placeholder .button:hover {
+  background: #fff !important; color: #111 !important; border-color: #111 !important;
+  box-shadow: none !important; transform: none !important;
+}
+.player-stories-placeholder .button:focus-visible { outline: 2px solid #111; outline-offset: 3px; }
+@media (max-width:800px) {
+  .nav-school-group { grid-column: 1; grid-row: 4; }
+  .nav-school-group > a { display: flex; align-items: center; min-height: 44px; font-size: 14px; }
+  .school-submenu { position: static; visibility: visible; opacity: 1; min-width: 0; padding: 0; border: 0; background: transparent; }
+  .school-submenu a { font-size: 13px; padding: 8px 0 12px 12px; }
+  .main-nav > a:nth-of-type(4) { grid-row: 5; }
+  .main-nav > a:nth-of-type(5) { grid-row: 6; }
+}
+
+/* Match the language dropdown panel, including a gap-free hover area. */
+@media (min-width:801px) {
+  .school-submenu {
+    top: calc(100% + 8px); left: -12px; min-width: 200px; padding: 0;
+    background: #151918; border: 1px solid #454b47; border-radius: 0;
+    box-shadow: 0 8px 24px #0005; z-index: 20;
+  }
+  .school-submenu::before, .language-menu::before { content: ''; position: absolute; left: 0; right: 0; height: 12px; top: -12px; }
+  .school-submenu a { display: flex; align-items: center; min-height: 44px; padding: 0 12px; font: 400 13px/1.5 var(--font); color: #ddd; }
+  .school-submenu a:hover, .school-submenu a:focus-visible { background: #ffffff12; color: #fff; }
+}
+
+@media (min-width:801px) {
+  .nav-school-group > a { display: flex; align-items: center; min-height: 44px; }
+}
+
+@media (max-width:800px) {
+  .main-nav .school-submenu a:hover,
+  .main-nav .school-submenu a:focus-visible,
+  .main-nav .language-menu a.language-option:hover,
+  .main-nav .language-menu a.language-option:focus-visible,
+  .main-nav .nav-school-group > a:hover {
+    background: transparent; color: var(--accent); text-decoration: none;
+  }
+}
+
+.site-footer .footer-contact-links { display: flex; flex-direction: column; gap: 14px; }
+.site-footer .footer-contact-link { display: flex; align-items: flex-start; gap: 8px; min-height: 0; color: #ddd; }
+.site-footer .footer-contact-icon { width: 16px; height: 16px; flex: none; margin-top: 4px; }
+.site-footer .footer-contact-text { display: flex; flex-direction: column; min-width: 0; gap: 3px; }
+.site-footer .footer-contact-value { font: 400 14px/1.5 var(--font); overflow-wrap: anywhere; }
+.site-footer .footer-contact-note { font: 400 12px/1.5 var(--font); color: #aab1ac; }
+.site-footer .footer-contact-link:hover { color: #fff; }
+.site-footer .footer-contact-link:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+
+.site-footer .footer-social-links { flex-direction: column; align-items: flex-start; gap: 14px; margin-top: 14px; }
+.site-footer .footer-social-links a,
+.site-footer .footer-social-links a span { color: #ddd; }
+.site-footer .footer-social-links a:hover,
+.site-footer .footer-social-links a:hover span { color: #fff; }
+
+.site-footer .footer-social-links a { min-height: 0; }
+
+@media (max-width:800px) {
+  .main-nav > .nav-camps-group { grid-row: 2; }
+  .main-nav > .nav-school-group:not(.nav-camps-group) { grid-row: 4; }
+  .main-nav > a:nth-of-type(2) { grid-row: 3; }
+  .main-nav > a:nth-of-type(3) { grid-row: 5; }
+  .main-nav > a:nth-of-type(4) { grid-row: 6; }
+}
