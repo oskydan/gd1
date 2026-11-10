@@ -9,8 +9,8 @@ for(const name of fs.readdirSync(root).filter(n=>n.endsWith('.js'))) execFileSyn
 const code=fs.readFileSync(path.join(root,'script.js'),'utf8');
 function run(lang,fixture,now='2026-11-07T12:00:00Z') {
   const clock={now:Date.parse(now)};
-  const nodes=Object.fromEntries(['#home-camp-list','#upcoming-camps','#past-camps','#upcoming-empty','#past-empty','#past-camps-load-more'].map(id=>[id,{innerHTML:'',hidden:true,listeners:{},addEventListener(event,fn){this.listeners[event]=fn},insertAdjacentHTML(_,html){this.innerHTML+=html}}]));
-  const ctx={URL,Date:class extends Date {static now(){return clock.now}},document:{documentElement:{lang},body:{dataset:{},classList:{contains(){return false}}},querySelector:s=>nodes[s]||null,querySelectorAll:()=>[],addEventListener(){}},window:{location:{href:'https://gd1.pro/',hash:'',search:''},addEventListener(){},setTimeout(){return 1},clearTimeout(){}}};
+  const nodes=Object.fromEntries(['#home-camp-list','#upcoming-camps','#past-camps','#upcoming-empty','#past-empty','#past-camps-load-more'].map(id=>[id,{innerHTML:'',children:[],hidden:true,listeners:{},addEventListener(event,fn){this.listeners[event]=fn},insertAdjacentHTML(_,html){this.innerHTML+=html}}]));
+  const ctx={URL,Date:class extends Date {static now(){return clock.now}},document:{documentElement:{lang},body:{dataset:{},classList:{contains(){return false}}},querySelector:s=>nodes[s]||null,querySelectorAll:()=>[],addEventListener(){}},window:{matchMedia:()=>({matches:true}),location:{href:'https://gd1.pro/',hash:'',search:''},addEventListener(){},setTimeout(){return 1},clearTimeout(){}}};
   vm.createContext(ctx);
   vm.runInContext(fs.readFileSync(path.join(root,'camps-data.js'),'utf8'),ctx);
   if(lang==='uk')vm.runInContext(fs.readFileSync(path.join(root,'camps-data-uk.js'),'utf8'),ctx);

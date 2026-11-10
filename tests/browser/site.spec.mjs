@@ -143,7 +143,7 @@ for(const language of ['en','uk']){
   }
 }
 
-test('archive reveals 12 camps at a time and removes Load more after the final batch',async({page})=>{
+test('archive loads 12 camps per click and hides Load more after the final batch',async({page})=>{
   const runtimeText=fs.readFileSync(path.join(root,'camps-data.js'),'utf8');
   const runtime=JSON.parse(runtimeText.slice(runtimeText.indexOf('=')+1).trim().replace(/;$/,''));
   const historic=Array.from({length:25},(_,index)=>({...runtime[0],id:`browser-test-past-${index}`,page:'',startsOn:'2025-01-01',endsOn:'2025-01-02'}));

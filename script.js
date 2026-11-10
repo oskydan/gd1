@@ -75,6 +75,19 @@ if (document.body.classList.contains('camp-detail-page') && campPage) {
   if (registration) share.prepend(registration);
   host?.append(share);
   const button = share.querySelector('button');
+  const shareIcon = button.innerHTML;
+  let copyConfirmationTimer;
+  const confirmCopy = () => {
+    window.clearTimeout(copyConfirmationTimer);
+    button.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>';
+    button.classList.add('is-copied');
+    button.title = ui('Link copied', 'Посилання скопійовано');
+    copyConfirmationTimer = window.setTimeout(() => {
+      button.innerHTML = shareIcon;
+      button.classList.remove('is-copied');
+      button.title = ui('Share camp', 'Поділитися кемпом');
+    }, 1800);
+  };
   const status = share.querySelector('[role="status"]');
   const input = share.querySelector('input');
   const dates = host?.querySelector('.camp-detail-date');
@@ -88,6 +101,10 @@ if (document.body.classList.contains('camp-detail-page') && campPage) {
   };
   mobileShare.addEventListener('change', arrangeCampActions);
   arrangeCampActions();
+  input.addEventListener('copy', () => {
+    status.textContent = ui('Link copied.', 'Посилання скопійовано.');
+    confirmCopy();
+  });
   const url = document.querySelector('link[rel="canonical"]')?.href;
   const title = `GD1 · ${campPage.title} · ${campPage.period}`;
   const record = (outcome, method) => document.dispatchEvent(new CustomEvent('gd1:camp-share', { detail: { camp_id: campPage.id, outcome, method } }));
@@ -110,6 +127,7 @@ if (document.body.classList.contains('camp-detail-page') && campPage) {
       try {
         await navigator.clipboard.writeText(url);
         status.textContent = ui('Link copied.', 'Посилання скопійовано.');
+        confirmCopy();
         record('copied', 'clipboard');
       } catch {
         input.value = url;input.hidden = false;input.focus();input.select();

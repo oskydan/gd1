@@ -1847,10 +1847,11 @@ h3 {
 }
 
 .camp-load-more:hover {
-  background: #0d0d0d;
-  color: #fff;
-  border-color: #0d0d0d;
+  background: #0d0d0d !important;
+  color: #fff !important;
+  border-color: #0d0d0d !important;
   transform: none;
+  box-shadow: none !important;
 }
 
 .camp-load-more[hidden] {
@@ -4767,3 +4768,15 @@ details.language-switcher:not([open])>.language-menu {
 .camp-calendar-options a:hover { background: #eee; }
 .camp-calendar-options p { padding: 12px 10px 6px; margin: 6px 0 0; border-top: 1px solid #e4e4e4; font: 400 12px/1.5 var(--font); color: #626262; cursor: default; }
 @media (max-width:700px) { .camp-detail-hero-copy > .camp-calendar { order: 4; } }
+
+@keyframes camp-copy-confirm {
+  from { opacity: .35; transform: scale(.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .camp-share-button.is-copied svg { animation: camp-copy-confirm 180ms ease-out; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .camp-share-button { transition: none; }
+  .camp-share-button.is-copied svg { animation: none; }
+}
