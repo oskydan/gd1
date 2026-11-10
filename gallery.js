@@ -73,10 +73,13 @@ if (photoViewer) {
   let current = 0;
   let opener;
   let previousOverflow = '';
+  let lockedScrollY = 0;
+  let previousBodyLayout;
+  let previousRootOverflow;
   let photoRequest = 0;
   let photoAnimation;
   let photoOverlay;
-  function showPhoto(index) {
+  function showPhoto(index, swipeDirection = 0) {
     current = (index + photos.length) % photos.length;
     const photo = photos[current];
     const request = ++photoRequest;
@@ -116,9 +119,16 @@ if (photoViewer) {
       photoOverlay = previous;
       enlarged.after(previous);
       applyPhoto();
-      const options = {duration: 250, easing: 'cubic-bezier(.4, 0, .2, 1)'};
-      const outgoing = previous.animate([{opacity: 1}, {opacity: 0}], {...options, fill: 'forwards'});
-      photoAnimation = enlarged.animate([{opacity: 0}, {opacity: 1}], options);
+      const options = {duration: 250, easing: 'cubic-bezier(.22, 1, .36, 1)'};
+      const distance = swipeDirection * Math.min(48, window.innerWidth * .08);
+      const outgoingFrames = swipeDirection
+        ? [{opacity: 1, transform: 'translate3d(0,0,0)'}, {opacity: 0, transform: `translate3d(${-distance}px,0,0)`}]
+        : [{opacity: 1}, {opacity: 0}];
+      const incomingFrames = swipeDirection
+        ? [{opacity: 0, transform: `translate3d(${distance}px,0,0)`}, {opacity: 1, transform: 'translate3d(0,0,0)'}]
+        : [{opacity: 0}, {opacity: 1}];
+      const outgoing = previous.animate(outgoingFrames, {...options, fill: 'forwards'});
+      photoAnimation = enlarged.animate(incomingFrames, options);
       try { await outgoing.finished; } catch { /* A newer photo can replace this transition. */ }
       previous.remove();
       if (photoOverlay === previous) photoOverlay = null;
@@ -128,12 +138,29 @@ if (photoViewer) {
   photoButtons.forEach((button,index) => button.addEventListener('click', () => {
     opener = button;
     previousOverflow = document.body.style.overflow;
+    lockedScrollY = window.scrollY || 0;
+    previousBodyLayout = {position: document.body.style.position, top: document.body.style.top, width: document.body.style.width};
+    previousRootOverflow = document.documentElement?.style.overflow;
     showPhoto(index);
     photoViewer.showModal();
     document.body.style.overflow = 'hidden';
+    Object.assign(document.body.style, {position: 'fixed', top: `-${lockedScrollY}px`, width: '100%'});
+    if (document.documentElement) document.documentElement.style.overflow = 'hidden';
     close.focus({preventScroll:true});
   }));
   close.addEventListener('click', () => photoViewer.close());
+  const tapTimers = new Map();
+  photoViewer.querySelectorAll('.gallery-lightbox-prev, .gallery-lightbox-next').forEach(button => {
+    button.addEventListener('click', () => {
+      if (!window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+      window.clearTimeout(tapTimers.get(button));
+      button.classList.add('is-tapped');
+      tapTimers.set(button, window.setTimeout(() => {
+        button.classList.remove('is-tapped');
+        tapTimers.delete(button);
+      }, 200));
+    });
+  });
   photoViewer.querySelector('.gallery-lightbox-prev').addEventListener('click', () => showPhoto(current - 1));
   photoViewer.querySelector('.gallery-lightbox-next').addEventListener('click', () => showPhoto(current + 1));
   photoViewer.addEventListener('keydown', event => {
@@ -158,6 +185,9 @@ if (photoViewer) {
     photoAnimation?.cancel();
     photoOverlay?.remove();
     document.body.style.overflow = previousOverflow;
+    Object.assign(document.body.style, previousBodyLayout);
+    if (document.documentElement) document.documentElement.style.overflow = previousRootOverflow;
+    window.scrollTo?.({top: lockedScrollY, behavior: 'instant'});
     opener?.focus({preventScroll:true});
     enlarged.removeAttribute('src');
     enlarged.removeAttribute('srcset');
@@ -166,11 +196,19 @@ if (photoViewer) {
     photoAnimation?.cancel();
     photoOverlay?.remove();
   });
+  photoViewer.addEventListener('wheel', event => { if (!event.ctrlKey) event.preventDefault(); }, {passive: false});
+  photoViewer.addEventListener('touchmove', event => { if (event.touches.length === 1) event.preventDefault(); }, {passive: false});
   // Swipe navigation complements the arrows on touch screens.
   let touchStart=null;
   const stage=photoViewer.querySelector('.gallery-lightbox-stage');
   stage.addEventListener('touchstart', event => {
     touchStart=event.touches.length===1 ? {x:event.touches[0].clientX,y:event.touches[0].clientY} : null;
+    if (touchStart) [-1, 1].forEach(offset => {
+      const photo = photos[(current + offset + photos.length) % photos.length];
+      const nearby = new Image();nearby.sizes = '100vw';
+      if (photo.srcset) nearby.srcset = photo.srcset;
+      nearby.src = photo.src;
+    });
   },{passive:true});
   stage.addEventListener('touchcancel', () => { touchStart = null; }, {passive:true});
   stage.addEventListener('touchmove', event => { if (event.touches.length !== 1) touchStart = null; }, {passive:true});
@@ -179,6 +217,6 @@ if (photoViewer) {
     if (!touch || !touchStart) return;
     const dx=touch.clientX-touchStart.x,dy=touch.clientY-touchStart.y;
     touchStart=null;
-    if (Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.5) showPhoto(current+(dx<0?1:-1));
+    if (Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.5) showPhoto(current+(dx<0?1:-1), dx<0?1:-1);
   },{passive:true});
 }

@@ -4828,3 +4828,15 @@ details.language-switcher:not([open])>.language-menu {
   .gallery-lightbox-count,
   .gallery-lightbox-figure .gallery-lightbox-caption { display: none; }
 }
+
+@media (hover: none), (pointer: coarse) {
+  .gallery-lightbox .gallery-lightbox-prev.is-tapped,
+  .gallery-lightbox .gallery-lightbox-next.is-tapped { background: #fff; color: #111; border-color: #fff; transition: none; }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .gallery-lightbox .gallery-lightbox-prev,
+  .gallery-lightbox .gallery-lightbox-next { transition: none; }
+}
+
+.gallery-lightbox, .gallery-lightbox-stage { overscroll-behavior: none; touch-action: pinch-zoom; }
