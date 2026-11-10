@@ -147,6 +147,7 @@ if (photoViewer) {
     Object.assign(document.body.style, {position: 'fixed', top: `-${lockedScrollY}px`, width: '100%'});
     if (document.documentElement) document.documentElement.style.overflow = 'hidden';
     close.focus({preventScroll:true});
+    enterViewerFullscreen();
   }));
   close.addEventListener('click', () => photoViewer.close());
   const tapTimers = new Map();
@@ -181,6 +182,7 @@ if (photoViewer) {
     }
   });
   photoViewer.addEventListener('close', () => {
+    exitViewerFullscreen();
     photoRequest++;
     photoAnimation?.cancel();
     photoOverlay?.remove();
@@ -198,6 +200,36 @@ if (photoViewer) {
   });
   photoViewer.addEventListener('wheel', event => { if (!event.ctrlKey) event.preventDefault(); }, {passive: false});
   photoViewer.addEventListener('touchmove', event => { if (event.touches.length === 1) event.preventDefault(); }, {passive: false});
+  // Fullscreen must target the document: browsers reject fullscreen on a dialog.
+  const landscapePhoto = window.matchMedia?.('(orientation: landscape) and (max-height: 600px) and (hover: none) and (pointer: coarse)');
+  let viewerOwnsFullscreen = false;
+  let fullscreenPending = false;
+  const exitViewerFullscreen = () => {
+    if (!viewerOwnsFullscreen) return;
+    viewerOwnsFullscreen = false;
+    const exit = document.exitFullscreen || document.webkitExitFullscreen;
+    if (exit) { try { Promise.resolve(exit.call(document)).catch(() => {}); } catch {} }
+  };
+  const enterViewerFullscreen = () => {
+    if (!photoViewer.open || !landscapePhoto?.matches || fullscreenPending || document.fullscreenElement || document.webkitFullscreenElement) return;
+    const root = document.documentElement;
+    const request = root?.requestFullscreen || root?.webkitRequestFullscreen;
+    if (!request) return;
+    fullscreenPending = true;
+    try {
+      Promise.resolve(request.call(root, {navigationUI: 'hide'})).then(() => {
+        viewerOwnsFullscreen = true;
+        if (!photoViewer.open || !landscapePhoto.matches) exitViewerFullscreen();
+      }).catch(() => { /* Rotation alone may lack the browser's required user gesture. */ }).finally(() => { fullscreenPending = false; });
+    } catch { fullscreenPending = false; }
+  };
+  landscapePhoto?.addEventListener('change', () => {
+    if (landscapePhoto.matches) enterViewerFullscreen();
+    else exitViewerFullscreen();
+  });
+  photoViewer.addEventListener('click', event => {
+    if (event.target.closest('.gallery-lightbox-stage')) enterViewerFullscreen();
+  });
   // Swipe navigation complements the arrows on touch screens.
   let touchStart=null;
   const stage=photoViewer.querySelector('.gallery-lightbox-stage');
@@ -217,6 +249,9 @@ if (photoViewer) {
     if (!touch || !touchStart) return;
     const dx=touch.clientX-touchStart.x,dy=touch.clientY-touchStart.y;
     touchStart=null;
-    if (Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.5) showPhoto(current+(dx<0?1:-1), dx<0?1:-1);
+    if (Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.5) {
+      enterViewerFullscreen();
+      showPhoto(current+(dx<0?1:-1), dx<0?1:-1);
+    }
   },{passive:true});
 }
