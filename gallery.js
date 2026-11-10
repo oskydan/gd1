@@ -162,6 +162,10 @@ if (photoViewer) {
     enlarged.removeAttribute('src');
     enlarged.removeAttribute('srcset');
   });
+  window.addEventListener('resize', () => {
+    photoAnimation?.cancel();
+    photoOverlay?.remove();
+  });
   // Swipe navigation complements the arrows on touch screens.
   let touchStart=null;
   const stage=photoViewer.querySelector('.gallery-lightbox-stage');

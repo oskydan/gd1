@@ -4796,13 +4796,35 @@ details.language-switcher:not([open])>.language-menu {
 .gallery-lightbox .gallery-lightbox-next {
   top: auto; bottom: calc(72px + env(safe-area-inset-bottom, 0px));
   transform: none; width: 48px; height: 48px;
-  background: #fff; color: #111; border: 1px solid #fff;
+  background: #111; color: #fff; border: 1px solid #777;
 }
 .gallery-lightbox .gallery-lightbox-prev { left: calc(50% - 54px); right: auto; }
 .gallery-lightbox .gallery-lightbox-next { left: calc(50% + 6px); right: auto; }
-.gallery-lightbox .gallery-lightbox-prev:hover,
-.gallery-lightbox .gallery-lightbox-next:hover { background: #111; color: #fff; border-color: #fff; }
+@media (hover: hover) and (pointer: fine) {
+  .gallery-lightbox .gallery-lightbox-prev:hover,
+  .gallery-lightbox .gallery-lightbox-next:hover { background: #fff; color: #111; border-color: #fff; }
+}
+@media (hover: none), (pointer: coarse) {
+  .gallery-lightbox .gallery-lightbox-prev:hover,
+  .gallery-lightbox .gallery-lightbox-next:hover { background: #111; color: #fff; border-color: #777; }
+  .gallery-lightbox .gallery-lightbox-prev:active,
+  .gallery-lightbox .gallery-lightbox-next:active { background: #fff; color: #111; border-color: #fff; }
+}
 .gallery-lightbox-caption { bottom: calc(20px + env(safe-area-inset-bottom, 0px)); }
 @media (max-width:620px) {
   .gallery-lightbox-stage { padding: 76px 0 calc(160px + env(safe-area-inset-bottom, 0px)); }
+}
+
+.gallery-lightbox-figure { margin: 0; max-width: 100%; max-height: 100%; display: flex; flex-direction: column; align-items: center; }
+.gallery-lightbox-figure .gallery-lightbox-image { max-height: calc(100dvh - 270px - env(safe-area-inset-bottom, 0px)); min-height: 0; flex-shrink: 1; }
+.gallery-lightbox-figure .gallery-lightbox-caption { position: static; margin: 12px 20px 0; flex: none; }
+
+/* A distraction-free photo view when a phone is turned sideways. */
+@media (orientation: landscape) and (max-height: 600px) and (hover: none) and (pointer: coarse) {
+  .gallery-lightbox-stage { padding: 0; }
+  .gallery-lightbox-figure { width: 100%; height: 100%; }
+  .gallery-lightbox-figure .gallery-lightbox-image { width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; }
+  .gallery-lightbox button,
+  .gallery-lightbox-count,
+  .gallery-lightbox-figure .gallery-lightbox-caption { display: none; }
 }
