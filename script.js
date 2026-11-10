@@ -83,6 +83,11 @@ if (document.body.classList.contains('camp-detail-page') && campPage) {
     button.classList.add('is-copied');
     button.title = message;
     button.setAttribute('aria-label', message);
+    scheduleConfirmationReset();
+  };
+  const scheduleConfirmationReset = () => {
+    window.clearTimeout(copyConfirmationTimer);
+    if (!button.classList.contains('is-copied') || document.hidden || !document.hasFocus()) return;
     copyConfirmationTimer = window.setTimeout(() => {
       button.innerHTML = shareIcon;
       button.classList.remove('is-copied');
@@ -90,6 +95,12 @@ if (document.body.classList.contains('camp-detail-page') && campPage) {
       button.setAttribute('aria-label', button.title);
     }, 3000);
   };
+  // Native share sheets can remain open after the browser resolves sharing.
+  // Count confirmation time only while the visitor can see the page.
+  window.addEventListener('blur', () => window.clearTimeout(copyConfirmationTimer));
+  window.addEventListener('focus', scheduleConfirmationReset);
+  window.addEventListener('pageshow', scheduleConfirmationReset);
+  document.addEventListener('visibilitychange', scheduleConfirmationReset);
   const status = share.querySelector('[role="status"]');
   const input = share.querySelector('input');
   const dates = host?.querySelector('.camp-detail-date');
