@@ -4840,3 +4840,12 @@ details.language-switcher:not([open])>.language-menu {
 }
 
 .gallery-lightbox, .gallery-lightbox-stage { overscroll-behavior: none; touch-action: pinch-zoom; }
+
+@media (hover: none), (pointer: coarse) {
+  .gallery-lightbox .gallery-lightbox-prev:hover,
+  .gallery-lightbox .gallery-lightbox-next:hover,
+  .gallery-lightbox .gallery-lightbox-prev:active,
+  .gallery-lightbox .gallery-lightbox-next:active {
+    background: #111; color: #fff; border-color: #777;
+  }
+}

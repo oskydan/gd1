@@ -150,18 +150,6 @@ if (photoViewer) {
     enterViewerFullscreen();
   }));
   close.addEventListener('click', () => photoViewer.close());
-  const tapTimers = new Map();
-  photoViewer.querySelectorAll('.gallery-lightbox-prev, .gallery-lightbox-next').forEach(button => {
-    button.addEventListener('click', () => {
-      if (!window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
-      window.clearTimeout(tapTimers.get(button));
-      button.classList.add('is-tapped');
-      tapTimers.set(button, window.setTimeout(() => {
-        button.classList.remove('is-tapped');
-        tapTimers.delete(button);
-      }, 200));
-    });
-  });
   photoViewer.querySelector('.gallery-lightbox-prev').addEventListener('click', () => showPhoto(current - 1));
   photoViewer.querySelector('.gallery-lightbox-next').addEventListener('click', () => showPhoto(current + 1));
   photoViewer.addEventListener('keydown', event => {
