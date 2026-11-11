@@ -88,8 +88,8 @@
               "uk": ""
             },
             "note": {
-              "en": "One session",
-              "uk": "Одна сесія"
+              "en": "Accommodation not included",
+              "uk": "Проживання не включено"
             },
             "id": "campFee"
           },
@@ -104,8 +104,8 @@
               "uk": ""
             },
             "note": {
-              "en": "One session, including lunch",
-              "uk": "Одна сесія з обідом"
+              "en": "Accommodation not included",
+              "uk": "Проживання не включено"
             },
             "id": "campFeeWithLunch"
           }
