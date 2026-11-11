@@ -90,7 +90,7 @@ def stories_main(profiles):
     return '<main class="player-stories-index">'+hero+listing+closing+'</main>'
 
 def generate_stories(root,profiles):
-    path=root/'growing-with-gd1.html'
+    path=root/'player-stories.html'
     if not path.exists():return
     source=path.read_text()
     source=re.sub(r'<main\b[^>]*>.*?</main>',lambda _:stories_main([p for p in profiles if not p['draft']]),source,flags=re.S)
