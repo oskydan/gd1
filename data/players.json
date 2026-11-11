@@ -1,0 +1,220 @@
+{
+  "schemaVersion": 1,
+  "players": [
+    {
+      "id": "yaroslav-skydan",
+      "page": "yaroslav-skydan.html",
+      "draft": false,
+      "instagram": "https://www.instagram.com/yaroskydan/",
+      "instagramHandle": "@yaroskydan",
+      "image": {
+        "src": "assets/players/yaroslav-skydan-960.webp",
+        "srcset": "assets/players/yaroslav-skydan-480.webp 480w, assets/players/yaroslav-skydan-960.webp 960w, assets/players/yaroslav-skydan-1480.webp 1480w",
+        "width": 1480,
+        "height": 1480
+      },
+      "title": {
+        "en": "Yaroslav Skydan | GD1 Player Stories",
+        "uk": "Ярослав Скидан | Історії гравців GD1"
+      },
+      "meta": {
+        "en": "Yaroslav Skydan’s hockey journey from Vinnytsia, Ukraine to the UK and Latvia, with GD1 camps throughout.",
+        "uk": "Хокейний шлях Ярослава Скидана від Вінниці (Україна) до Великої Британії та Латвії разом із кемпами GD1."
+      },
+      "copy": {
+        "en": {
+          "eyebrow": "PLAYER STORIES · GD1",
+          "name": [
+            "Yaroslav",
+            "Skydan."
+          ],
+          "tagline": "Different teams. The same drive to improve.",
+          "intro": "From his first strides in Vinnytsia, Ukraine to a demanding hockey season in Latvia, Yaroslav has carried one constant with him: a commitment to the work, on and off the ice.",
+          "badges": [
+            {
+              "text": "Baltic Wolves · Latvia",
+              "title": "",
+              "label": ""
+            },
+            {
+              "text": "U13",
+              "title": "",
+              "label": ""
+            },
+            {
+              "text": "2026",
+              "title": "Profile publication year",
+              "label": "Profile published in 2026"
+            }
+          ],
+          "photoCaption": "A player story, still being written.",
+          "imageAlt": "Yaroslav Skydan on the ice in his hockey equipment",
+          "instagramLabel": "Yaroslav on Instagram (opens in a new tab)",
+          "stats": [
+            {
+              "value": "2020",
+              "label": "The journey begins"
+            },
+            {
+              "value": "3",
+              "label": "Countries. One hockey journey."
+            },
+            {
+              "value": "GD1",
+              "label": "A constant through every move"
+            }
+          ],
+          "journey": {
+            "eyebrow": "THE HOCKEY JOURNEY",
+            "heading": [
+              "New places.",
+              "Stronger foundations."
+            ],
+            "intro": "Clubs and countries changed. Summer and winter camps kept the development moving."
+          },
+          "timeline": [
+            {
+              "year": "2020",
+              "team": "Patriot · Vinnytsia, Ukraine",
+              "heading": "The first steps.",
+              "body": "Yaroslav began his hockey journey with Patriot in Vinnytsia, Ukraine. It was here that he attended his first GD1 camp, starting a connection with Dmitriy Gnitko and a training approach that would stay with him through every move."
+            },
+            {
+              "year": "2022",
+              "team": "Streatham · United Kingdom",
+              "heading": "A new rink. A new chapter.",
+              "body": "Yaroslav moved to the UK in 2022 because of the war in Ukraine. Joining Streatham meant adapting to a new team and a different training environment. Alongside club hockey, he continued returning to GD1, keeping focused skating work part of his development."
+            },
+            {
+              "year": "2023",
+              "team": "Guildford · United Kingdom",
+              "heading": "Making every session count.",
+              "body": "During his years at Guildford, limited access to ice made purposeful training especially valuable. Regular summer and winter GD1 camps gave Yaroslav concentrated time to revisit technique, strengthen his skating foundations, and bring that work back to his team. During this period, Yaroslav also earned a first-place finish at the England Junior Ice Hockey Championship U12."
+            },
+            {
+              "year": "2025",
+              "team": "Baltic Wolves · Latvia",
+              "heading": "A faster pace. The work continues.",
+              "body": "Yaroslav now plays for Baltic Wolves in Latvia, competing at U13 and U14 level. His schedule includes the Latvian Youth Championship, Baltic Youth League, Carpathian Youth League, and other tournaments. Even through a demanding season, he continues attending GD1 camps and developing with guidance from Dmitriy Gnitko."
+            }
+          ],
+          "foundation": {
+            "eyebrow": "WHAT TRAVELS WITH HIM",
+            "heading": [
+              "The skating",
+              "speaks for itself."
+            ],
+            "paragraphs": [
+              "In Latvia, coaches have repeatedly noticed the strength of Yaroslav’s skating, and expressed surprise at how he developed it during three years in the UK, where ice time was limited.",
+              "For Yaroslav, GD1 has been a thread of continuity: a place to return to the details, receive guidance, and keep building. The camps complement his club hockey, giving focused attention to the foundations he carries into a busy competitive season."
+            ]
+          },
+          "closing": {
+            "eyebrow": "THE NEXT CHAPTER",
+            "heading": [
+              "Still learning.",
+              "Still showing up."
+            ],
+            "body": "This is not a finished success story. It is the story of a young player finding ways to keep improving, across teams, countries, and seasons."
+          }
+        },
+        "uk": {
+          "eyebrow": "ІСТОРІЇ ГРАВЦІВ · GD1",
+          "name": [
+            "Ярослав",
+            "Скидан."
+          ],
+          "tagline": "Різні команди. Незмінне прагнення зростати.",
+          "intro": "Від перших кроків на льоду у Вінниці (Україна) до насиченого хокейного сезону в Латвії Ярослава супроводжує незмінна відданість роботі на льоду й поза ним.",
+          "badges": [
+            {
+              "text": "Baltic Wolves · Латвія",
+              "title": "",
+              "label": ""
+            },
+            {
+              "text": "U13",
+              "title": "",
+              "label": ""
+            },
+            {
+              "text": "2026",
+              "title": "Рік публікації профілю",
+              "label": "Профіль опубліковано у 2026 році"
+            }
+          ],
+          "photoCaption": "Історія гравця, яка триває.",
+          "imageAlt": "Ярослав Скидан на льоду в хокейному спорядженні",
+          "instagramLabel": "Ярослав в Instagram (відкривається в новій вкладці)",
+          "stats": [
+            {
+              "value": "2020",
+              "label": "Початок шляху"
+            },
+            {
+              "value": "3",
+              "label": "Країни. Один хокейний шлях."
+            },
+            {
+              "value": "GD1",
+              "label": "Незмінна підтримка на кожному етапі"
+            }
+          ],
+          "journey": {
+            "eyebrow": "ХОКЕЙНИЙ ШЛЯХ",
+            "heading": [
+              "Нові місця.",
+              "Міцніша основа."
+            ],
+            "intro": "Клуби й країни змінювалися. Літні та зимові кемпи допомагали продовжувати розвиток."
+          },
+          "timeline": [
+            {
+              "year": "2020",
+              "team": "Патріот · Вінниця, Україна",
+              "heading": "Перші кроки.",
+              "body": "Ярослав розпочав хокейний шлях у «Патріоті» у Вінниці (Україна). Саме тут він уперше відвідав кемп GD1, познайомився з Дмитром Гнітком і методикою тренувань, яка супроводжувала його під час усіх переїздів."
+            },
+            {
+              "year": "2022",
+              "team": "Streatham · Велика Британія",
+              "heading": "Нова ковзанка. Новий розділ.",
+              "body": "У 2022 році Ярослав переїхав до Великої Британії через війну в Україні. Приєднавшись до Streatham, він адаптувався до нової команди та інших умов тренувань. Поряд із клубним хокеєм він продовжував повертатися до GD1, зберігаючи цілеспрямовану роботу над катанням як важливу частину свого розвитку."
+            },
+            {
+              "year": "2023",
+              "team": "Guildford · Велика Британія",
+              "heading": "Цінувати кожне тренування.",
+              "body": "У роки гри за Guildford обмежений доступ до льоду робив цілеспрямовані тренування особливо цінними. Регулярні літні та зимові кемпи GD1 давали Ярославу час для зосередженої роботи над технікою й основами катання, які він потім застосовував у своїй команді. У цей період Ярослав також посів перше місце на юніорському чемпіонаті Англії з хокею U12."
+            },
+            {
+              "year": "2025",
+              "team": "Baltic Wolves · Латвія",
+              "heading": "Вищий темп. Робота триває.",
+              "body": "Зараз Ярослав грає за Baltic Wolves у Латвії, виступаючи на рівнях U13 та U14. Його календар включає юнацький чемпіонат Латвії, Балтійську юнацьку лігу, Карпатську юнацьку лігу та інші турніри. Навіть у насиченому сезоні він продовжує відвідувати кемпи GD1 і розвиватися під керівництвом Дмитра Гнітка."
+            }
+          ],
+          "foundation": {
+            "eyebrow": "ЩО ЗАЛИШАЄТЬСЯ З НИМ",
+            "heading": [
+              "Катання",
+              "говорить саме за себе."
+            ],
+            "paragraphs": [
+              "У Латвії тренери неодноразово відзначали сильне катання Ярослава й дивувалися, як він зміг розвинути його за три роки у Великій Британії, де час на льоду був обмежений.",
+              "Для Ярослава GD1 став постійною опорою: місцем, де можна повернутися до деталей, отримати поради й продовжити роботу. Кемпи доповнюють клубний хокей, допомагаючи зосередитися на основах, які він використовує протягом насиченого змагального сезону."
+            ]
+          },
+          "closing": {
+            "eyebrow": "НАСТУПНИЙ РОЗДІЛ",
+            "heading": [
+              "Продовжує вчитися.",
+              "Продовжує працювати."
+            ],
+            "body": "Це не завершена історія успіху. Це історія юного гравця, який знаходить можливості для розвитку в різних командах, країнах і сезонах."
+          }
+        }
+      }
+    }
+  ]
+}

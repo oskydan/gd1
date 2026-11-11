@@ -8,12 +8,14 @@ import sys
 import hashlib
 sys.path.insert(0, str(Path(__file__).resolve().parent / "tools"))
 from camps import read, translations
+import players
 from urllib.parse import urlsplit, urlunsplit
 
 ROOT = Path(__file__).resolve().parent
 PAGES = ['index.html', 'camps.html', 'coach.html', 'school.html', 'growing-with-gd1.html', 'faq.html', 'gallery.html', 'contact.html', '404.html']
 CATALOG = json.loads((ROOT / 'translations-uk.json').read_text())
 CATALOG.update(translations(read(ROOT)))
+CATALOG.update(players.translations(players.read(ROOT)))
 CATALOG.update({'English': 'Англійська', 'Ukrainian': 'Українська', 'Choose language': 'Обрати мову'})
 SWITCHER_PATTERN = r'<div class="language-switcher".*?</div>|<details class="language-switcher".*?</details>'
 
@@ -88,7 +90,7 @@ class Translator(HTMLParser):
         self.parts.append('<!--' + comment + '-->')
 
 
-PAGES = PAGES + [c["page"] for c in read(ROOT)["camps"] if c["page"]]
+PAGES = PAGES + [p["page"] for p in players.read(ROOT)] + [c["page"] for c in read(ROOT)["camps"] if c["page"]]
 
 for name in PAGES:
     page = ROOT / name

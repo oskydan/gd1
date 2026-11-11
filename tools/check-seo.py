@@ -4,7 +4,7 @@ from datetime import datetime,date
 from zoneinfo import ZoneInfo
 from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
-import json,xml.etree.ElementTree as ET
+import json,re,xml.etree.ElementTree as ET
 from camps import read
 from seo import origin,canonical,event,ERROR_PAGES
 from media import load
@@ -60,7 +60,7 @@ for p in ROOT.glob('*.html'):
 
 ns={'s':'http://www.sitemaps.org/schemas/sitemap/0.9'}
 urls=[node.text for node in ET.parse(ROOT/'sitemap.xml').findall('s:url/s:loc',ns)]
-assert len(urls)==len(set(urls)) and set(urls)==set(canonical_urls),'Sitemap must contain exactly the canonical pages'
+assert len(urls)==len(set(urls)) and set(urls)==set(url for url in canonical_urls if not re.search(r'<meta name="robots" content="noindex', (ROOT/('index.html' if url==base+'/' else urlsplit(url).path.lstrip('/'))).read_text())),'Sitemap must contain exactly the canonical pages'
 assert f'Sitemap: {base}/sitemap.xml' in (ROOT/'robots.txt').read_text()
 # A cancelled camp must retain dates but stop advertising registration offers.
 sample=next(c for c in data['camps'] if c['page']);sample['status']='cancelled'

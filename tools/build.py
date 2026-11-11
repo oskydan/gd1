@@ -7,10 +7,12 @@ from camps import read, runtime, main_html, period
 import media
 import seo
 import versions
+import players
 
 ROOT=Path(__file__).resolve().parents[1]
 
 def generate(root):
+    players.generate(root)
     data=read(root)
     manifest=media.load(root)
     media.styles(root,manifest)

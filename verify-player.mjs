@@ -1,0 +1,6 @@
+import {chromium} from '/Users/oskydan/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs';
+import fs from 'node:fs';
+const b=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'});
+for(const width of [320,390,1440])for(const lang of ['', '-uk']){
+const p=await b.newPage({viewport:{width,height:1100}});await p.goto(`http://127.0.0.1:4173/yaroslav-skydan${lang}.html`);await p.evaluate(()=>document.fonts.ready);await p.locator('.player-profile-portrait img').evaluate(el=>el.decode());await p.waitForTimeout(500);if(await p.locator('.player-profile-timeline li').count()!==4)throw Error('timeline');if(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('overflow');if(!await p.locator('meta[name="robots"]').getAttribute('content').then(v=>v.includes('noindex')))throw Error('index');if(width===1440&&!lang)await p.screenshot({path:'/private/tmp/yaroslav-profile-desktop.png'});if(width===390&&!lang)await p.screenshot({path:'/private/tmp/yaroslav-profile-mobile.png'});await p.close();}
+await b.close();if(fs.readFileSync('sitemap.xml','utf8').includes('yaroslav-skydan'))throw Error('sitemap');console.log('Draft profile, four-stage timeline, mobile layout and noindex verified in both languages.');

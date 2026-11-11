@@ -217,3 +217,11 @@ Runtime state comes from the visitor device's clock and the venue time zone. Goo
 ## Camp overview cards
 
 Home and upcoming Camps share one renderer: date/duration, short summary, daily ice/off-ice training, arena, camp fee, inclusion note, View camp details, and Register Now. `copy.en`/`copy.uk` provide `cardSummary` and `cardPriceNote`; prices, arena, day counts and training counts are derived from existing camp data. Use price placeholders such as `{campFeeWithLunch}` in notes to avoid maintaining the same number twice. Cards without a details page omit that action; existing disabled-registration behavior and past-camp links are retained.
+
+## Player profile template
+
+All player pages use `templates/player-profile.html`, `tools/players.py`, and the shared `player-profile.css`. Content belongs in `data/players.json`; editing a generated player HTML page will be overwritten on the next build.
+
+To add a player, duplicate an entry in `data/players.json`, choose a unique lowercase `id` and matching `page`, supply optimized photos under `assets/players/`, and replace the English and Ukrainian content. The data controls the name, introduction, badges/publication year, Instagram link, statistics, timeline, skating story, and closing section. Timeline entries may be added or removed without changing the layout.
+
+Run `python3 tools/build.py` to generate both languages. Keep `draft: true` while reviewing: this adds `noindex, nofollow` and excludes the pages from the sitemap. Profiles are not added to the main navigation individually. Player Stories automatically lists every profile with `draft: false` and displays the current count. Keep `draft: true` until a profile is approved for listing. Unlinked/noindex pages are drafts, not access-controlled private pages.

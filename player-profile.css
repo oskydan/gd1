@@ -1,0 +1,68 @@
+/* Unlinked player-story draft. */
+.player-profile-hero { display: grid; grid-template-columns: 1fr 1fr; background: #111; color: #fff; }
+.player-profile-copy { padding: clamp(40px,6vw,100px) max(32px,calc((100vw - 1320px)/2)); padding-right: 48px; align-self: center; }
+.player-profile-copy h1 { font: 600 clamp(64px,7.5vw,116px)/.96 var(--display); text-transform: uppercase; letter-spacing: -.025em; margin: 32px 0; }
+.player-profile-copy h1 em { font-style: normal; color: #bcbcbc; }
+.player-profile-tagline { font: 500 20px/1.5 var(--font); max-width: 430px; }
+.player-profile-intro { color: #bbb; font: 400 16px/1.8 var(--font); max-width: 480px; margin: 22px 0 28px; }
+.player-profile-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.player-profile-badges span { padding: 8px 12px; border: 1px solid #555; font: 400 13px/1.5 var(--font); }
+.player-profile-portrait { margin: 0; position: relative; min-width: 0; background: #e9e9e9; }
+.player-profile-portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 48% 35%; }
+.player-profile-portrait figcaption { position: absolute; left: 24px; bottom: 24px; padding: 10px 14px; background: #111; color: #fff; font: 400 13px/1.5 var(--font); }
+.player-profile-strip { display: grid; grid-template-columns: repeat(3,1fr); background: #f1f1f1; border-bottom: 1px solid #ddd; padding: 32px max(32px,calc((100vw - 1320px)/2)); }
+.player-profile-strip > div { padding: 8px 28px; border-left: 1px solid #ccc; }
+.player-profile-strip > div:first-child { border: 0; padding-left: 0; }
+.player-profile-strip strong { display: block; font: 500 42px/1.2 var(--display); color: #111; margin-bottom: 8px; }
+.player-profile-strip span { font: 400 14px/1.5 var(--font); color: #626262; }
+.player-profile-journey { display: grid; grid-template-columns: .7fr 1.3fr; gap: 64px; padding-top: 100px; padding-bottom: 100px; }
+.player-profile h2 { font: 600 clamp(38px,4.2vw,62px)/1.1 var(--display); text-transform: uppercase; margin: 22px 0; }
+.player-profile h2 em { font-style: normal; color: #777; }
+.player-profile-section-heading > p:last-child { max-width: 380px; color: #626262; font-size: 16px; line-height: 1.8; }
+.player-profile-timeline { list-style: none; padding: 0; margin: 0; }
+.player-profile-timeline li { display: grid; grid-template-columns: 100px minmax(0,1fr); gap: 24px; position: relative; padding: 0 0 48px; }
+.player-profile-timeline li:last-child { padding-bottom: 0; }
+.player-profile-timeline li > div { border-left: 1px solid #ccc; padding-left: 28px; }
+.player-profile-year { font: 500 23px/1.4 var(--display); color: #111; }
+.player-profile-place { margin: 0 0 12px; font: 500 13px/1.5 var(--font); color: #626262; }
+.player-profile-timeline h3 { font: 500 27px/1.25 var(--display); margin: 0 0 16px; text-transform: uppercase; }
+.player-profile-timeline li > div > p:last-child { font: 400 16px/1.8 var(--font); color: #555; margin: 0; }
+.player-profile-foundation { padding: 90px 0; background: #111; color: #fff; }
+.player-profile-foundation > .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 0 80px; }
+.player-profile-foundation .eyebrow { grid-column: 1 / -1; }
+.player-profile-foundation h2 { font-size: clamp(44px,5vw,76px); }
+.player-profile-narrative { padding-top: 22px; }
+.player-profile-narrative p { color: #bbb; font: 400 16px/1.8 var(--font); }
+.player-profile-narrative .player-profile-lead { color: #fff; font-size: 20px; line-height: 1.65; margin-top: 0; }
+.player-profile-closing { padding-top: 90px; padding-bottom: 100px; }
+.player-profile-closing > p:last-child { max-width: 640px; color: #555; font: 400 17px/1.8 var(--font); }
+@media (max-width:1000px) { .player-profile-copy { padding: 48px 32px; } .player-profile-journey { gap: 40px; } }
+@media (max-width:800px) {
+  .player-profile-hero { grid-template-columns: 1fr; }
+  .player-profile-copy { padding: 48px 24px 40px; }
+  .player-profile-copy h1 { font-size: clamp(64px,15vw,100px); }
+  .player-profile-portrait { aspect-ratio: 1; }
+  .player-profile-strip { padding: 24px; gap: 12px; }
+  .player-profile-strip > div { padding: 0 0 0 12px; }
+  .player-profile-strip strong { font-size: 32px; }
+  .player-profile-strip span { font-size: 12px; }
+  .player-profile-journey { grid-template-columns: 1fr; gap: 36px; padding-top: 60px; padding-bottom: 60px; }
+  .player-profile-timeline li { grid-template-columns: 76px minmax(0,1fr); gap: 12px; }
+  .player-profile-year { font-size: 19px; }
+  .player-profile-timeline li > div { padding-left: 18px; }
+  .player-profile-foundation { padding: 60px 0; }
+  .player-profile-foundation > .wrap { grid-template-columns: 1fr; gap: 0; }
+  .player-profile-closing { padding-top: 60px; padding-bottom: 64px; }
+}
+@media (prefers-reduced-motion:no-preference) {
+  .player-profile-copy h1 { animation: player-title-arrive 450ms cubic-bezier(.22,1,.36,1) both; }
+  @keyframes player-title-arrive { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+}
+
+/* Align dates with the story headline, below the team/location label. */
+.player-profile-year { padding-top: 31.5px; }
+
+.player-profile-instagram { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; margin-top: 16px; color: #bbb; font: 400 14px/1.5 var(--font); }
+.player-profile-instagram svg { width: 20px; height: 20px; flex: none; }
+.player-profile-instagram:hover { color: #fff; }
+.player-profile-instagram:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }

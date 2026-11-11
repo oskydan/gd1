@@ -56,7 +56,7 @@ def generate(root,data,as_of=None):
     ET.register_namespace('',ns)
     sitemap=ET.Element('{'+ns+'}urlset')
     for path in pages:
-        if path.name in ERROR_PAGES:continue
+        if path.name in ERROR_PAGES or re.search(r'<meta name="robots" content="noindex',path.read_text()):continue
         node=ET.SubElement(sitemap,'{'+ns+'}url')
         ET.SubElement(node,'{'+ns+'}loc').text=canonical(base,path.name)
     ET.indent(sitemap,space='  ')
