@@ -413,3 +413,29 @@ document.addEventListener('click', event => {
     event.preventDefault();event.stopImmediatePropagation();refreshCampState();
   }
 }, true);
+
+// FAQ search and topics progressively enhance the native expandable answers.
+const faqTopics = document.querySelector('.faq-topics');
+if (faqTopics) {
+  const faqItems = [...document.querySelectorAll('.faq-item')];
+  const topics = [...document.querySelectorAll('[data-faq-topic]')];
+  const result = document.querySelector('.faq-results');
+  const empty = document.querySelector('.faq-no-results');
+  let activeTopic = 'all';
+  const filterFaq = () => {
+    let count = 0;
+    faqItems.forEach((item, index) => {
+      const matches = activeTopic === 'all' || item.dataset.faqCategory === activeTopic;
+      item.hidden = !matches;
+      if (matches) count++;
+    });
+    empty.hidden = count > 0;
+    result.textContent = ui(`${count} of ${faqItems.length} questions`, `${count} із ${faqItems.length} запитань`);
+  };
+  topics.forEach(button => button.addEventListener('click', () => {
+    activeTopic = button.dataset.faqTopic;
+    topics.forEach(topic => topic.setAttribute('aria-pressed', String(topic === button)));
+    filterFaq();
+  }));
+  filterFaq();
+}
