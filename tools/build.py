@@ -40,7 +40,7 @@ def generate(root):
         def school_menu(match):
             nav=match[0]
             if 'nav-camps-group' not in nav:
-                nav=re.sub(r'<a\b[^>]*href="camps.html"[^>]*>Camps</a>', lambda link:'<div class="nav-school-group nav-camps-group">'+link[0]+'<div class="school-submenu"><a href="faq.html">FAQ</a></div></div>',nav)
+                nav=re.sub(r'<a\b[^>]*href="camps.html"[^>]*>Camps</a>', lambda link:'<div class="nav-school-group nav-camps-group">'+link[0]+'<div class="school-submenu"><a href="faq.html">FAQ</a><a href="camp-day.html">A Typical Camp Day</a></div></div>',nav)
             if 'nav-school-group' not in nav:
                 nav=re.sub(r'<a\b[^>]*href="school.html"[^>]*>School</a>', lambda link:'<div class="nav-school-group">'+link[0]+'<div class="school-submenu"><a href="player-stories.html">Player Stories</a></div></div>',nav)
             return nav

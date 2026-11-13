@@ -1,0 +1,69 @@
+/* Unlinked example: a typical day, not a camp-specific timetable. */
+.camp-day-hero { display: grid; grid-template-columns: 1fr 1fr; background: #111; color: #fff; }
+.camp-day-hero-copy { padding: 76px max(32px,calc((100vw - 1320px)/2)); padding-right: 52px; }
+.camp-day-hero h1 { font: 600 clamp(54px,6.5vw,96px)/1.04 var(--display); text-transform: uppercase; letter-spacing: -.02em; margin: 28px 0; }
+.camp-day-hero h1 em { color: #aaa; font-style: normal; }
+.camp-day-hero-copy > p:not(.eyebrow) { max-width: 480px; font: 400 17px/1.8 var(--font); color: #bbb; margin-bottom: 28px; }
+.camp-day-example { display: inline-block; border: 1px solid #555; padding: 9px 12px; font: 500 12px/1.5 var(--font); letter-spacing: .08em; }
+.camp-day-hero-photo { min-height: 480px; position: relative; overflow: hidden; }
+.camp-day-hero-photo > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 46% center; }
+.camp-day-photo-label { position: absolute; left: 28px; bottom: 28px; padding: 18px 24px; background: #111; color: #fff; }
+.camp-day-photo-label strong { display: block; font: 500 58px/1 var(--display); margin-bottom: 10px; }
+.camp-day-photo-label span { font: 400 12px/1.5 var(--font); letter-spacing: .08em; }
+.camp-day-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; padding-top: 72px; padding-bottom: 56px; border-bottom: 1px solid #ddd; }
+.camp-day-intro h2 { font: 500 clamp(34px,3.2vw,48px)/1.16 var(--display); text-transform: uppercase; margin: 16px 0 0; }
+.camp-day-intro h2 em { font-style: normal; color: #777; }
+.camp-day-intro > p { align-self: end; font: 400 15px/1.8 var(--font); color: #626262; max-width: 540px; margin: 0; }
+.camp-day-schedule { display: grid; grid-template-columns: .65fr 1.35fr; gap: 64px; padding-top: 56px; padding-bottom: 80px; align-items: start; }
+.camp-day-key { position: sticky; top: 32px; max-width: 300px; }
+.camp-day-key-number { font: 500 110px/1 var(--display); color: #111; }
+.camp-day-key h2 { font: 500 30px/1.2 var(--display); text-transform: uppercase; margin: 18px 0; }
+.camp-day-key > p:not(.eyebrow) { font: 400 16px/1.8 var(--font); color: #555; }
+.camp-day-meal-note { padding-top: 24px; margin-top: 28px; border-top: 1px solid #ddd; color: #626262; font: 400 13px/1.7 var(--font); }
+.camp-day-timeline { list-style: none; padding: 0; margin: 0; }
+.camp-day-session { display: grid; grid-template-columns: 160px minmax(0,1fr); border-top: 1px solid #ddd; padding: 28px 24px; gap: 24px; }
+.camp-day-session:last-child { border-bottom: 1px solid #ddd; }
+.camp-day-time { font: 500 25px/1.4 var(--display); white-space: nowrap; }
+.camp-day-type { display: flex; align-items: center; gap: 9px; font: 500 12px/1.5 var(--font); letter-spacing: .09em; text-transform: uppercase; margin: 0 0 14px; color: #626262; }
+.camp-day-type svg { width: 20px; height: 20px; flex: none; }
+.camp-day-session h3 { font: 500 27px/1.25 var(--display); text-transform: uppercase; margin: 0 0 12px; }
+.camp-day-session-copy > p:last-child { font: 400 15px/1.7 var(--font); color: #626262; margin: 0; }
+.camp-day-session-ice { background: #111; color: #fff; border-top-color: #111; }
+.camp-day-session-ice .camp-day-type, .camp-day-session-ice .camp-day-session-copy > p:last-child { color: #bbb; }
+.camp-day-session-off { background: #f1f1f1; }
+.camp-day-closing { padding: 76px 0; background: #111; color: #fff; }
+.camp-day-closing h2 { font: 600 clamp(40px,5.5vw,76px)/1.1 var(--display); text-transform: uppercase; margin: 24px 0; }
+.camp-day-closing h2 em { color: #aaa; font-style: normal; }
+.camp-day-closing p:last-child { max-width: 640px; color: #bbb; font: 400 17px/1.8 var(--font); margin-bottom: 0; }
+@media (max-width:1000px) { .camp-day-hero-copy { padding: 48px 32px; } .camp-day-schedule { gap: 36px; grid-template-columns: .55fr 1.45fr; } .camp-day-session { grid-template-columns: 136px minmax(0,1fr); padding: 24px 18px; gap: 18px; } .camp-day-time { font-size: 22px; } }
+@media (max-width:800px) {
+  .camp-day-hero { grid-template-columns: 1fr; }
+  .camp-day-hero-copy { padding: 48px 24px; }
+  .camp-day-hero h1 { font-size: clamp(52px,12vw,80px); }
+  .camp-day-hero-photo { min-height: 0; aspect-ratio: 3/2; }
+  .camp-day-photo-label { left: 20px; bottom: 20px; padding: 14px 18px; }
+  .camp-day-photo-label strong { font-size: 40px; }
+  .camp-day-intro { grid-template-columns: 1fr; gap: 24px; padding-top: 44px; padding-bottom: 36px; }
+  .camp-day-schedule { grid-template-columns: 1fr; gap: 32px; padding-top: 36px; padding-bottom: 48px; }
+  .camp-day-key { position: static; max-width: none; }
+  .camp-day-key-number { font-size: 64px; }
+  .camp-day-key h2 { display: inline-block; margin: 0 0 0 16px; font-size: 25px; }
+  .camp-day-key > p:not(.eyebrow) { max-width: 520px; margin-top: 16px; }
+  .camp-day-meal-note { margin-top: 16px; padding-top: 16px; }
+  .camp-day-session { grid-template-columns: 1fr; gap: 14px; padding: 24px 20px; }
+  .camp-day-time { font-size: 30px; }
+  .camp-day-type { margin-bottom: 10px; }
+  .camp-day-session h3 { font-size: 26px; }
+  .camp-day-closing { padding: 52px 0; }
+}
+.camp-day-hero-copy, .camp-day-hero-photo { min-width: 0; }
+@media (max-width:800px) {
+  .camp-day-hero { grid-template-columns: minmax(0,1fr); }
+  html[lang="uk"] .camp-day-hero h1 { font-size: clamp(40px,10vw,72px); }
+}
+
+.camp-day-rhythm h2 { font: 500 clamp(30px,3vw,44px)/1.15 var(--display); margin: 18px 0 0; }
+.camp-day-rhythm h2 em { color: #777; font-style: normal; }
+.camp-day-rhythm > .eyebrow { margin: 0; }
+.camp-day-rhythm .camp-day-meal-note { font-size: 14px; line-height: 1.8; }
+@media (max-width:800px) { .camp-day-rhythm h2 { display: block; margin: 16px 0 0; } }

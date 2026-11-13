@@ -12,7 +12,7 @@ import players
 from urllib.parse import urlsplit, urlunsplit
 
 ROOT = Path(__file__).resolve().parent
-PAGES = ['index.html', 'camps.html', 'coach.html', 'school.html', 'player-stories.html', 'faq.html', 'gallery.html', 'contact.html', '404.html']
+PAGES = ['index.html', 'camps.html', 'coach.html', 'school.html', 'player-stories.html', 'faq.html', 'camp-day.html', 'gallery.html', 'contact.html', '404.html']
 CATALOG = json.loads((ROOT / 'translations-uk.json').read_text())
 CATALOG.update(translations(read(ROOT)))
 CATALOG.update(players.translations(players.read(ROOT)))
