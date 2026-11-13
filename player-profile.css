@@ -66,3 +66,10 @@
 .player-profile-instagram svg { width: 20px; height: 20px; flex: none; }
 .player-profile-instagram:hover { color: #fff; }
 .player-profile-instagram:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+
+.player-profile .eyebrow .live-dot { background: #fafafa; box-shadow: 0 0 0 4px rgba(250,250,250,.12); }
+.player-profile .eyebrow.dark .live-dot { background: #111; box-shadow: 0 0 0 4px rgba(17,17,17,.12); }
+
+@media (min-width:801px) {
+  .player-profile-section-heading { position: sticky; top: 32px; align-self: start; }
+}
