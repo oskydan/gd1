@@ -37,6 +37,8 @@ def read(root):
                         count=data['defaults'][field]
                         value=value.replace('{'+token+'}',('two' if lang=='en' else 'два') if count==2 else str(count))
                     c['copy'][lang][key]=value
+        photos=c.get('photosUrl','')
+        assert isinstance(photos,str) and (not photos or (urlsplit(photos).scheme=='https' and urlsplit(photos).netloc)),c['id']+': invalid photos URL'
         if c['status']=='open':assert urlsplit(c['registrationUrl']).scheme=='https' and urlsplit(c['registrationUrl']).netloc,c['id']+': registration URL required'
         if c['page']:
             assert re.fullmatch(r'[a-z0-9-]+\.html',c['page']) and c['page'] not in pages,'Duplicate or invalid camp page'
@@ -70,6 +72,7 @@ def read(root):
 def runtime(c,lang,defaults):
     result={k:c[k] for k in ('id','startsOn','endsOn','image','registrationUrl','timeZone')}
     result.update({k:c['copy'][lang][k] for k in ('title','imageAlt','shortDescription','longDescription')})
+    result['photosUrl']=c.get('photosUrl','')
     result.update(durationDays=(date.fromisoformat(c['endsOn'])-date.fromisoformat(c['startsOn'])).days+1,onIceDaily=defaults['onIceDaily'],offIceDaily=defaults['offIceDaily'])
     if c['page']:
         result.update(cardSummary=c['copy'][lang]['cardSummary'],cardPriceNote=c['copy'][lang]['cardPriceNote'],venue=c['copy'][lang]['venue'],campFee=next(p['amount'] for p in c['detail']['prices'] if p['id']=='campFee'))

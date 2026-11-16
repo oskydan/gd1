@@ -30,7 +30,7 @@ def generate(root,data,as_of=None):
     base=origin(root);manifest=load(root)
     # All-day events remain current through the venue's final local day.
     by_page={c['page']:c for c in data['camps'] if c['page']}
-    pages=sorted(root.glob('*.html'))
+    pages=sorted(p for p in root.glob('*.html') if '<meta name="robots" content="noindex, nofollow">' not in p.read_text())
     for path in pages:
         lang='uk' if path.stem.endswith('-uk') else 'en'
         english=path.name.replace('-uk.html','.html')

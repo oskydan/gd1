@@ -73,6 +73,7 @@ const campPage = campList.find((camp) => camp.id === campPageId);
 if (document.body.classList.contains('camp-detail-page') && campPage) {
   document.title = `${campPage.title} | ${ui('GD1 Camp', 'Кемп GD1')}`;
 }
+let arrangeDetailActions;
 // Share the public, language-specific camp URL rather than a local preview URL.
 if (document.body.classList.contains('camp-detail-page') && campPage) {
   const host = document.querySelector('.camp-detail-hero-copy');
@@ -117,9 +118,10 @@ if (document.body.classList.contains('camp-detail-page') && campPage) {
   const mobileShare = window.matchMedia('(max-width:700px)');
   const arrangeCampActions = () => {
     if (!dates || !originalDateParent) return;
-    if (mobileShare.matches) share.prepend(dates);
+    if (mobileShare.matches && host.dataset.campStarted !== 'true') share.prepend(dates);
     else originalDateParent.insertBefore(dates, originalDateNext);
   };
+  arrangeDetailActions = arrangeCampActions;
   mobileShare.addEventListener('change', arrangeCampActions);
   arrangeCampActions();
   input.addEventListener('copy', () => {
@@ -180,7 +182,25 @@ const campEndsAt = (camp) => {
   campEndInstants.set(key, instant);
   return instant;
 };
+const campStartsAt = (camp) => {
+  const previous = new Date(camp.startsOn + 'T00:00:00Z');
+  previous.setUTCDate(previous.getUTCDate() - 1);
+  return campEndsAt({ ...camp, endsOn: previous.toISOString().slice(0, 10) });
+};
+const hasCampStarted = (camp) => Date.now() >= campStartsAt(camp);
 const isCampPast = (camp) => Date.now() >= campEndsAt(camp);
+const campPhotosUrl = (camp) => {
+  try { const url = new URL(camp.photosUrl || '');return url.protocol === 'https:' ? url.href : ''; }
+  catch { return ''; }
+};
+const campCameraIcon = '<svg class="camp-photo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 6 9.5 3.5h5L16 6h3.5A1.5 1.5 0 0 1 21 7.5v11a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5v-11A1.5 1.5 0 0 1 4.5 6Z"/><circle cx="12" cy="12.5" r="4"/><path d="M17.5 9h.01"/></svg>';
+const campPhotosButton = (camp) => {
+  const label = ui('View camp photos', 'Фото кемпу');
+  const url = campPhotosUrl(camp);
+  return url
+    ? `<a class="button camp-photos-button" href="${safe(url)}" target="_blank" rel="noopener noreferrer" aria-label="${ui('View camp photos on Pixieset (opens in a new tab)', 'Переглянути фото кемпу на Pixieset (у новій вкладці)')}">${campCameraIcon}${label}</a>`
+    : `<span class="button camp-photos-button is-disabled" aria-disabled="true">${campCameraIcon}${label}</span>`;
+};
 const safe = (value) => String(value).replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
 const registrationAttributes = (camp) => {
   const rawUrl = String(camp.registrationUrl || '').trim();
@@ -197,6 +217,8 @@ const registrationButton = (camp) => camp.cancelled
   ? `<span class="button register-button is-disabled" role="status" aria-disabled="true">${ui('Cancelled', 'Скасовано')}</span>`
   : isCampPast(camp)
   ? `<span class="button register-button is-disabled" role="status" aria-disabled="true">${ui('Camp Completed', 'Кемп завершено')}</span>`
+  : hasCampStarted(camp)
+  ? `<span class="button register-button is-disabled" role="status" aria-disabled="true">${ui('Registration Closed', 'Реєстрацію закрито')}</span>`
   : camp.registrationClosed
   ? `<span class="button register-button is-disabled" role="status" aria-disabled="true">${ui('Registration Closed', 'Реєстрацію закрито')}</span>`
   : camp.registrationComingSoon
@@ -324,7 +346,7 @@ if (document.body.classList.contains('camp-detail-page') && campPage) {
     if (!option) return;
     campCalendar.open = false;
     campCalendar.querySelector('summary').focus({preventScroll: true});
-    if (isCampPast(campPage) || campPage.cancelled) { event.preventDefault();return; }
+    if (hasCampStarted(campPage) || campPage.cancelled) { event.preventDefault();return; }
     document.dispatchEvent(new CustomEvent('gd1:camp-calendar', {detail: {camp_id: campPage.id, calendar_option: option.dataset.calendarOption}}));
   });
   document.addEventListener('click', event => { if (campCalendar.open && !campCalendar.contains(event.target)) campCalendar.open = false; });
@@ -342,11 +364,13 @@ if (document.body.classList.contains('camp-detail-page') && campPage) {
 }
 function updateMobileCampBar() {
   if (!mobileCampBar) return;
-  const completed = isCampPast(campPage);
-  const action = completed
-    ? `<a class="button" href="${ui('camps.html', 'camps-uk.html')}">${ui('View upcoming camps', 'Майбутні кемпи')}</a>`
-    : registrationButton(campPage);
-  mobileCampBar.innerHTML = `<div class="mobile-camp-bar-inner"><div class="mobile-camp-bar-price"><span>${ui('Camp fee', 'Вартість кемпу')}</span><strong>${ui('€' + campPage.campFee, campPage.campFee + ' €')}</strong></div>${action}</div>`;
+  const started = hasCampStarted(campPage) && !campPage.cancelled;
+  if (started) {
+    mobileCampBar.setAttribute('aria-label', ui('Camp photos', 'Фото кемпу'));
+    mobileCampBar.innerHTML = `<div class="mobile-camp-bar-inner"><div class="mobile-camp-bar-price"><span>${ui('Camp status', 'Статус кемпу')}</span><strong class="camp-mobile-status">${isCampPast(campPage) ? ui('Completed', 'Завершено') : ui('In progress', 'Триває')}</strong></div>${campPhotosButton(campPage)}</div>`;
+  } else {
+    mobileCampBar.innerHTML = `<div class="mobile-camp-bar-inner"><div class="mobile-camp-bar-price"><span>${ui('Camp fee', 'Вартість кемпу')}</span><strong>${ui('€' + campPage.campFee, campPage.campFee + ' €')}</strong></div>${registrationButton(campPage)}</div>`;
+  }
 }
 
 const detailRegistrations = [...document.querySelectorAll('.camp-detail-cta')].map(button => ({
@@ -355,14 +379,26 @@ const detailRegistrations = [...document.querySelectorAll('.camp-detail-cta')].m
 const footerCampLinks = [...document.querySelectorAll('.footer-links a')].map(link => ({
   link, camp: campList.find(camp => camp.id === new URL(link.href, window.location.href).hash.slice(1))
 })).filter(item => item.camp);
+const detailLabel = campPage ? document.querySelector('.camp-detail-hero-copy > .eyebrow') : null;
+const originalDetailLabel = detailLabel?.innerHTML;
+const detailRegistrationSection = campPage ? document.querySelector('.camp-detail-registration') : null;
+let campPhotosNote;
+if (campPage && document.body.classList.contains('camp-detail-page')) {
+  campPhotosNote = document.createElement('p');
+  campPhotosNote.className = 'camp-detail-lead camp-photos-note';
+  campPhotosNote.textContent = ui('Photos are added throughout the camp. Check back for new moments.', 'Фото додаються протягом кемпу. Повертайтеся, щоб побачити нові моменти.');
+  campPhotosNote.hidden = true;
+  const actions = document.querySelector('.camp-share');
+  actions?.after(campPhotosNote);
+}
 let campStateSnapshot = null;
 let campRefreshTimer;
 function refreshCampState() {
-  const snapshot = campList.map(camp => `${camp.id}:${isCampPast(camp)}`).join('|');
+  const snapshot = campList.map(camp => `${camp.id}:${hasCampStarted(camp)}:${isCampPast(camp)}`).join('|');
   if (snapshot !== campStateSnapshot) {
     campStateSnapshot = snapshot;
     updateMobileCampBar();
-    if (campCalendar) campCalendar.hidden = isCampPast(campPage) || Boolean(campPage.cancelled);
+    if (campCalendar) campCalendar.hidden = hasCampStarted(campPage) || Boolean(campPage.cancelled);
     renderHomeCamps();
     renderCampArchive();
     footerCampLinks.forEach(({link,camp}) => { link.hidden = isCampPast(camp); });
@@ -376,27 +412,37 @@ function refreshCampState() {
       }
       empty.hidden = footerCampLinks.some(({link}) => !link.hidden);
     }
-    if (campPage) detailRegistrations.forEach(item => {
-      const completed = isCampPast(campPage) && !campPage.cancelled;
-      if (completed && !item.current.classList.contains('is-completed')) {
-        const status = document.createElement('span');
-        status.className = item.original.className + ' is-disabled is-completed';
-        status.setAttribute('aria-disabled', 'true');
-        status.setAttribute('role', 'status');
-        status.textContent = ui('Camp Completed', 'Кемп завершено');
-        const focused = document.activeElement === item.current;
-        item.current.replaceWith(status);item.current = status;
-        if (focused) { status.tabIndex = -1;status.focus({preventScroll:true}); }
-      } else if (!completed && item.current.classList.contains('is-completed')) {
-        const original = item.original.cloneNode(true);
-        item.current.replaceWith(original);item.current = original;
+    if (campPage) {
+      const started = hasCampStarted(campPage) && !campPage.cancelled;
+      const completed = isCampPast(campPage);
+      const hero = document.querySelector('.camp-detail-hero-copy');
+      if (hero) hero.dataset.campStarted = String(started);
+      arrangeDetailActions?.();
+      if (detailRegistrationSection) detailRegistrationSection.hidden = started;
+      if (campPhotosNote) campPhotosNote.hidden = !started;
+      if (detailLabel) {
+        detailLabel.classList.toggle('camp-is-running', started && !completed);
+        detailLabel.classList.toggle('camp-is-completed', started && completed);
+        detailLabel.innerHTML = started
+          ? `<span class="live-dot" aria-hidden="true"></span>${completed ? ui('CAMP COMPLETED / REGISTRATION CLOSED', 'КЕМП ЗАВЕРШЕНО / РЕЄСТРАЦІЮ ЗАКРИТО') : ui('CAMP IN PROGRESS / REGISTRATION CLOSED', 'КЕМП ТРИВАЄ / РЕЄСТРАЦІЮ ЗАКРИТО')}`
+          : originalDetailLabel;
       }
-    });
+      detailRegistrations.forEach(item => {
+        const focused = document.activeElement === item.current;
+        let replacement;
+        if (started) {
+          const holder = document.createElement('div');holder.innerHTML = campPhotosButton(campPage);
+          replacement = holder.firstElementChild;
+        } else replacement = item.original.cloneNode(true);
+        item.current.replaceWith(replacement);item.current = replacement;
+        if (focused) { if (replacement.tagName !== 'A') replacement.tabIndex = -1;replacement.focus({preventScroll:true}); }
+      });
+    }
   }
   const year = document.querySelector('#year');
   if (year) year.textContent = new Date().getFullYear();
   window.clearTimeout(campRefreshTimer);
-  const next = Math.min(...campList.map(campEndsAt).filter(end => end > Date.now()));
+  const next = Math.min(...campList.flatMap(camp => [campStartsAt(camp), campEndsAt(camp)]).filter(end => end > Date.now()));
   if (Number.isFinite(next)) campRefreshTimer = window.setTimeout(refreshCampState, Math.min(86400000, Math.max(1, next - Date.now())));
 }
 refreshCampState();
@@ -409,7 +455,7 @@ document.addEventListener('click', event => {
   if (!button) return;
   const campId = button.closest('[data-camp-id]')?.dataset.campId;
   const camp = campList.find(item => item.id === campId);
-  if (camp && isCampPast(camp)) {
+  if (camp && hasCampStarted(camp)) {
     event.preventDefault();event.stopImmediatePropagation();refreshCampState();
   }
 }, true);

@@ -24,13 +24,13 @@ for(const language of ['en','uk']){
   test(`${language}: ${camp.id} expires on camp-local midnight`,async({page,context})=>{
    await beforeExpiry(page,camp);
    await page.goto('/'+camp.page.replace('.html',suffix+'.html'));
-   await expect(page.locator('a.camp-detail-cta')).toHaveCount(2);
-   await page.clock.runFor(1000);
+   await expect(page.locator('.camp-is-running')).toBeVisible();
    await expect(page.locator('a.camp-detail-cta')).toHaveCount(0);
-   const buttons=page.locator('.camp-detail-cta');await expect(buttons).toHaveCount(2);
-   for(const button of await buttons.all()){
-    await expect(button).toHaveText(completed);await expect(button).toHaveAttribute('aria-disabled','true');await expect(button).not.toHaveAttribute('href',/.+/);
-   }
+   await page.clock.runFor(1000);
+   await expect(page.locator('.camp-is-completed')).toBeVisible();
+   await expect(page.locator('.camp-photos-button')).toHaveCount(3);
+   if(camp.photosUrl) await expect(page.locator('a.camp-photos-button').first()).toHaveAttribute('href',camp.photosUrl);
+   else await expect(page.locator('.camp-photos-button').first()).toHaveAttribute('aria-disabled','true');
    await page.goto('/index'+suffix+'.html');
    await expect(page.locator('#home-camp-list [data-camp-id="'+camp.id+'"]')).toHaveCount(0);
    await page.goto('/camps'+suffix+'.html');
@@ -43,7 +43,7 @@ for(const language of ['en','uk']){
    await past.locator('.camp-card-hitarea').click();
    await expect(page).toHaveURL(new RegExp(camp.page.replace('.html',suffix+'\\.html')+'$'));
    await expect(page.locator('a.camp-detail-cta')).toHaveCount(0);
-   await expect(page.locator('.camp-detail-cta').first()).toHaveText(completed);
+   await expect(page.locator('.camp-is-completed')).toBeVisible();
   });
  }
  test(`${language}: an open Camps tab moves a camp and preserves pagination`,async({page})=>{
@@ -70,7 +70,7 @@ for(const language of ['en','uk']){
   await expect(page.locator('#home-camp-list [data-camp-id="'+camp.id+'"]')).toHaveCount(0);
  });
  test(`${language}: a stale registration click cannot open a form`,async({page,context})=>{
-  const camp=camps[0];await beforeExpiry(page,camp);await page.goto('/'+camp.page.replace('.html',suffix+'.html'));
+  const camp=camps[0];await page.clock.install({time:new Date('2026-11-01T00:00:00Z')});await page.goto('/'+camp.page.replace('.html',suffix+'.html'));
   const before=context.pages().length;
   await page.clock.setSystemTime(new Date(expected[camp.id]));
   await page.locator('a.camp-detail-cta').first().evaluate(el=>el.click());

@@ -36,7 +36,7 @@ async function layout(page){
   expect(await page.locator('img:not([loading="lazy"])').evaluateAll(images=>images.filter(i=>i.getAttribute('src')).every(i=>i.complete&&i.naturalWidth>0)),'Visible non-lazy images load').toBe(true);
 }
 
-for(const filename of fs.readdirSync(root).filter(n=>n.endsWith('.html'))){
+for(const filename of fs.readdirSync(root).filter(n=>n.endsWith('.html')&&!fs.readFileSync(path.join(root,n),'utf8').includes('<meta name="robots" content="noindex, nofollow">'))){
   test(`page loads and fits: ${filename}`,async({page})=>{
     const response=await page.goto('/'+filename);expect(response.status()).toBe(200);await layout(page);
     await expect(page.locator('html')).toHaveAttribute('lang',filename.endsWith('-uk.html')?'uk':'en');
@@ -49,7 +49,7 @@ for(const language of ['en','uk']){
     await page.goto(`/gallery${suffix}.html#videos`);
     const nav=page.locator('.main-nav');
     if(isMobile){await page.locator('.menu-toggle').click();await expect(nav).toBeVisible()}
-    else await page.locator('.language-toggle').click();
+    else await page.locator('.language-toggle').hover();
     await expect(nav.locator('.language-option.is-current')).toHaveText(language==='uk'?'Українська':'English');
     if(isMobile){
       const home=await nav.locator('a').first().boundingBox();const languages=await nav.locator('.language-menu').boundingBox();
@@ -59,7 +59,7 @@ for(const language of ['en','uk']){
     await expect(page).toHaveURL(new RegExp(`/gallery${language==='uk'?'':'-uk'}\\.html#videos$`));
     await expect(page.locator('#videos-panel')).toBeVisible();
     if(isMobile)await page.locator('.menu-toggle').click();
-    await page.locator('.main-nav>a').filter({hasText:language==='uk'?'Camps':'Кемпи'}).click();
+    await page.locator('.main-nav .nav-camps-group > a').click();
     await expect(page).toHaveURL(new RegExp(`/camps${language==='uk'?'':'-uk'}\\.html$`));
   });
 
@@ -179,7 +179,8 @@ for(const missing of ['/missing-gd1-page.html','/old/wordpress/post/']){
 test('404 language selection and Ukrainian home recovery',async({page,isMobile})=>{
   expected404.get(page).add('/missing/language-test/');
   await page.goto('/missing/language-test/');
-  await page.locator(isMobile?'.menu-toggle':'.language-toggle').click();
+  if(isMobile)await page.locator('.menu-toggle').click();
+  else await page.locator('.language-toggle').hover();
   await page.locator('.language-option[hreflang="uk"]').click();
   await expect(page).toHaveURL('http://127.0.0.1:4173/404-uk.html');
   await expect(page.locator('html')).toHaveAttribute('lang','uk');

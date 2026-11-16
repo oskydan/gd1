@@ -118,7 +118,8 @@
         },
         "addressSource": "https://www.elektrenuledas.lt/kontaktai/"
       },
-      "timeZone": "Europe/Vilnius"
+      "timeZone": "Europe/Vilnius",
+      "photosUrl": "https://gd1school.pixieset.com/2026-12-elektrenai/"
     },
     {
       "id": "prague-december-2026",
@@ -226,7 +227,8 @@
         },
         "addressSource": "https://prague.eu/en/objevujte/skoda-icerink/"
       },
-      "timeZone": "Europe/Prague"
+      "timeZone": "Europe/Prague",
+      "photosUrl": "https://gd1school.pixieset.com/2026-12-prague/"
     },
     {
       "id": "prague-december-2025",
@@ -250,7 +252,8 @@
           "longDescription": "Святковий тиждень тренувань із техніки катання та ефективного руху на льоду. Гравці працювали над контролем ребер, механікою кроку, балансом і прискоренням у зимовій атмосфері Праги."
         }
       },
-      "timeZone": "Europe/Prague"
+      "timeZone": "Europe/Prague",
+      "photosUrl": ""
     },
     {
       "id": "prague-summer-2026",
@@ -274,7 +277,8 @@
           "longDescription": "Літній тренувальний кемп для вдосконалення техніки катання й ефективності рухів на льоду. У Празі гравці працюють над контролем ребер, балансом, механікою кроку та прискоренням."
         }
       },
-      "timeZone": "Europe/Prague"
+      "timeZone": "Europe/Prague",
+      "photosUrl": ""
     },
     {
       "id": "prague-summer-2025",
@@ -298,7 +302,8 @@
           "longDescription": "Літній тренувальний кемп для вдосконалення техніки катання й ефективності рухів на льоду. У Празі гравці працюють над контролем ребер, балансом, механікою кроку та прискоренням."
         }
       },
-      "timeZone": "Europe/Prague"
+      "timeZone": "Europe/Prague",
+      "photosUrl": ""
     },
     {
       "id": "prague-june-2024",
@@ -322,7 +327,8 @@
           "longDescription": "Літній тренувальний кемп для вдосконалення базових навичок катання й ефективного руху на льоду. Програма у Празі зосереджена на роботі з ребрами, балансі, механіці кроку та прискоренні."
         }
       },
-      "timeZone": "Europe/Prague"
+      "timeZone": "Europe/Prague",
+      "photosUrl": ""
     },
     {
       "id": "sisak-october-2024",
@@ -346,7 +352,8 @@
           "longDescription": "Цілеспрямовані тренування на льоду для вдосконалення базових навичок катання та контролю рухів. Програма охоплює роботу з ребрами, механіку кроку, баланс і прискорення."
         }
       },
-      "timeZone": "Europe/Zagreb"
+      "timeZone": "Europe/Zagreb",
+      "photosUrl": ""
     },
     {
       "id": "elektrenai-march-2026",
@@ -370,7 +377,8 @@
           "longDescription": "Тренування на льоду для розвитку базових навичок: контролю ребер, балансу, механіки кроку та прискорення. Кемп проходить в Електренаї, відомому своєю льодовою ареною з куполом."
         }
       },
-      "timeZone": "Europe/Vilnius"
+      "timeZone": "Europe/Vilnius",
+      "photosUrl": ""
     },
     {
       "id": "elektrenai-november-2025",
@@ -394,7 +402,8 @@
           "longDescription": "Кемп для зміцнення базових навичок катання та впевненішого контролю рухів на льоду. На ковзанці Електреная гравці працюють над ребрами, балансом, механікою кроку та прискоренням."
         }
       },
-      "timeZone": "Europe/Vilnius"
+      "timeZone": "Europe/Vilnius",
+      "photosUrl": ""
     },
     {
       "id": "elektrenai-december-2024",
@@ -418,7 +427,8 @@
           "longDescription": "Святковий тренувальний тиждень для розвитку базових навичок катання та вдосконалення механіки кроку. Під час зимових канікул гравці працюють над ребрами, балансом і прискоренням на ковзанці Електреная."
         }
       },
-      "timeZone": "Europe/Vilnius"
+      "timeZone": "Europe/Vilnius",
+      "photosUrl": ""
     },
     {
       "id": "kranevo-april-2027",
@@ -526,7 +536,8 @@
         },
         "addressSource": "https://www.blackseaicearena.com/en/article/69/sport-za-decata-na-obshtina-balchik.html"
       },
-      "timeZone": "Europe/Sofia"
+      "timeZone": "Europe/Sofia",
+      "photosUrl": ""
     },
     {
       "id": "kranevo-april-2026",
@@ -550,7 +561,8 @@
           "longDescription": "Кемп для гравців, які прагнуть удосконалити механіку кроку, контроль ребер, баланс і прискорення. У Кранево, Болгарія, цілеспрямовані тренування поєднуються з приморською атмосферою Чорного моря."
         }
       },
-      "timeZone": "Europe/Sofia"
+      "timeZone": "Europe/Sofia",
+      "photosUrl": ""
     },
     {
       "id": "kranevo-october-2025",
@@ -574,7 +586,8 @@
           "longDescription": "Цілеспрямовані тренування на льоду для вдосконалення базових навичок: контролю ребер, механіки кроку, балансу та прискорення. Кемп проходить у приморському Кранево, Болгарія."
         }
       },
-      "timeZone": "Europe/Sofia"
+      "timeZone": "Europe/Sofia",
+      "photosUrl": ""
     },
     {
       "id": "kaunas-february-2024",
@@ -598,7 +611,8 @@
           "longDescription": "Тренувальний кемп для вдосконалення базових навичок катання й кращого контролю рухів на льоду. Програма охоплює роботу з ребрами, баланс, механіку кроку та прискорення."
         }
       },
-      "timeZone": "Europe/Vilnius"
+      "timeZone": "Europe/Vilnius",
+      "photosUrl": ""
     },
     {
       "id": "nymburk-december-2023",
@@ -622,7 +636,8 @@
           "longDescription": "Святковий тренувальний кемп для вдосконалення техніки катання й контролю рухів на льоду. У Німбурку гравці працюють над ребрами, балансом, механікою кроку та прискоренням."
         }
       },
-      "timeZone": "Europe/Prague"
+      "timeZone": "Europe/Prague",
+      "photosUrl": ""
     }
   ]
 }

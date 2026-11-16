@@ -9,7 +9,7 @@ const origin='https://'+readFileSync(resolve(root,'CNAME'),'utf8').trim();
 const data=JSON.parse(readFileSync(resolve(root,'data/camps.json'),'utf8'));
 const active = c => {
  const parts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone:c.timeZone,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).map(p=>[p.type,p.value]));
- return c.status==='open' && c.endsOn>=`${parts.year}-${parts.month}-${parts.day}`;
+ return c.status==='open' && c.startsOn>`${parts.year}-${parts.month}-${parts.day}`;
 };
 const camps=data.camps.filter(active);
 const browser=await chromium.launch(process.env.GD1_TEST_CHROME_PATH?{executablePath:process.env.GD1_TEST_CHROME_PATH}:{});

@@ -28,6 +28,7 @@ class Metadata(HTMLParser):
 
 canonical_urls=[];event_count=0
 for p in ROOT.glob('*.html'):
+    if '<meta name="robots" content="noindex, nofollow">' in p.read_text():continue
     parsed=Metadata(p.read_text());url=canonical(base,p.name)
     if p.name in ERROR_PAGES:
         assert not parsed.canon and not parsed.events and not parsed.alternates,p.name+': error page must not advertise canonical/event metadata'

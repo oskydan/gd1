@@ -40,9 +40,9 @@ def generate(root):
         def school_menu(match):
             nav=match[0]
             if 'nav-camps-group' not in nav:
-                nav=re.sub(r'<a\b[^>]*href="camps.html"[^>]*>Camps</a>', lambda link:'<div class="nav-school-group nav-camps-group">'+link[0]+'<div class="school-submenu"><a href="faq.html">FAQ</a><a href="camp-day.html">A Typical Camp Day</a></div></div>',nav)
+                nav=re.sub(r'<a\b[^>]*href="camps.html"[^>]*>Camps</a>', lambda link:'<div class="nav-school-group nav-camps-group">'+link[0]+'<div class="school-submenu"><a href="camps.html">Upcoming Camps</a><a href="faq.html">FAQ</a><a href="camp-day.html">A Typical Camp Day</a></div></div>',nav)
             if 'nav-school-group' not in nav:
-                nav=re.sub(r'<a\b[^>]*href="school.html"[^>]*>School</a>', lambda link:'<div class="nav-school-group">'+link[0]+'<div class="school-submenu"><a href="player-stories.html">Player Stories</a></div></div>',nav)
+                nav=re.sub(r'<a\b[^>]*href="school.html"[^>]*>School</a>', lambda link:'<div class="nav-school-group">'+link[0]+'<div class="school-submenu"><a href="school.html">About GD1</a><a href="player-stories.html">Player Stories</a></div></div>',nav)
             return nav
         s=re.sub(r'<nav class="main-nav".*?</nav>',school_menu,s,flags=re.S)
         s=re.sub(r'(<nav class="footer-links" aria-label="Explore GD1">)(.*?)(</nav>)',lambda m:m[1]+(m[2] if 'player-stories.html' in m[2] else m[2].replace('<a href="school.html">School</a>','<a href="school.html">School</a><a href="player-stories.html">Player Stories</a>'))+m[3],s,flags=re.S)

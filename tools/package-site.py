@@ -6,6 +6,7 @@ out=root/'dist'
 if out.exists():shutil.rmtree(out)
 out.mkdir()
 for p in root.iterdir():
+    if p.suffix=='.html' and '<meta name="robots" content="noindex, nofollow">' in p.read_text():continue
     if p.is_file() and (p.suffix in ('.html','.css','.js') or p.name in ('CNAME','.nojekyll','sitemap.xml','robots.txt')):shutil.copy2(p,out/p.name)
 manifest=json.loads((root/'data/media.json').read_text()) if (root/'data/media.json').exists() else {'images':{},'videos':{}}
 served='\n'.join(p.read_text() for p in out.iterdir() if p.suffix in ('.html','.css','.js'))

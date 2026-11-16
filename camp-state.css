@@ -1,0 +1,16 @@
+/* Started camp actions reuse existing button and body typography. */
+.button.camp-photos-button, .mobile-camp-bar .button.camp-photos-button { display:inline-flex; align-items:center; justify-content:center; gap:12px; background:#fed828; color:#111; border-color:transparent; }
+.camp-photo-icon { width:24px; height:24px; flex:none; }
+.camp-share > .camp-photos-button { width:100%; min-width:0; min-height:48px; height:48px; padding:0 16px; margin:0; font-size:14px; letter-spacing:1px; white-space:normal; }
+@media(hover:hover) and (pointer:fine) { .button.camp-photos-button:hover, .mobile-camp-bar .button.camp-photos-button:hover { background:#111 !important; color:#fed828 !important; border-color:transparent !important; } }
+.button.camp-photos-button:active, .mobile-camp-bar .button.camp-photos-button:active { background:#111 !important; color:#fed828 !important; border-color:transparent !important; }
+.button.camp-photos-button.is-disabled { background:#e7e7e7 !important; color:#626262 !important; border-color:transparent !important; pointer-events:none; cursor:default; }
+.camp-photos-button:focus-visible { outline:2px solid #111; outline-offset:4px; }
+.camp-photos-note { margin-top:14px; }
+.camp-photos-note[hidden], .camp-detail-registration[hidden] { display:none; }
+.camp-is-running .live-dot { background:#258a46; box-shadow:0 0 0 4px rgba(37,138,70,.14); animation:camp-live-pulse 1.8s ease-in-out infinite; }
+.camp-is-completed .live-dot { background:#666; box-shadow:0 0 0 4px rgba(17,17,17,.12); }
+@keyframes camp-live-pulse { 0%,100% { opacity:1; box-shadow:0 0 0 4px rgba(37,138,70,.14); } 50% { opacity:.45; box-shadow:0 0 0 7px rgba(37,138,70,0); } }
+.mobile-camp-bar-price .camp-mobile-status { font:inherit; font-weight:500; }
+@media(max-width:700px) { .camp-detail-hero-copy > .camp-share:has(.camp-photos-button) { order:5; margin:16px 0 0; } .camp-detail-hero-copy > .camp-photos-note { order:6; } .camp-detail-hero-copy[data-camp-started="true"] > .camp-detail-date { order:2; } }
+@media(prefers-reduced-motion:reduce) { .camp-is-running .live-dot { animation:none; } }

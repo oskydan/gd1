@@ -37,6 +37,7 @@ class Page(HTMLParser):
 data=read(ROOT);camps=data['camps'];campids={c['id'] for c in camps}
 pages={}
 for path in ROOT.glob('*.html'):
+    if '<meta name="robots" content="noindex, nofollow">' in path.read_text():continue
     p=Page(path);p.feed(path.read_text());pages[path.name]=p
     lang='uk' if path.stem.endswith('-uk') else 'en'
     require(p.lang==lang,f'{path.name}: wrong page language')

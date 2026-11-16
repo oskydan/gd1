@@ -22,8 +22,8 @@
 .story-card h3 { font: 600 clamp(38px,4.3vw,64px)/1.05 var(--display); text-transform: uppercase; margin: 18px 0 14px; letter-spacing: -.015em; }
 .story-card-tagline { font: 500 19px/1.5 var(--font); margin-bottom: 16px; }
 .story-card-intro { font: 400 16px/1.8 var(--font); color: #626262; margin-bottom: 26px; }
-.story-card-action { margin-top: auto; display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 10px 24px; border: 1px solid #111; background: #111; color: #fff; font: 500 13px/1.5 var(--display); text-transform: uppercase; letter-spacing: 1.5px; transition: background 180ms,color 180ms; }
-.story-card-action:hover { background: #fff; color: #111; }
+.story-card-action { margin-top: auto; display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 10px 24px; border: 1px solid #111; background: #fff; color: #111; font: 500 13px/1.5 var(--display); text-transform: uppercase; letter-spacing: 1.5px; transition: background 180ms,color 180ms; }
+.story-card-action:hover { background: #111; color: #fff; }
 .story-card-link:focus-visible { outline: 3px solid #111; outline-offset: 4px; }
 .stories-closing { background: #eee; padding: 56px 0; }
 .stories-closing > .wrap { display: flex; justify-content: space-between; align-items: center; gap: 32px; }

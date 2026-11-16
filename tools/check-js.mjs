@@ -62,7 +62,8 @@ for (const [zone,end,instant] of [
   const before=new Date(Date.parse(instant)-1).toISOString();
   const fixture=camps=>[{...camps[0],id:'boundary',startsOn:end,endsOn:end,timeZone:zone}];
   const result=run(lang,fixture,before);
-  assert.ok(result.nodes['#upcoming-camps'].innerHTML.includes('target="_blank"'));
+  assert.ok(result.nodes['#upcoming-camps'].innerHTML.includes('aria-disabled="true"'));
+  assert.ok(!result.nodes['#upcoming-camps'].innerHTML.includes('target="_blank"'));
   result.advance(instant);
   assert.equal(result.nodes['#upcoming-camps'].innerHTML,'');
   assert.equal(result.nodes['#home-camp-list'].innerHTML.includes('data-camp-id="boundary"'),false);
@@ -71,3 +72,18 @@ for (const [zone,end,instant] of [
   assert.ok(result.nodes['#past-camps'].innerHTML.includes('aria-disabled="true"'));
 }
 console.log('Passed: exact camp-local midnight, summer/winter offsets and DST transitions in both languages.');
+
+for (const [zone,start,instant] of [
+ ['Europe/Prague','2026-12-21','2026-12-20T23:00:00Z'],
+ ['Europe/Vilnius','2026-12-27','2026-12-26T22:00:00Z'],
+ ['Europe/Sofia','2027-04-06','2027-04-05T21:00:00Z']
+]) for (const lang of ['en','uk']) {
+ const fixture=camps=>[{...camps[0],id:'starting',startsOn:start,endsOn:start,timeZone:zone}];
+ const result=run(lang,fixture,new Date(Date.parse(instant)-1).toISOString());
+ assert.ok(result.nodes['#upcoming-camps'].innerHTML.includes('target="_blank"'));
+ result.advance(instant);
+ assert.ok(!result.nodes['#upcoming-camps'].innerHTML.includes('target="_blank"'));
+ assert.ok(result.nodes['#upcoming-camps'].innerHTML.includes(lang==='uk'?'Реєстрацію закрито':'Registration Closed'));
+ assert.equal(vm.runInContext('hasCampStarted(campList[0])',result.ctx),true);
+}
+console.log('Passed: registration closes at exact camp-local start midnight in all three venue time zones and both languages.');
