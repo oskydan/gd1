@@ -254,6 +254,30 @@
         to_language: toLanguage,
         destination_path: destination.pathname
       });
+    } else if (link.matches('.camp-photos-button')) {
+      const campId = link.closest('[data-camp-id]')?.dataset.campId;
+      const camp = (window.GD1_CAMPS || []).find(item => item.id === campId);
+      if (!camp) return;
+      let destination;
+      try { destination = new URL(href, location.href); } catch { return; }
+      if (destination.protocol !== 'https:') return;
+      const localDate = Object.fromEntries(new Intl.DateTimeFormat('en-GB', {
+        timeZone: camp.timeZone, year: 'numeric', month: '2-digit', day: '2-digit'
+      }).formatToParts(new Date()).map(part => [part.type, part.value]));
+      const today = `${localDate.year}-${localDate.month}-${localDate.day}`;
+      track('Camp Photos Clicked', {
+        ...properties,
+        camp_id: camp.id,
+        camp_name: camp.title,
+        camp_dates: camp.period,
+        camp_start_date: camp.startsOn,
+        camp_end_date: camp.endsOn,
+        camp_status: today < camp.startsOn ? 'upcoming' : today <= camp.endsOn ? 'in_progress' : 'completed',
+        photo_location: link.closest('.mobile-camp-bar') ? 'mobile_sticky' : link.closest('.camp-detail-hero') ? 'hero' : 'content',
+        photo_provider: destination.hostname === 'pixieset.com' || destination.hostname.endsWith('.pixieset.com') ? 'Pixieset' : 'other',
+        destination_host: destination.hostname,
+        destination_path: destination.pathname
+      });
     } else if (link.matches('.register-button, .camp-detail-cta')) {
       const campId = link.closest('[data-camp-id]')?.dataset.campId;
       const camp = (window.GD1_CAMPS || []).find((item) => item.id === campId);
