@@ -2,7 +2,7 @@
 from pathlib import Path
 import hashlib,re
 ASSET=re.compile(r'(assets/[A-Za-z0-9_./-]+\.(?:woff2?|ttf|otf|png|jpe?g|webp|avif|svg|gif|ico))(?:\?v=[A-Za-z0-9]+)?')
-ROOT_ASSETS=('camp-state.css','styles.css','fonts-cyrillic.css','script.js','gallery.js','analytics.js','camps-data.js','camps-data-uk.js','cache.js')
+ROOT_ASSETS=('player-profile.css','camp-state.css','styles.css','fonts-cyrillic.css','script.js','gallery.js','analytics.js','camps-data.js','camps-data-uk.js','cache.js')
 def digest(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()[:16]
 def apply(root,assets_root=None):
     root=Path(root);assets_root=Path(assets_root or root/'assets');memo={}

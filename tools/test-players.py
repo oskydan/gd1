@@ -33,5 +33,6 @@ class PlayerTemplateTests(unittest.TestCase):
                 players.generate(root)
                 self.assertEqual('noindex, nofollow' in (root/p['page']).read_text(),draft)
     def test_both_languages_provide_all_fields(self):
-        catalog=players.translations([self.player]);self.assertEqual(catalog[self.player['copy']['en']['name'][0]],self.player['copy']['uk']['name'][0])
+        for player in players.read(ROOT):
+            catalog=players.translations([player]);self.assertEqual(catalog[player['copy']['en']['name'][0]],player['copy']['uk']['name'][0])
 if __name__=='__main__':unittest.main()

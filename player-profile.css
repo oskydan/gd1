@@ -1,4 +1,4 @@
-/* Unlinked player-story draft. */
+/* Shared player-story profile. */
 .player-profile-hero { display: grid; grid-template-columns: 1fr 1fr; background: #111; color: #fff; }
 .player-profile-copy { padding: clamp(40px,6vw,100px) max(32px,calc((100vw - 1320px)/2)); padding-right: 48px; align-self: center; }
 .player-profile-copy h1 { font: 600 clamp(64px,7.5vw,116px)/.96 var(--display); text-transform: uppercase; letter-spacing: -.025em; margin: 32px 0; }
@@ -73,3 +73,12 @@
 @media (min-width:801px) {
   .player-profile-section-heading { position: sticky; top: 32px; align-self: start; }
 }
+
+/* Keep longer player surnames within narrow phone layouts. */
+@media (max-width:800px) { .player-profile-copy h1.player-name-long { font-size:clamp(42px,12vw,100px); } }
+
+.player-profile-journey-content { min-width:0; }
+.player-profile-statement { margin:40px 0 0 124px; padding:28px; border:0; background:#f3f3f3; }
+.player-profile-statement > p:not(.player-profile-place) { font:400 16px/1.8 var(--font); color:#555; margin:0 0 16px; }
+.player-profile-statement cite { font-style:normal; }
+@media(max-width:800px) { .player-profile-statement { margin-left:0; padding:24px; } }

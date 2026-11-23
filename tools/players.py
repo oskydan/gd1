@@ -42,14 +42,23 @@ def main(p):
     def paragraph(text):return '<p>'+e(text)+'</p>'
     badges=''.join('<span'+(' title="'+e(b['title'],quote=True)+'"' if b['title'] else '')+(' aria-label="'+e(b['label'],quote=True)+'"' if b['label'] else '')+'>'+e(b['text'])+'</span>' for b in c['badges'])
     instagram=f'<a class="player-profile-instagram" href="{e(p["instagram"],quote=True)}" target="_blank" rel="noopener noreferrer" aria-label="{e(c["instagramLabel"],quote=True)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>{e(p["instagramHandle"])}</span></a>'
+    name_class=' class="player-name-long"' if max(map(len,c['name']))>9 else ''
     image=p['image']
-    hero=f'<section class="player-profile-hero"><div class="player-profile-copy"><p class="eyebrow"><span class="live-dot" aria-hidden="true"></span>{e(c["eyebrow"])}</p><h1>{heading(c["name"])}</h1><p class="player-profile-tagline">{e(c["tagline"])}</p><p class="player-profile-intro">{e(c["intro"])}</p><div class="player-profile-badges">{badges}</div>{instagram}</div><figure class="player-profile-portrait"><img src="{e(image["src"],quote=True)}" srcset="{e(image["srcset"],quote=True)}" sizes="(max-width:800px) 100vw, 50vw" width="{image["width"]}" height="{image["height"]}" alt="{e(c["imageAlt"],quote=True)}" fetchpriority="high" decoding="async"><figcaption>{e(c["photoCaption"])}</figcaption></figure></section>'
+    hero=f'<section class="player-profile-hero"><div class="player-profile-copy"><p class="eyebrow"><span class="live-dot" aria-hidden="true"></span>{e(c["eyebrow"])}</p><h1{name_class}>{heading(c["name"])}</h1><p class="player-profile-tagline">{e(c["tagline"])}</p><p class="player-profile-intro">{e(c["intro"])}</p><div class="player-profile-badges">{badges}</div>{instagram}</div><figure class="player-profile-portrait"><img src="{e(image["src"],quote=True)}" srcset="{e(image["srcset"],quote=True)}" sizes="(max-width:800px) 100vw, 50vw" width="{image["width"]}" height="{image["height"]}" alt="{e(c["imageAlt"],quote=True)}" fetchpriority="high" decoding="async"><figcaption>{e(c["photoCaption"])}</figcaption></figure></section>'
     stats='<section class="player-profile-strip">'+''.join('<div><strong>'+e(x['value'])+'</strong><span>'+e(x['label'])+'</span></div>' for x in c['stats'])+'</section>'
     j=c['journey']
     timeline=''.join('<li><span class="player-profile-year">'+e(x['year'])+'</span><div><p class="player-profile-place">'+e(x['team'])+'</p><h3>'+e(x['heading'])+'</h3>'+paragraph(x['body'])+'</div></li>' for x in c['timeline'])
-    journey='<section class="wrap player-profile-journey"><div class="player-profile-section-heading"><p class="eyebrow dark"><span class="live-dot" aria-hidden="true"></span>'+e(j['eyebrow'])+'</p><h2>'+heading(j['heading'])+'</h2>'+paragraph(j['intro'])+'</div><ol class="player-profile-timeline">'+timeline+'</ol></section>'
+    if c.get('statement'):
+        statement=c['statement']
+        timeline='<div class="player-profile-journey-content"><ol class="player-profile-timeline">'+timeline+'</ol><blockquote class="player-profile-statement"><p class="player-profile-place">'+e(statement['label'])+'</p>'+paragraph(statement['body'])+'<footer><cite class="player-profile-place">'+e(statement['byline'])+'</cite></footer></blockquote></div>'
+    else:timeline='<ol class="player-profile-timeline">'+timeline+'</ol>'
+    journey='<section class="wrap player-profile-journey"><div class="player-profile-section-heading"><p class="eyebrow dark"><span class="live-dot" aria-hidden="true"></span>'+e(j['eyebrow'])+'</p><h2>'+heading(j['heading'])+'</h2>'+paragraph(j['intro'])+'</div>'+timeline+'</section>'
     f=c['foundation'];ending=c['closing']
-    foundation='<section class="player-profile-foundation"><div class="wrap"><p class="eyebrow"><span class="live-dot" aria-hidden="true"></span>'+e(f['eyebrow'])+'</p><h2>'+heading(f['heading'])+'</h2><div class="player-profile-narrative">'+''.join('<p'+(' class="player-profile-lead"' if i==0 else '')+'>'+e(text)+'</p>' for i,text in enumerate(f['paragraphs']))+'</div></div></section>'
+    if f.get('testimonial'):
+        quote=f['testimonial']
+        narrative='<figure class="testimonial-card"><blockquote>'+e(quote['quote'])+'<span aria-hidden="true">”</span></blockquote><figcaption><strong>'+e(quote['name'])+'</strong><span>'+e(quote['role'])+'</span></figcaption></figure>'
+    else:narrative='<div class="player-profile-narrative">'+''.join('<p'+(' class="player-profile-lead"' if i==0 else '')+'>'+e(text)+'</p>' for i,text in enumerate(f['paragraphs']))+'</div>'
+    foundation='<section class="player-profile-foundation"><div class="wrap"><p class="eyebrow"><span class="live-dot" aria-hidden="true"></span>'+e(f['eyebrow'])+'</p><h2>'+heading(f['heading'])+'</h2>'+narrative+'</div></section>' 
     closing='<section class="wrap player-profile-closing"><p class="eyebrow dark"><span class="live-dot" aria-hidden="true"></span>'+e(ending['eyebrow'])+'</p><h2>'+heading(ending['heading'])+'</h2>'+paragraph(ending['body'])+'</section>'
     return '<main class="player-profile">'+hero+stats+journey+foundation+closing+'</main>'
 
