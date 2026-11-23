@@ -1,6 +1,8 @@
 (() => {
   'use strict';
   // Derive reporting language from the route, never from browser-translated DOM.
+  let pageContext = {};
+  try { pageContext = JSON.parse(document.getElementById('gd1-page-context')?.textContent || '{}'); } catch { /* Keep older pages working during an update. */ }
   const pageFilename = location.pathname.split('/').pop() || 'index.html';
   const isNotFound = document.body.classList.contains('not-found-page');
   const ukrainian = isNotFound ? pageFilename === '404-uk.html' : pageFilename.endsWith('-uk.html');
@@ -15,7 +17,7 @@
   };
   const titlePair = isNotFound ? ['Page not found | GD1', 'Сторінку не знайдено | GD1'] : pageTitles[pageFilename.replace(/-uk\.html$/, '.html')] || ['GD1 Hockey', 'GD1 Hockey'];
   const reportingCamp = (window.GD1_CAMPS || []).find(camp => camp.page === pageFilename);
-  const reportingTitle = reportingCamp ? `${reportingCamp.title} | ${ukrainian ? 'Кемп GD1' : 'GD1 Camp'}` : titlePair[ukrainian ? 1 : 0];
+  const reportingTitle = pageContext.page_title || (reportingCamp ? `${reportingCamp.title} | ${ukrainian ? 'Кемп GD1' : 'GD1 Camp'}` : titlePair[ukrainian ? 1 : 0]);
 
   // Keep file previews and local development out of the production project.
   if (!['https:', 'http:'].includes(location.protocol) ||
@@ -49,7 +51,10 @@
   const pageProperties = () => ({
     page_path: location.pathname,
     page_title: reportingTitle,
-    page_language: ukrainian ? 'uk' : 'en'
+    page_language: ukrainian ? 'uk' : 'en',
+    page_type: pageContext.page_type || (reportingCamp ? 'camp_detail' : 'page'),
+    ...(pageContext.player_id ? { player_id: pageContext.player_id, player_name: pageContext.player_name } : {}),
+    ...(pageContext.camp_id ? { page_camp_id: pageContext.camp_id } : {})
   });
 
   function track(name, properties = {}) {

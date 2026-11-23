@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build static camp content and Ukrainian pages; --check detects stale output."""
 from pathlib import Path
-from html import escape
+from html import escape, unescape
 import json, re, shutil, subprocess, sys, tempfile
 from camps import read, runtime, main_html, period
 import media
@@ -54,6 +54,24 @@ def generate(root):
         p.write_text(s)
     subprocess.run([sys.executable,str(root/'build-uk.py')],check=True)
     seo.generate(root,data)
+    # Stable build-time page identities are independent of browser translation.
+    profiles={p['page']:p for p in players.read(root)}
+    types={'index':'home','camps':'camps','coach':'coach','school':'school','gallery':'gallery','contact':'contact','faq':'faq','camp-day':'camp_day','player-stories':'player_stories','404':'not_found'}
+    for path in root.glob('*.html'):
+        html=path.read_text()
+        if '<meta name="robots" content="noindex, nofollow">' in html:continue
+        lang='uk' if path.stem.endswith('-uk') else 'en'
+        en=path.name.replace('-uk.html','.html')
+        title=unescape(re.search(r'<title>(.*?)</title>',html,re.S)[1]).strip()
+        context={'page_title':title,'page_type':types.get(en.removesuffix('.html'),'camp_detail' if en in {c['page'] for c in data['camps']} else 'page')}
+        if en in profiles:
+            profile=profiles[en]
+            context.update(page_type='player_profile',player_id=profile['id'],player_name=' '.join(profile['copy'][lang]['name']).rstrip('.'))
+        camp=next((c for c in data['camps'] if c['page']==en),None)
+        if camp:context['camp_id']=camp['id']
+        html=re.sub(r'\s*<script type="application/json" id="gd1-page-context">.*?</script>','',html,flags=re.S)
+        payload=json.dumps(context,ensure_ascii=False).replace('<',r'\u003c')
+        path.write_text(html.replace('</head>','  <script type="application/json" id="gd1-page-context">'+payload+'</script>\n</head>'))
     versions.apply(root,ROOT/'assets' if root!=ROOT else None)
 
 if __name__=='__main__':

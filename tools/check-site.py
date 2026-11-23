@@ -3,7 +3,7 @@
 from pathlib import Path
 from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
-import re,sys
+import json,re,sys
 from camps import read,period
 from media import load,image_info
 ROOT=Path(__file__).resolve().parents[1]
@@ -39,6 +39,13 @@ pages={}
 for path in ROOT.glob('*.html'):
     if '<meta name="robots" content="noindex, nofollow">' in path.read_text():continue
     p=Page(path);p.feed(path.read_text());pages[path.name]=p
+    context_match=re.search(r'<script type="application/json" id="gd1-page-context">(.*?)</script>',path.read_text(),re.S)
+    require(bool(context_match),f'{path.name}: missing analytics page identity')
+    if context_match:
+        try:
+            context=json.loads(context_match[1])
+            require(bool(context.get('page_title')) and context.get('page_type') not in (None,'page'),f'{path.name}: incomplete analytics page identity')
+        except json.JSONDecodeError:require(False,f'{path.name}: invalid analytics page identity')
     lang='uk' if path.stem.endswith('-uk') else 'en'
     require(p.lang==lang,f'{path.name}: wrong page language')
     require(p.h1<=1,f'{path.name}: duplicate main headings')
