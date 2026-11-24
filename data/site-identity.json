@@ -1,0 +1,30 @@
+{
+  "organization": {
+    "name": "GD1 School",
+    "alternateName": "GD1 Camps",
+    "logo": "assets/gd1-logo.png",
+    "email": "dmytrognitko@gmail.com",
+    "telephone": "+491705287663",
+    "description": {
+      "en": "Hockey camps focused on power skating and individual player development.",
+      "uk": "Хокейні кемпи з акцентом на power skating та індивідуальний розвиток гравців."
+    }
+  },
+  "coach": {
+    "name": "Dmitriy Gnitko",
+    "alternateName": "Дмитро Гнітко",
+    "jobTitle": {
+      "en": "Founder and head coach",
+      "uk": "Засновник і головний тренер"
+    },
+    "description": {
+      "en": "Former professional hockey player from Ukraine and founder and head coach of GD1, specializing in power skating and individual player development.",
+      "uk": "Колишній професійний хокеїст з України, засновник і головний тренер GD1, який спеціалізується на power skating та індивідуальному розвитку гравців."
+    },
+    "sameAs": [
+      "https://www.instagram.com/gnitko_dmitriy_gd1/",
+      "https://www.facebook.com/gnitko"
+    ],
+    "image": "assets/optimized/gnitko-1600.webp"
+  }
+}

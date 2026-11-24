@@ -48,7 +48,43 @@
 
   let consent = readConsent();
   const allowed = () => consent === true && !privacyRequested;
+  const REFERRAL_KEY = 'gd1_chatgpt_referral_v1';
+  const REFERRAL_TIMEOUT = 30 * 60 * 1000;
+  let chatgptReferral;
+  function clearReferral() {
+    chatgptReferral = null;
+    try { sessionStorage.removeItem(REFERRAL_KEY); } catch { /* Storage is optional. */ }
+  }
+  function referralProperties() {
+    if (!allowed()) return {};
+    if (chatgptReferral === undefined) {
+      const source = (new URLSearchParams(location.search).get('utm_source') || '').toLowerCase();
+      let referrer;
+      try { referrer = new URL(document.referrer); } catch { /* No usable referrer. */ }
+      const host = referrer?.hostname.toLowerCase() || '';
+      const fromChatGPT = host === 'chatgpt.com' || host.endsWith('.chatgpt.com') || host === 'chat.openai.com';
+      const method = ['chatgpt', 'chatgpt.com'].includes(source) ? 'utm' : !source && fromChatGPT ? 'referrer' : '';
+      if (method) chatgptReferral = {source: 'chatgpt', method, landing_path: location.pathname, savedAt: Date.now()};
+      else if (source || (referrer && referrer.origin !== location.origin)) clearReferral();
+      else {
+        try {
+          const saved = JSON.parse(sessionStorage.getItem(REFERRAL_KEY));
+          const age = Date.now() - saved?.savedAt;
+          chatgptReferral = saved?.source === 'chatgpt' && ['utm', 'referrer'].includes(saved.method) &&
+            typeof saved.landing_path === 'string' && saved.landing_path.startsWith('/') &&
+            !/[?#]/.test(saved.landing_path) && Number.isFinite(age) && age >= 0 && age < REFERRAL_TIMEOUT ? saved : null;
+        } catch { chatgptReferral = null; }
+      }
+    }
+    if (chatgptReferral && Date.now() - chatgptReferral.savedAt >= REFERRAL_TIMEOUT) clearReferral();
+    if (!chatgptReferral) return {};
+    chatgptReferral.savedAt = Date.now();
+    try { sessionStorage.setItem(REFERRAL_KEY, JSON.stringify(chatgptReferral)); } catch { /* Keep attribution in memory only. */ }
+    return {referral_source: 'chatgpt', referral_method: chatgptReferral.method, referral_landing_path: chatgptReferral.landing_path};
+  }
+  if (!allowed()) clearReferral();
   const pageProperties = () => ({
+    ...referralProperties(),
     page_path: location.pathname,
     page_title: reportingTitle,
     page_language: ukrainian ? 'uk' : 'en',
@@ -192,6 +228,7 @@
     if (allowed()) start();
     else {
       pending = [];
+      clearReferral();
       if (sdk) sdk.opt_out_tracking({ clear_persistence: true, delete_user: false });
     }
   }

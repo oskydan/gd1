@@ -250,3 +250,19 @@ Edit bilingual page metadata in `data/search-metadata.json`. Camp metadata is ge
 ### Camp event validation
 
 `python3 tools/check-seo.py` checks all localized camp Event records against central data: venue name and full address, dates, organizer, images, prices in EUR and visible registration links. It exercises registration cutoff and cancelled/closed/coming-soon states. Generated offers stop on the venue-local start date; an open camp page also removes registration offers from rendered JSON-LD when registration closes, and removes the Event record after completion. These are local checks against Google’s documented Event fields, not a Google Rich Results Test result.
+
+### GD1 and coach identity
+
+`data/site-identity.json` contains public organization and coach facts. The SEO build generates a localized Organization/Person graph with stable IDs, GD1’s logo and contact details, the coach portrait and social profiles, and founder/employment relationships. Camp Event organizers reference the same organization ID. The 404 and unpublished preview pages do not advertise these graphs. `tools/check-seo.py` checks graph contents, image files and linked event identity.
+
+### ChatGPT referral reporting in Mixpanel
+
+Existing events (including `Page Viewed`, `Registration Clicked` and `Camp Photos Clicked`) receive these additional properties for attributed visits:
+
+- `referral_source`: `chatgpt`
+- `referral_method`: `utm` or `referrer`
+- `referral_landing_path`: the first attributed path, without query strings or fragments
+
+Attribution accepts `utm_source=chatgpt.com` or `utm_source=chatgpt`, or a referrer from `chatgpt.com`, its subdomains, or `chat.openai.com`. Other campaign sources and external referrers clear prior attribution. With analytics consent, it follows navigation in the same tab through session storage, expires after 30 minutes of tracked inactivity, and is removed on opt-out. Privacy signals and rejected consent prevent referral events and storage. No conversation URLs or raw referrer/query strings are saved by this feature. Browsers that remove both referrers and campaign parameters cannot be attributed reliably.
+
+In Mixpanel, filter `Page Viewed` by `referral_source = chatgpt` and count unique users. For registration interest, use the same filter on `Registration Clicked` and break down by `camp_id` and `page_language`. This measures site visits and clicks, not ChatGPT citations or completed form submissions. `tests/browser/analytics-referrals.spec.mjs` covers attribution, internal navigation, consent, spoofed domains and expiry in both languages.

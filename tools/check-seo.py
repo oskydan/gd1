@@ -8,14 +8,14 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
 import json,re,xml.etree.ElementTree as ET
 from camps import read
-from seo import origin,canonical,event,ERROR_PAGES
+from seo import origin,canonical,event,identity,ERROR_PAGES
 from media import load
 ROOT=Path(__file__).resolve().parents[1]
 base=origin(ROOT);data=read(ROOT)
 by_page={c['page']:c for c in data['camps'] if c['page']}
 class Metadata(HTMLParser):
     def __init__(self,text):
-        super().__init__();self.canon=[];self.alternates={};self.events=[];self.json='';self.active=False;self.feed(text)
+        super().__init__();self.canon=[];self.alternates={};self.events=[];self.identities=[];self.json='';self.active=False;self.feed(text)
     def handle_starttag(self,tag,attrs):
         a=dict(attrs)
         if tag=='link' and a.get('rel')=='canonical':self.canon.append(a.get('href'))
@@ -26,7 +26,10 @@ class Metadata(HTMLParser):
     def handle_data(self,text):
         if self.active:self.json+=text
     def handle_endtag(self,tag):
-        if tag=='script' and self.active:self.events.append(json.loads(self.json));self.active=False
+        if tag=='script' and self.active:
+            value=json.loads(self.json)
+            (self.identities if '@graph' in value else self.events).append(value)
+            self.active=False
 
 search_copy=search_metadata.catalog(ROOT,data)
 seen_titles=set();seen_descriptions=set()
@@ -35,18 +38,26 @@ for p in ROOT.glob('*.html'):
     if '<meta name="robots" content="noindex, nofollow">' in p.read_text():continue
     parsed=Metadata(p.read_text());url=canonical(base,p.name)
     if p.name in ERROR_PAGES:
-        assert not parsed.canon and not parsed.events and not parsed.alternates,p.name+': error page must not advertise canonical/event metadata'
+        assert not parsed.canon and not parsed.events and not parsed.identities and not parsed.alternates,p.name+': error page must not advertise canonical/event metadata'
         assert '<meta name="robots" content="noindex, follow">' in p.read_text(),p.name+': missing noindex'
         continue
     lang='uk' if p.stem.endswith('-uk') else 'en'
-    identity=p.name.replace('-uk.html','.html')
+    page_identity=p.name.replace('-uk.html','.html')
     titles=re.findall(r'<title>(.*?)</title>',p.read_text(),re.S)
     descriptions=re.findall(r'<meta name="description" content="([^"]*)">',p.read_text())
     assert len(titles)==len(descriptions)==1,p.name+': expected one title and description'
     title=unescape(titles[0]);description=unescape(descriptions[0])
-    assert {'title':title,'description':description}==search_copy[identity][lang],p.name+': stale search copy'
+    assert {'title':title,'description':description}==search_copy[page_identity][lang],p.name+': stale search copy'
     assert title not in seen_titles and description not in seen_descriptions,p.name+': duplicate search copy'
     seen_titles.add(title);seen_descriptions.add(description)
+    assert len(parsed.identities)==1,p.name+': missing or duplicate organization/coach graph'
+    actual_graph=parsed.identities[0]
+    expected_graph=identity(ROOT,lang,base)
+    # Asset version strings are added after JSON-LD generation.
+    for node,field in ((actual_graph['@graph'][0],'logo'),(actual_graph['@graph'][1],'image')):
+        node[field]=node[field].split('?')[0]
+        assert node[field].startswith(base+'/') and (ROOT/urlsplit(node[field]).path.lstrip('/')).is_file(),p.name+': missing identity image'
+    assert actual_graph==expected_graph,p.name+': incorrect organization/coach identity'
     canonical_urls.append(url)
     assert parsed.canon==[url],p.name+': expected exactly one self-canonical'
     en=p.name.replace('-uk.html','.html');uk=en.replace('.html','-uk.html')
@@ -63,7 +74,7 @@ for p in ROOT.glob('*.html'):
     assert value['eventAttendanceMode']=='https://schema.org/OfflineEventAttendanceMode'
     assert value['eventStatus']==('https://schema.org/EventCancelled' if camp['status']=='cancelled' else 'https://schema.org/EventScheduled')
     assert date.fromisoformat(value['startDate'])<=date.fromisoformat(value['endDate'])
-    assert value['organizer']=={'@type':'Organization','name':'GD1 School','url':base+'/'}
+    assert value['organizer']=={'@type':'Organization','@id':base+'/#organization','name':'GD1 School','url':base+'/'}
     location=value['location']
     assert location['@type']=='Place' and location['name']==camp['copy'][lang]['venue']
     assert location['hasMap']==camp['detail']['venueUrl']
