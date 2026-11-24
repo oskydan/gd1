@@ -46,6 +46,12 @@ for path in ROOT.glob('*.html'):
             context=json.loads(context_match[1])
             require(bool(context.get('page_title')) and context.get('page_type') not in (None,'page'),f'{path.name}: incomplete analytics page identity')
         except json.JSONDecodeError:require(False,f'{path.name}: invalid analytics page identity')
+    if path.name in ('index.html','index-uk.html','camps.html','camps-uk.html'):
+        html=path.read_text()
+        require('<!-- camp-listings-as-of:' in html,f'{path.name}: missing static camp snapshot')
+        slots=['home-camp-list'] if path.name.startswith('index') else ['upcoming-camps','past-camps']
+        for slot in slots:
+            require(bool(re.search(r'id="'+slot+r'"[^>]*><!-- camp-listing:start -->.*?<!-- camp-listing:end -->',html,re.S)),f'{path.name}: missing generated camp listing {slot}')
     lang='uk' if path.stem.endswith('-uk') else 'en'
     require(p.lang==lang,f'{path.name}: wrong page language')
     require(p.h1<=1,f'{path.name}: duplicate main headings')

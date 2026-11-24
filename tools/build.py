@@ -2,7 +2,8 @@
 """Build static camp content and Ukrainian pages; --check detects stale output."""
 from pathlib import Path
 from html import escape, unescape
-import json, re, shutil, subprocess, sys, tempfile
+import json, os, re, shutil, subprocess, sys, tempfile
+from datetime import datetime, timezone
 from camps import read, runtime, main_html, period
 import media
 import seo
@@ -11,7 +12,7 @@ import players
 
 ROOT=Path(__file__).resolve().parents[1]
 
-def generate(root):
+def generate(root, listing_date=None):
     players.generate(root)
     data=read(root)
     manifest=media.load(root)
@@ -72,6 +73,9 @@ def generate(root):
         html=re.sub(r'\s*<script type="application/json" id="gd1-page-context">.*?</script>','',html,flags=re.S)
         payload=json.dumps(context,ensure_ascii=False).replace('<',r'\u003c')
         path.write_text(html.replace('</head>','  <script type="application/json" id="gd1-page-context">'+payload+'</script>\n</head>'))
+    node=os.environ.get('GD1_NODE') or shutil.which('node')
+    if not node:raise SystemExit('Node.js is required to generate camp listings. Install Node.js or set GD1_NODE.')
+    subprocess.run([node,str(root/'tools/render-camp-listings.mjs'),str(root),listing_date or datetime.now(timezone.utc).date().isoformat()],check=True)
     versions.apply(root,ROOT/'assets' if root!=ROOT else None)
 
 if __name__=='__main__':
@@ -82,7 +86,8 @@ if __name__=='__main__':
                 if p.name in ('.git','assets','dist','__pycache__','node_modules','playwright-report','test-results','accessibility-report','accessibility-results','.lighthouseci','lighthouse-report','cache-report','cache-results'):continue
                 if p.is_dir():shutil.copytree(p,temp/p.name,ignore=shutil.ignore_patterns('__pycache__'))
                 else:shutil.copy2(p,temp/p.name)
-            generate(temp)
+            snapshot=re.search(r'<!-- camp-listings-as-of: ([\d-]+) -->',(ROOT/'index.html').read_text())
+            generate(temp,snapshot[1] if snapshot else None)
             changed=[p.name for p in temp.iterdir() if p.is_file() and (p.suffix in ('.html','.js','.css','.xml') or p.name=='robots.txt') and (not (ROOT/p.name).exists() or p.read_bytes()!=(ROOT/p.name).read_bytes())]
             if changed:raise SystemExit('Generated files are stale. Run python3 tools/build.py:\n'+ '\n'.join(changed))
             print('Generated camp content and Ukrainian translations are up to date.')

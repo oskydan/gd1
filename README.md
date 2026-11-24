@@ -236,3 +236,9 @@ Denys Honcharenko's club/season history and forward position were checked agains
 
 ### Analytics page coverage
 Every published English and Ukrainian page receives a generated `gd1-page-context` JSON record containing its stable title and page type. Player profiles include their central-data player ID/name; camp pages include their camp ID. `Page Viewed` and interaction events share this context, independent of browser-translated text. Local previews, rejected consent and browser privacy requests continue to suppress tracking. Browser coverage tests stub Mixpanel and block external network traffic, so they do not create real visits.
+
+### Static camp listings
+
+`python3 tools/build.py` now requires Node.js (or `GD1_NODE` pointing to its executable). It renders homepage and Camps cards in both languages directly into HTML, using the existing JavaScript card renderers and venue time zones. The snapshot date is recorded in the page; `--check` reuses that date so unchanged sources remain reproducible. A normal build refreshes the snapshot. Browser JavaScript still updates deadlines, archive placement, registration states, and Load more exactly as before. Without JavaScript, the cards represent the latest build snapshot.
+
+`tests/browser/static-camps.spec.mjs` checks no-JavaScript access and parity with the interactive cards.

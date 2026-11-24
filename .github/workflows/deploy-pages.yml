@@ -31,6 +31,8 @@ jobs:
           node-version: '24'
       - name: Check generated content
         run: python3 tools/build.py --check
+      - name: Refresh camp listing snapshot for publication
+        run: python3 tools/build.py
       - name: Check links and camp data
         run: python3 tools/check-site.py
       - name: Check search metadata

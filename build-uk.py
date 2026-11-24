@@ -101,7 +101,8 @@ for name in PAGES:
     source = source.replace('</head>', alternates + '</head>')
     page.write_text(source)
     translator = Translator()
-    translator.feed(source)
+    # Camp listings are generated separately from localized runtime data.
+    translator.feed(re.sub(r'<!-- camp-listing:start -->.*?<!-- camp-listing:end -->', '', source, flags=re.S))
     translated = ''.join(translator.parts)
     translated = re.sub(SWITCHER_PATTERN, switcher(name, 'uk'), translated, flags=re.S)
     translated = translated.replace('</head>', '  <link rel="stylesheet" href="fonts-cyrillic.css?v=1">\n  <link rel="preload" href="assets/fonts/inter-cyrillic.woff2" as="font" type="font/woff2" crossorigin>\n  <link rel="preload" href="assets/fonts/oswald-cyrillic.woff2" as="font" type="font/woff2" crossorigin>\n</head>')
