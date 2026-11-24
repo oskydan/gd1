@@ -360,7 +360,6 @@
   "Current camps require a €100 prepayment per session. This is non-refundable if you cancel less than one month before the camp starts. If your plans change, contact GD1 as soon as possible to discuss your booking.": "Для участі в поточних кемпах необхідна передплата 100 € за сесію. Вона не повертається, якщо ви скасуєте участь менш ніж за місяць до початку кемпу. Якщо ваші плани змінилися, якнайшвидше зв’яжіться з GD1, щоб обговорити бронювання.",
   "How can I ask a question before registering?": "Як поставити запитання перед реєстрацією?",
   "Email dmytrognitko@gmail.com or contact +49 170 528 7663 by phone, WhatsApp, or Viber. Include the camp you’re interested in and your question so we can help.": "Напишіть на dmytrognitko@gmail.com або зв’яжіться з нами за номером +49 170 528 7663 телефоном, у WhatsApp чи Viber. Вкажіть кемп, який вас цікавить, і ваше запитання, щоб ми могли допомогти.",
-  "Bring a complete set of hockey equipment for on-ice sessions, sportswear for off-ice training, and everyday essentials.": "Візьміть повний комплект хокейного спорядження для тренувань на льоду, спортивний одяг для занять поза льодом і необхідні повсякденні речі.",
   "On-ice equipment": "Спорядження для льоду",
   "Skates, sharpened and ready for training": "Ковзани, заточені та готові до тренувань",
   "Hockey stick and a spare if available": "Хокейна ключка та запасна, якщо є",
@@ -499,5 +498,18 @@
   "A Typical Camp Day": "Типовий день кемпу",
   "Upcoming Camps": "Найближчі кемпи",
   "About the School": "Про школу",
-  "About GD1": "Про GD1"
+  "About GD1": "Про GD1",
+  "Which languages does the coach speak with players?": "Якими мовами тренер спілкується з гравцями?",
+  "The coach communicates with players in Ukrainian, English, Serbian, Croatian, Slovenian, and Russian, and also speaks some German and Turkish.": "Тренер спілкується з гравцями українською, англійською, сербською, хорватською, словенською та російською, а також трохи володіє німецькою й турецькою.",
+  "Bring a complete set of hockey equipment for on-ice sessions, sportswear for off-ice training, and everyday essentials. Players must also have insurance covering hockey training for the full duration of the camp.": "Візьміть повний комплект хокейного спорядження для тренувань на льоду, спортивний одяг для занять поза льодом і необхідні повсякденні речі. Гравці також повинні мати страхування, що покриває хокейні тренування протягом усього періоду кемпу.",
+  "Do players need insurance for camp?": "Чи потрібна гравцям страховка для участі в кемпі?",
+  "Every camp participant must have valid medical insurance for the entire stay.": "Кожен учасник кемпу повинен мати чинну медичну страховку на весь період перебування.",
+  "Please make sure your insurance policy covers sports activities, including hockey and on-ice training. Standard travel insurance may not include sports activities.": "Будь ласка, переконайтеся, що ваш страховий поліс покриває заняття спортом, зокрема хокей та тренування на льоду. Звичайна туристична страховка може не включати спортивні активності.",
+  "We recommend checking your insurance terms in advance and making sure your policy covers potential injuries during training and sports activities.": "Рекомендуємо заздалегідь перевірити умови страхування та переконатися, що поліс покриває можливі травми під час тренувань і спортивних занять.",
+  "Insurance must be valid in the country where the camp takes place.": "Страховка має діяти в країні проведення кемпу.",
+  "Coverage must run from the day of departure to the day of return.": "Період дії - від дня виїзду до дня повернення.",
+  "Check whether the policy covers amateur sports training and hockey.": "Перевірити, чи покриває поліс аматорські спортивні тренування та хокей.",
+  "Confirm whether it covers injuries sustained during on-ice and off-ice training.": "Уточнити, чи покриває він травми, отримані під час тренувань на льоду та землі",
+  "Every camp participant must have valid medical insurance for the entire stay. Insurance must be valid in the country where the camp takes place. Coverage must run from the day of departure to the day of return.": "Кожен учасник кемпу повинен мати чинну медичну страховку на весь період перебування. Страховка має діяти в країні проведення кемпу. Період дії - від дня виїзду до дня повернення.",
+  "We recommend checking your insurance terms in advance and making sure your policy covers potential injuries during training and sports activities. Check whether the policy covers amateur sports training and hockey. Confirm whether it covers injuries sustained during on-ice and off-ice training.": "Рекомендуємо заздалегідь перевірити умови страхування та переконатися, що поліс покриває можливі травми під час тренувань і спортивних занять. Перевірити, чи покриває поліс аматорські спортивні тренування та хокей. Уточнити, чи покриває він травми, отримані під час тренувань на льоду та землі."
 }
