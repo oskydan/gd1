@@ -1,0 +1,112 @@
+{
+  "index.html": {
+    "en": {
+      "title": "Power Skating & Hockey Camps in Europe | GD1",
+      "description": "Explore GD1 power skating and hockey camps in Czechia, Lithuania and Bulgaria. Train with Dmitriy Gnitko. View camp dates, prices and registration."
+    },
+    "uk": {
+      "title": "Хокейні кемпи та power skating у Європі | GD1",
+      "description": "Хокейні кемпи GD1 у Чехії, Литві та Болгарії. Вдосконалюйте катання з Дмитром Гнітком. Дізнайтеся дати, вартість та умови реєстрації."
+    }
+  },
+  "camps.html": {
+    "en": {
+      "title": "Hockey & Power Skating Camps: Dates & Locations | GD1",
+      "description": "Find GD1 hockey camps in Prague, Elektrenai and Kranevo. Compare dates, venues, daily training and fees, then explore camp details and register."
+    },
+    "uk": {
+      "title": "Хокейні кемпи: дати, місця та вартість | GD1",
+      "description": "Оберіть хокейний кемп GD1 у Празі, Електренаї чи Кранево. Перегляньте дати, арени, програму тренувань, вартість та умови реєстрації."
+    }
+  },
+  "coach.html": {
+    "en": {
+      "title": "Dmitriy Gnitko | Power Skating & Hockey Coach | GD1",
+      "description": "Meet Dmitriy Gnitko, GD1 founder and head coach. Explore his professional hockey career and approach to power skating and individual player development."
+    },
+    "uk": {
+      "title": "Дмитро Гнітко | Тренер з хокею та power skating | GD1",
+      "description": "Дмитро Гнітко - засновник і головний тренер GD1. Дізнайтеся про його хокейну кар’єру, тренерський досвід та підхід до розвитку катання гравців."
+    }
+  },
+  "school.html": {
+    "en": {
+      "title": "GD1 Hockey School | Power Skating & Player Development",
+      "description": "Discover GD1 hockey school: focused power skating camps, individual coaching and a training approach that develops balance, acceleration and puck control."
+    },
+    "uk": {
+      "title": "Хокейна школа GD1 | Power skating та розвиток гравців",
+      "description": "Дізнайтеся про хокейну школу GD1: кемпи з power skating, індивідуальний підхід та тренування для розвитку балансу, прискорення й контролю шайби."
+    }
+  },
+  "gallery.html": {
+    "en": {
+      "title": "Hockey Camp Photos & Training Videos | GD1 Gallery",
+      "description": "Watch GD1 hockey camp sessions and player feedback, and browse photos from camps. See power skating practice, coaching and life on and off the ice."
+    },
+    "uk": {
+      "title": "Фото та відео хокейних кемпів | Галерея GD1",
+      "description": "Перегляньте фото, відео тренувань і відгуки учасників хокейних кемпів GD1. Побачте заняття з power skating та атмосферу на льоду й поза ним."
+    }
+  },
+  "contact.html": {
+    "en": {
+      "title": "Contact GD1 | Hockey Camp & Registration Enquiries",
+      "description": "Contact GD1 by email or phone about hockey camp dates, registration and power skating training. Get help choosing a camp and planning your participation."
+    },
+    "uk": {
+      "title": "Контакти GD1 | Питання про кемпи та реєстрацію",
+      "description": "Зв’яжіться з GD1 телефоном або електронною поштою щодо хокейних кемпів, реєстрації та тренувань з power skating. Отримайте допомогу з вибором кемпу."
+    }
+  },
+  "faq.html": {
+    "en": {
+      "title": "Hockey Camp FAQ | Training, Fees & Insurance | GD1",
+      "description": "Find answers about GD1 hockey camps: training, player experience, languages, registration, fees, accommodation, equipment and insurance requirements."
+    },
+    "uk": {
+      "title": "Питання про хокейні кемпи | Тренування та страховка | GD1",
+      "description": "Відповіді про хокейні кемпи GD1: рівень гравців, мови, тренування, реєстрація, вартість, проживання, спорядження та вимоги до страхування."
+    }
+  },
+  "camp-day.html": {
+    "en": {
+      "title": "A Typical Hockey Camp Day | On-Ice & Off-Ice Training | GD1",
+      "description": "Explore a typical GD1 hockey camp day with two on-ice and two off-ice sessions, meal breaks and recovery time. An example schedule to help you prepare."
+    },
+    "uk": {
+      "title": "Типовий день хокейного кемпу | Розклад тренувань | GD1",
+      "description": "Перегляньте приклад дня в хокейному кемпі GD1: два тренування на льоду, два поза льодом, перерви на їжу та відновлення. Підготуйтеся до участі."
+    }
+  },
+  "player-stories.html": {
+    "en": {
+      "title": "Hockey Player Stories | Development Through GD1 Camps",
+      "description": "Meet players who train at GD1 hockey camps. Read their hockey journeys and experiences of power skating, individual development and returning to camp."
+    },
+    "uk": {
+      "title": "Історії хокеїстів | Розвиток на кемпах GD1",
+      "description": "Познайомтеся з гравцями кемпів GD1. Читайте про їхній хокейний шлях, досвід тренувань з power skating та розвиток через регулярну участь у кемпах."
+    }
+  },
+  "yaroslav-skydan.html": {
+    "en": {
+      "title": "Yaroslav Skydan | Hockey Journey & GD1 Camp Experience",
+      "description": "Follow Yaroslav Skydan’s hockey journey from Vinnytsia, Ukraine, to the UK and Latvia, and discover the role of regular GD1 power skating camps."
+    },
+    "uk": {
+      "title": "Ярослав Скидан | Хокейний шлях та досвід кемпів GD1",
+      "description": "Хокейний шлях Ярослава Скидана з Вінниці, Україна, до Великої Британії та Латвії. Дізнайтеся про його розвиток і регулярні тренування на кемпах GD1."
+    }
+  },
+  "denys-honcharenko.html": {
+    "en": {
+      "title": "Denys Honcharenko | Hockey Career & GD1 Prague Camps",
+      "description": "Explore Denys Honcharenko’s hockey career and his experience at GD1 Prague camps in 2025 and 2026, refining skating and preparing for the season."
+    },
+    "uk": {
+      "title": "Денис Гончаренко | Хокейна кар’єра та кемпи GD1 у Празі",
+      "description": "Хокейна кар’єра Дениса Гончаренка та його досвід кемпів GD1 у Празі 2025 і 2026 років: вдосконалення катання та підготовка до нового сезону."
+    }
+  }
+}

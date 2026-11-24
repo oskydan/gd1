@@ -9,6 +9,7 @@ import hashlib
 sys.path.insert(0, str(Path(__file__).resolve().parent / "tools"))
 from camps import read, translations
 import players
+import search_metadata
 from urllib.parse import urlsplit, urlunsplit
 
 ROOT = Path(__file__).resolve().parent
@@ -16,6 +17,7 @@ PAGES = ['index.html', 'camps.html', 'coach.html', 'school.html', 'player-storie
 CATALOG = json.loads((ROOT / 'translations-uk.json').read_text())
 CATALOG.update(translations(read(ROOT)))
 CATALOG.update(players.translations(players.read(ROOT)))
+CATALOG.update(search_metadata.translations(ROOT,read(ROOT)))
 CATALOG.update({'English': 'Англійська', 'Ukrainian': 'Українська', 'Choose language': 'Обрати мову'})
 SWITCHER_PATTERN = r'<div class="language-switcher".*?</div>|<details class="language-switcher".*?</details>'
 

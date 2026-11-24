@@ -1,5 +1,7 @@
 """Check built search metadata without making requests to search engines."""
 from pathlib import Path
+from html import unescape
+import search_metadata
 from datetime import datetime,date
 from zoneinfo import ZoneInfo
 from html.parser import HTMLParser
@@ -26,6 +28,8 @@ class Metadata(HTMLParser):
     def handle_endtag(self,tag):
         if tag=='script' and self.active:self.events.append(json.loads(self.json));self.active=False
 
+search_copy=search_metadata.catalog(ROOT,data)
+seen_titles=set();seen_descriptions=set()
 canonical_urls=[];event_count=0
 for p in ROOT.glob('*.html'):
     if '<meta name="robots" content="noindex, nofollow">' in p.read_text():continue
@@ -34,6 +38,15 @@ for p in ROOT.glob('*.html'):
         assert not parsed.canon and not parsed.events and not parsed.alternates,p.name+': error page must not advertise canonical/event metadata'
         assert '<meta name="robots" content="noindex, follow">' in p.read_text(),p.name+': missing noindex'
         continue
+    lang='uk' if p.stem.endswith('-uk') else 'en'
+    identity=p.name.replace('-uk.html','.html')
+    titles=re.findall(r'<title>(.*?)</title>',p.read_text(),re.S)
+    descriptions=re.findall(r'<meta name="description" content="([^"]*)">',p.read_text())
+    assert len(titles)==len(descriptions)==1,p.name+': expected one title and description'
+    title=unescape(titles[0]);description=unescape(descriptions[0])
+    assert {'title':title,'description':description}==search_copy[identity][lang],p.name+': stale search copy'
+    assert title not in seen_titles and description not in seen_descriptions,p.name+': duplicate search copy'
+    seen_titles.add(title);seen_descriptions.add(description)
     canonical_urls.append(url)
     assert parsed.canon==[url],p.name+': expected exactly one self-canonical'
     en=p.name.replace('-uk.html','.html');uk=en.replace('.html','-uk.html')

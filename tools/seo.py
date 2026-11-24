@@ -5,6 +5,7 @@ from html import escape
 from pathlib import Path
 import json,re
 import xml.etree.ElementTree as ET
+import search_metadata
 from media import load,image_info
 ERROR_PAGES={'404.html','404-uk.html'}
 
@@ -28,6 +29,7 @@ def event(c,lang,base,manifest):
 
 def generate(root,data,as_of=None):
     base=origin(root);manifest=load(root)
+    search_copy=search_metadata.catalog(root,data)
     # All-day events remain current through the venue's final local day.
     by_page={c['page']:c for c in data['camps'] if c['page']}
     pages=sorted(p for p in root.glob('*.html') if '<meta name="robots" content="noindex, nofollow">' not in p.read_text())
@@ -44,6 +46,10 @@ def generate(root,data,as_of=None):
                 s=s.replace('</head>','  <meta name="robots" content="noindex, follow">\n</head>')
             path.write_text(s)
             continue
+        assert english in search_copy, 'Missing search copy for '+english
+        metadata=search_copy[english][lang]
+        s=re.sub(r'<title>.*?</title>',lambda m:'<title>'+escape(metadata['title'])+'</title>',s,flags=re.S)
+        s=re.sub(r'<meta name="description" content="[^"]*">',lambda m:'<meta name="description" content="'+escape(metadata['description'],quote=True)+'">',s)
         links=f'  <link rel="canonical" href="{canonical(base,path.name)}">\n'
         for code,name in [('en',english),('uk',uk),('x-default',english)]:
             links+=f'  <link rel="alternate" hreflang="{code}" href="{canonical(base,name)}">\n'
