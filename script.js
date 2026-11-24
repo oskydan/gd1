@@ -415,6 +415,17 @@ function refreshCampState() {
     if (campPage) {
       const started = hasCampStarted(campPage) && !campPage.cancelled;
       const completed = isCampPast(campPage);
+      // Keep rendered search data consistent with the registration UI between builds.
+      const eventData = document.querySelector('#gd1-event-data');
+      if (eventData && started) {
+        if (completed) eventData.remove();
+        else {
+          try {
+            const event = JSON.parse(eventData.textContent);
+            if (event.offers) { delete event.offers; eventData.textContent = JSON.stringify(event); }
+          } catch { /* The build-time SEO check rejects invalid source JSON. */ }
+        }
+      }
       const hero = document.querySelector('.camp-detail-hero-copy');
       if (hero) hero.dataset.campStarted = String(started);
       arrangeDetailActions?.();

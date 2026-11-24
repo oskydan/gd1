@@ -28,6 +28,7 @@ for(const language of ['en','uk']){
    await expect(page.locator('a.camp-detail-cta')).toHaveCount(0);
    await page.clock.runFor(1000);
    await expect(page.locator('.camp-is-completed')).toBeVisible();
+   await expect(page.locator('#gd1-event-data')).toHaveCount(0);
    await expect(page.locator('.camp-photos-button')).toHaveCount(3);
    if(camp.photosUrl) await expect(page.locator('a.camp-photos-button').first()).toHaveAttribute('href',camp.photosUrl);
    else await expect(page.locator('.camp-photos-button').first()).toHaveAttribute('aria-disabled','true');
@@ -44,6 +45,7 @@ for(const language of ['en','uk']){
    await expect(page).toHaveURL(new RegExp(camp.page.replace('.html',suffix+'\\.html')+'$'));
    await expect(page.locator('a.camp-detail-cta')).toHaveCount(0);
    await expect(page.locator('.camp-is-completed')).toBeVisible();
+   await expect(page.locator('#gd1-event-data')).toHaveCount(0);
   });
  }
  test(`${language}: an open Camps tab moves a camp and preserves pagination`,async({page})=>{

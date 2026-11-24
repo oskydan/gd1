@@ -17,13 +17,14 @@ def origin(root):
 def canonical(base,name):
     return base+'/' if name=='index.html' else base+'/'+name
 
-def event(c,lang,base,manifest):
+def event(c,lang,base,manifest,as_of=None):
     text=c['copy'][lang];detail=c['detail']
     name=c['page'] if lang=='en' else c['page'].replace('.html','-uk.html')
     url=canonical(base,name)
     image=(image_info(manifest,c['image']) or {'src':c['image']})['src']
     result={'@context':'https://schema.org','@type':'Event','@id':canonical(base,c['page'])+'#event','url':url,'mainEntityOfPage':url,'name':('GD1 Hockey Camp - ' if lang=='en' else 'Хокейний кемп GD1 - ')+text['title'],'description':text['heroLead'],'startDate':c['startsOn'],'endDate':c['endsOn'],'eventAttendanceMode':'https://schema.org/OfflineEventAttendanceMode','eventStatus':'https://schema.org/EventCancelled' if c['status']=='cancelled' else 'https://schema.org/EventScheduled','image':[base+'/'+image],'location':{'@type':'Place','name':text['venue'],'hasMap':detail['venueUrl'],'address':{'@type':'PostalAddress',**detail['address']}},'organizer':{'@type':'Organization','name':'GD1 School','url':base+'/'}}
-    if c['status']=='open':
+    today=as_of or datetime.now(ZoneInfo(c['timeZone'])).date()
+    if c['status']=='open' and today<date.fromisoformat(c['startsOn']):
         result['offers']=[{'@type':'Offer','name':p['label'][lang],'price':p['amount'],'priceCurrency':'EUR','url':c['registrationUrl'],'availability':'https://schema.org/InStock'} for p in detail['prices'] if p['id'] in ('campFee','campFeeWithLunch')]
     return result
 
@@ -55,7 +56,7 @@ def generate(root,data,as_of=None):
             links+=f'  <link rel="alternate" hreflang="{code}" href="{canonical(base,name)}">\n'
         camp=by_page.get(english)
         if camp and date.fromisoformat(camp['endsOn'])>=(as_of or datetime.now(ZoneInfo(camp['timeZone'])).date()):
-            payload=json.dumps(event(camp,lang,base,manifest),ensure_ascii=False,indent=2).replace('<','\\u003c')
+            payload=json.dumps(event(camp,lang,base,manifest,as_of),ensure_ascii=False,indent=2).replace('<','\\u003c')
             links+='  <script type="application/ld+json" id="gd1-event-data">\n'+payload+'\n  </script>\n'
         path.write_text(s.replace('</head>',links+'</head>'))
     ns='http://www.sitemaps.org/schemas/sitemap/0.9'

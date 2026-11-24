@@ -11,6 +11,7 @@ for(const lang of ['en','uk'])for(const camp of camps){
   await expect(page.locator('a.camp-detail-cta')).toHaveCount(2);
   await page.clock.runFor(1000);
   await expect(page.locator('a.camp-detail-cta')).toHaveCount(0);
+  expect(await page.locator('#gd1-event-data').evaluate(e=>JSON.parse(e.textContent).offers)).toBeUndefined();
   await expect(page.locator('.camp-is-running')).toContainText(lang==='uk'?'КЕМП ТРИВАЄ':'CAMP IN PROGRESS');
   await expect(page.locator('.camp-detail-registration')).toBeHidden();
   await expect(page.locator('.camp-calendar')).toBeHidden();
