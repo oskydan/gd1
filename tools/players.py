@@ -13,6 +13,13 @@ def read(root):
         assert isinstance(p['draft'],bool)
         assert p['image']['src'].startswith('assets/players/') and '..' not in Path(p['image']['src']).parts
         if (root/'assets').is_dir():assert (root/p['image']['src']).is_file()
+        if card := p.get('card'):
+            assert all(isinstance(card[key], int) and card[key] > 0 for key in ('width', 'height'))
+            for key in ('front', 'back', 'printPdf'):
+                path = Path(card[key])
+                assert path.parts[:2] == ('assets', 'players') and '..' not in path.parts
+                if (root/'assets').is_dir():
+                    assert (root/path).is_file()
         assert p['instagram'].startswith('https://www.instagram.com/')
         for lang in ('en','uk'):
             assert p['copy'][lang]['timeline'] and len(p['copy'][lang]['name'])==2
@@ -35,6 +42,32 @@ def translations(players):
         result[p['instagramHandle']]=p['instagramHandle']
         result[p['title']['en']]=p['title']['uk'];result[p['meta']['en']]=p['meta']['uk']
     return result
+
+def player_card(player):
+    card = player.get('card')
+    if not card:
+        return ''
+    alt = player['copy']['en']['cardAlt']
+    figures = []
+    for side, caption in (('front', 'Front of card'), ('back', 'Back of card')):
+        image = escape(card[side], quote=True)
+        figures.append(
+            f'<figure><img src="{image}" width="{card["width"]}" height="{card["height"]}" '
+            f'alt="{escape(alt[side], quote=True)}" loading="lazy" decoding="async">'
+            f'<figcaption>{caption}</figcaption></figure>'
+        )
+    pdf = escape(card['printPdf'], quote=True)
+    return (
+        '<section class="player-profile-cards" aria-labelledby="player-card-heading">'
+        '<div class="wrap player-profile-cards-inner">'
+        '<p class="eyebrow dark"><span class="live-dot" aria-hidden="true"></span>THE COLLECTIBLE</p>'
+        '<div class="player-profile-section-heading">'
+        '<h2 id="player-card-heading">GD1 <em>player card.</em></h2>'
+        '<p class="player-profile-card-description">A two-sided collectible with the player’s GD1 ratings, club, and hockey favorites.</p>'
+        f'<a class="player-profile-card-download" href="{pdf}" target="_blank" rel="noopener">Download card</a>'
+        '</div><div class="player-profile-card-pair">'
+        + ''.join(figures) + '</div></div></section>'
+    )
 
 def main(p):
     c=p['copy']['en'];e=escape
@@ -60,7 +93,7 @@ def main(p):
     else:narrative='<div class="player-profile-narrative">'+''.join('<p'+(' class="player-profile-lead"' if i==0 else '')+'>'+e(text)+'</p>' for i,text in enumerate(f['paragraphs']))+'</div>'
     foundation='<section class="player-profile-foundation"><div class="wrap"><p class="eyebrow"><span class="live-dot" aria-hidden="true"></span>'+e(f['eyebrow'])+'</p><h2>'+heading(f['heading'])+'</h2>'+narrative+'</div></section>' 
     closing='<section class="wrap player-profile-closing"><p class="eyebrow dark"><span class="live-dot" aria-hidden="true"></span>'+e(ending['eyebrow'])+'</p><h2>'+heading(ending['heading'])+'</h2>'+paragraph(ending['body'])+'</section>'
-    return '<main class="player-profile">'+hero+stats+journey+foundation+closing+'</main>'
+    return '<main class="player-profile">'+hero+stats+journey+foundation+closing+player_card(p)+'</main>'
 
 def generate(root):
     players=read(root);template=(root/'templates/player-profile.html').read_text()
@@ -71,6 +104,12 @@ def generate(root):
     return players
 
 STORY_TRANSLATIONS={
+    'player card.':'картка гравця.',
+    'THE COLLECTIBLE':'КОЛЕКЦІЙНА КАРТКА',
+    'A two-sided collectible with the player’s GD1 ratings, club, and hockey favorites.':'Двостороння картка з рейтингом GD1, клубом та хокейними вподобаннями гравця.',
+    'Front of card':'Лицьова сторона картки',
+    'Back of card':'Зворотна сторона картки',
+    'Download card':'Завантажити картку',
     'PLAYER STORIES':'ІСТОРІЇ ГРАВЦІВ',
     'Different beginnings.':'Різний початок.',
     'Shared commitment.':'Спільна відданість.',

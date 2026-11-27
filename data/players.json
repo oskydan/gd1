@@ -13,6 +13,13 @@
         "width": 1480,
         "height": 1480
       },
+      "card": {
+        "front": "assets/players/yaroslav-skydan-card-front.webp",
+        "back": "assets/players/yaroslav-skydan-card-back.webp",
+        "printPdf": "assets/players/yaroslav-skydan-card-print.pdf",
+        "width": 860,
+        "height": 1204
+      },
       "title": {
         "en": "Yaroslav Skydan | GD1 Player Stories",
         "uk": "Ярослав Скидан | Історії гравців GD1"
@@ -48,6 +55,10 @@
             }
           ],
           "photoCaption": "A player story, still being written.",
+          "cardAlt": {
+            "front": "Yaroslav Skydan, Baltic Wolves defender, U13/U14 AAA, 2026. Defence 96, control 81, attack 85, total 262.",
+            "back": "Yaroslav Skydan, Baltic Wolves, Latvia. Born in 2014, from Ukraine. Defense, U13/U14 AAA. Favorite player Connar Bedard. Favorite team I.F.K."
+          },
           "imageAlt": "Yaroslav Skydan on the ice in his hockey equipment",
           "instagramLabel": "Yaroslav on Instagram (opens in a new tab)",
           "stats": [
@@ -119,6 +130,10 @@
           }
         },
         "uk": {
+          "cardAlt": {
+            "front": "Ярослав Скидан, захисник Baltic Wolves, U13/U14 AAA, 2026. Захист 96, контроль 81, атака 85, загалом 262.",
+            "back": "Ярослав Скидан, Baltic Wolves, Латвія. 2014 рік народження, з України. Захисник, U13/U14 AAA. Улюблений гравець — Коннор Бедард. Улюблена команда — I.F.K."
+          },
           "eyebrow": "ІСТОРІЇ ГРАВЦІВ · GD1",
           "name": [
             "Ярослав",
@@ -344,6 +359,10 @@
               "So does the next session."
             ],
             "body": "Denys’s story shows that focused development belongs at every stage of a hockey career. Even after years of senior hockey, there is room to return to the details, sharpen technique, and prepare with purpose."
+          },
+          "cardAlt": {
+            "front": "Denys Honcharenko, Kyiv Capitals forward, Ukraine, Optibet Hokeja Liga, 2026. Defence 80, control 95, attack 92, total 267.",
+            "back": "Card 02 / 2026. Denys Honcharenko, Kyiv Capitals. Born in 2002, from Ukraine. Forward, shoots right. Youth team Dnepr Kherson. Favorite team New York Rangers."
           }
         },
         "uk": {
@@ -453,8 +472,19 @@
               "Як і наступне тренування."
             ],
             "body": "Історія Дениса показує: цілеспрямований розвиток потрібен на кожному етапі хокейної кар’єри. Навіть після років дорослого хокею є сенс повертатися до деталей, удосконалювати техніку й усвідомлено готуватися до сезону."
+          },
+          "cardAlt": {
+            "front": "Денис Гончаренко, нападник Kyiv Capitals, Україна, Optibet Hokeja Liga, 2026. Захист 80, контроль 95, атака 92, загалом 267.",
+            "back": "Картка 02 / 2026. Денис Гончаренко, Kyiv Capitals. 2002 рік народження, Україна. Нападник, правий хват. Юнацька команда — Дніпро Херсон. Улюблена команда — New York Rangers."
           }
         }
+      },
+      "card": {
+        "front": "assets/players/denys-honcharenko-card-front.webp",
+        "back": "assets/players/denys-honcharenko-card-back.webp",
+        "printPdf": "assets/players/denys-honcharenko-card-print.pdf",
+        "width": 860,
+        "height": 1204
       }
     }
   ]

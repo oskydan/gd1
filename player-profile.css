@@ -15,10 +15,63 @@
 .player-profile-strip > div:first-child { border: 0; padding-left: 0; }
 .player-profile-strip strong { display: block; font: 500 42px/1.2 var(--display); color: #111; margin-bottom: 8px; }
 .player-profile-strip span { font: 400 14px/1.5 var(--font); color: #626262; }
+.player-profile-cards {
+  padding-top: clamp(38px, 6vw, 80px);
+  padding-bottom: clamp(38px, 6vw, 80px);
+  border-top: 1px solid #ddd;
+  background: #f1f1f1;
+  color: #111;
+}
+.player-profile-cards-inner {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(0, 820px);
+  align-items: start;
+  column-gap: clamp(24px, 4vw, 56px);
+}
+.player-profile-cards-inner > .eyebrow { grid-column: 1 / -1; margin: 0 0 22px; }
+.player-profile .player-profile-cards h2 { margin: 0 0 22px; color: #000; text-align: left; }
+.player-profile-cards h2 em { display: block; }
+.player-profile-card-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 3vw, 32px);
+  width: 100%;
+  max-width: 820px;
+  justify-self: end;
+}
+.player-profile-card-pair figure { min-width: 0; margin: 0; }
+.player-profile-card-download:focus-visible { outline: 2px solid #111; outline-offset: 4px; }
+.player-profile-card-download {
+  display: inline-block;
+  margin-top: 20px;
+  color: #111;
+  font: 500 14px/1.5 var(--font);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.player-profile-card-pair img {
+  display: block;
+  width: 100%;
+  height: auto;
+  box-shadow: 0 5px 16px #00000014, 0 1px 3px #00000012;
+}
+.player-profile-card-pair figcaption {
+  margin-top: 10px;
+  color: #626262;
+  font: 400 13px/1.5 var(--font);
+  text-align: center;
+}
+@media (max-width: 900px) {
+  .player-profile-cards-inner { grid-template-columns: minmax(0, 1fr); }
+  .player-profile-card-pair { margin-top: 24px; }
+}
+@media (max-width: 560px) {
+  .player-profile-card-pair { max-width: 390px; grid-template-columns: minmax(0, 1fr); gap: 24px; }
+}
 .player-profile-journey { display: grid; grid-template-columns: .7fr 1.3fr; gap: 64px; padding-top: 100px; padding-bottom: 100px; }
 .player-profile h2 { font: 600 clamp(38px,4.2vw,62px)/1.1 var(--display); text-transform: uppercase; margin: 22px 0; }
 .player-profile h2 em { font-style: normal; color: #777; }
-.player-profile-section-heading > p:last-child { max-width: 380px; color: #626262; font-size: 16px; line-height: 1.8; }
+.player-profile-section-heading > p:last-child, .player-profile-card-description { max-width: 380px; color: #626262; font-size: 16px; line-height: 1.8; }
 .player-profile-timeline { list-style: none; padding: 0; margin: 0; }
 .player-profile-timeline li { display: grid; grid-template-columns: 100px minmax(0,1fr); gap: 24px; position: relative; padding: 0 0 48px; }
 .player-profile-timeline li:last-child { padding-bottom: 0; }
