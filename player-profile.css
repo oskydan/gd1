@@ -63,7 +63,7 @@
 }
 @media (max-width: 900px) {
   .player-profile-cards-inner { grid-template-columns: minmax(0, 1fr); }
-  .player-profile-card-pair { margin-top: 24px; }
+  .player-profile-card-pair { justify-self: center; margin-top: 24px; }
 }
 @media (max-width: 560px) {
   .player-profile-card-pair { max-width: 390px; grid-template-columns: minmax(0, 1fr); gap: 24px; }
