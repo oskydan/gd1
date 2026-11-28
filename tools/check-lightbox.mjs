@@ -10,7 +10,7 @@ const dialog={...element(),querySelector:s=>elements[s],querySelectorAll:()=>[],
 const photos=Array.from({length:3},(_,i)=>({src:`photo-${i}.webp`,srcset:`photo-${i}.webp 1600w`,alt:`Photo ${i}`}));
 const buttons=photos.map(photo=>({...element(),querySelector(){return photo}}));
 const body={style:{overflow:'auto'}};
-const ctx={Image:class {},document:{body,getElementById:id=>id==='gallery-lightbox'?dialog:null,querySelectorAll:s=>s==='.gallery-photo-open'?buttons:[]},window:{location:{hash:''},addEventListener(){}}};
+const ctx={Image:class {},CustomEvent:class {},document:{body,dispatchEvent(){},getElementById:id=>id==='gallery-lightbox'?dialog:null,querySelectorAll:s=>s==='.gallery-photo-open'?buttons:[]},window:{location:{hash:''},addEventListener(){}}};
 vm.createContext(ctx);vm.runInContext(fs.readFileSync(path.join(root,'gallery.js'),'utf8'),ctx);
 buttons[1].listeners.click();assert.ok(dialog.open);assert.equal(image.src,photos[1].src);assert.equal(count.textContent,'2 / 3');assert.equal(body.style.overflow,'hidden');assert.ok(close.focused);
 next.listeners.click();assert.equal(image.src,photos[2].src);

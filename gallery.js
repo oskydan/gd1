@@ -93,6 +93,7 @@ if (photoViewer) {
       enlarged.src = photo.src;
       caption.textContent = photo.alt;
       counter.textContent = `${current + 1} / ${photos.length}`;
+      document.dispatchEvent(new CustomEvent('gd1:gallery-photo', { detail: { photo_index: current + 1 } }));
     };
     const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     if (!photoViewer.open || reduced || !enlarged.animate) { applyPhoto();return; }

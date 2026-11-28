@@ -280,9 +280,41 @@
   const placement = (element) => element.closest('header') ? 'header'
     : element.closest('footer') ? 'footer' : 'content';
 
-  document.addEventListener('click', (event) => {
+  const siteControls = [
+    ['.menu-toggle', 'navigation_menu'],
+    ['.language-toggle', 'language_menu'],
+    ['.camp-calendar > summary', 'camp_calendar_menu'],
+    ['.camp-load-more', 'past_camps_load_more'],
+    ['[data-faq-topic]', 'faq_topic'],
+    ['.faq-item > summary', 'faq_answer']
+  ];
+
+  document.addEventListener('gd1:gallery-photo', (event) => {
+    const { photo_index } = event.detail || {};
+    if (Number.isInteger(photo_index) && photo_index > 0) {
+      track('Gallery Photo Viewed', { photo_index });
+    }
+  });
+  document.getElementById('gallery-lightbox')?.addEventListener('close', () => track('Gallery Photo Viewer Closed'));
+
+  function trackActivation(event) {
+    if (!(event.target instanceof Element) || (event.type === 'auxclick' && event.button !== 1)) return;
     const link = event.target.closest('a[href]');
-    if (!link || link.getAttribute('aria-disabled') === 'true') return;
+    if (!link) {
+      if (event.type !== 'click') return;
+      for (const [selector, action] of siteControls) {
+        const control = event.target.closest(selector);
+        if (!control || control.disabled || control.getAttribute('aria-disabled') === 'true') continue;
+        track('Site Control Clicked', {
+          control: action,
+          placement: placement(control),
+          ...(control.dataset.faqTopic ? { faq_topic: control.dataset.faqTopic } : {})
+        });
+        break;
+      }
+      return;
+    }
+    if (link.getAttribute('aria-disabled') === 'true' || link.matches('[data-calendar-option]')) return;
     const properties = { placement: placement(link) };
     const href = link.getAttribute('href');
     if (link.closest('.language-switcher')) {
@@ -337,13 +369,28 @@
     } else {
       let url;
       try { url = new URL(href, location.href); } catch { return; }
-      if (['www.instagram.com', 'instagram.com', 'www.facebook.com', 'facebook.com'].includes(url.hostname)) {
+      if (link.matches('.player-profile-card-download')) {
+        if (url.origin !== location.origin || !url.pathname.endsWith('.pdf')) return;
+        track('Player Card Opened', {
+          placement: 'player_profile',
+          document_format: 'pdf',
+          destination_path: url.pathname
+        });
+      } else if (['www.instagram.com', 'instagram.com', 'www.facebook.com', 'facebook.com'].includes(url.hostname)) {
         track('Social Link Clicked', { ...properties, network: url.hostname.includes('instagram') ? 'Instagram' : 'Facebook' });
       } else if (url.origin === location.origin && /\/contact(?:-uk)?\.html$/.test(url.pathname)) {
         track('Contact Clicked', properties);
+      } else if (['https:', 'http:'].includes(url.protocol)) {
+        const internal = url.origin === location.origin;
+        track('Site Link Clicked', {
+          ...properties,
+          ...(internal ? { destination_path: url.pathname } : { destination_host: url.hostname })
+        });
       }
     }
-  });
+  }
+  document.addEventListener('click', trackActivation);
+  document.addEventListener('auxclick', trackActivation);
 
   const tabs = document.querySelector('[role="tablist"]');
   if (tabs) {

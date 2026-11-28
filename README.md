@@ -235,6 +235,10 @@ Set `photosUrl` in `data/camps.json` to each camp's HTTPS Pixieset collection UR
 Denys Honcharenko's club/season history and forward position were checked against https://www.eliteprospects.com/player/624175/denys-honcharenko on 23 November 2026. His 2025/2026 Prague camp account and photograph were provided by the site owner; the English account translates that supplied Ukrainian text. The 2017 timeline label marks the earliest listed youth season, not a claimed first year playing hockey.
 
 ### Analytics page coverage
+**Player Card Opened** records activation of the profile’s print PDF link, including keyboard activation and middle-click. It includes `player_id`, `player_name`, `page_language`, and the PDF path without cache parameters. This measures opening the link, since the browser’s PDF viewer runs outside the profile.
+
+**Site Link Clicked** covers navigation and outbound links that have no dedicated event. It records the path for internal links and the host for other links, without query strings or fragments. **Site Control Clicked** covers navigation and language menus, the calendar menu, Load more, and FAQ filters and answers. **Gallery Photo Viewed** records the image index when a photo is opened or changed with buttons, keyboard arrows, or swipe. Closing the viewer records **Gallery Photo Viewer Closed**. Existing specialized events remain in place.
+
 Every published English and Ukrainian page receives a generated `gd1-page-context` JSON record containing its stable title and page type. Player profiles include their central-data player ID/name; camp pages include their camp ID. `Page Viewed` and interaction events share this context, independent of browser-translated text. Local previews, rejected consent and browser privacy requests continue to suppress tracking. Browser coverage tests stub Mixpanel and block external network traffic, so they do not create real visits.
 
 ### Static camp listings
